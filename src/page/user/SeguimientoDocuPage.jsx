@@ -118,8 +118,7 @@ const SeguimientoDocuPage = () => {
     });
 
     const resVeryStatus = await dataApi.getProcessFile(user.token, id);
-    const start = await dataApi.startTramiteDocument(user.token,resVeryStatus.id,true);
-console.log(start,"viendo process");
+    await dataApi.startTramiteDocument(user.token,resVeryStatus.id,true);
 
     setFiles({});
     setRefresh(!refresh);

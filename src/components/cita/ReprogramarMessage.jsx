@@ -42,6 +42,12 @@ function ReprogramarMessage({ id, token, message }) {
     close();
   };
   //open
+  const handleChange = (event) => {
+    if (event.target.value.length <= 500) {
+      setDetails(event.target.value);
+    }
+  };
+
   const handleAlert = () => {
     setAlert(true);
   };
@@ -114,7 +120,7 @@ function ReprogramarMessage({ id, token, message }) {
           minRows={4}
           maxRows={4}
           placeholder="..."
-          onChange={(event) => setDetails(event.currentTarget.value)}
+          onChange={handleChange}
         />
         <Button
           className="mt-4"
