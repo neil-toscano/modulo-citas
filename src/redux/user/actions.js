@@ -1,7 +1,7 @@
 // app/actions.js
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import messageRedux from "./message";
-const url = process.env.NEXT_PUBLIC_URL;
+const url = import.meta.env.VITE_PUBLIC_URL;
 
 export const fetchClientData = createAsyncThunk(
   "plataformista/fetchClientData",

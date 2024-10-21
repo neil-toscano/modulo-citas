@@ -1,10 +1,9 @@
-"use client";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { IoEyeSharp } from "react-icons/io5";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-import { useRouter } from "next/navigation";
 import esLocaleText from "./traductor"
+import { useNavigate } from "react-router-dom";
 
 export default function TablesUser({
   allUser,
@@ -12,7 +11,7 @@ export default function TablesUser({
   nameSection,
 }) {
   const [rows, setRows] = React.useState(allUser);
-  const router = useRouter();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const formattedUsers = allUser?.map((all) => ({
@@ -32,7 +31,7 @@ export default function TablesUser({
       .replace(/pendientes-no-corregido/g, "")
       .trim();
 
-    router.push(
+      navigate(
       `/dashboard/${cleanedString}nuevos/${idSectionSubPendiente}?nopendiente=true&iduser=${id}`
     );
   };

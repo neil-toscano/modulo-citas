@@ -1,5 +1,3 @@
-"use client";
-import React from "react";
 import { RiInboxUnarchiveFill } from "react-icons/ri";
 import { FileInput, Pill, ActionIcon } from "@mantine/core";
 import { MdDeleteForever } from "react-icons/md";
@@ -14,13 +12,11 @@ const FileGroup = ({
   setFiles,
   stateOk,
   setEstadoOk,
-  // loadingFile,
   setLoadingFile,
   idDocument,
   completFileInput,
   setCompletFileInput,
-  // update,
-  // setUpdate,
+
   memoryProcess,
   setMemoryProcess,
 }) => {

@@ -1,12 +1,12 @@
-import usePdfValidator from "@/hook/usePdfValidator";
+
 import { Button } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import Link from "next/link";
-import React from "react";
+import usePdfValidator from "@/hooks/usePdfValidator";
 import { FaFilePdf } from "react-icons/fa6";
 import { PDFDocument } from "pdf-lib";
 import dataApi from "@/data/fetchData";
 import { useProduct } from "@/provider/ProviderContext";
+import { Link } from "react-router-dom";
 
 const ButtonUpdate = ({
   setLoadingFile,
@@ -23,12 +23,11 @@ const ButtonUpdate = ({
   setMemoryProcess,
   updateVery,
 }) => {
-  const url = `${process.env.NEXT_PUBLIC_URL}/files/pdf`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/files/pdf`;
   const { user } = useProduct();
-  const { validatePdf, error } = usePdfValidator(10);
+  const { validatePdf } = usePdfValidator(10);
 
   const handleConverPostPdf = async (typeId, namePdf, idFileInput) => {
-    
     setLoadingFile(true);
     if (files[namePdf].length === 0) return;
 
@@ -101,7 +100,6 @@ const ButtonUpdate = ({
         setLoadingFile(false);
       }
     }
-  
 
     if (!validatePdf(fileConvert)) {
       setLoadingFile(false);
@@ -117,19 +115,18 @@ const ButtonUpdate = ({
         loading: false,
       });
     }
-    
   };
 
   return (
     <>
       {/* si hay documento muestra*/}
 
-      {(stateOk[getfileName]) && (
+      {stateOk[getfileName] && (
         <div className="flex gap-2 self-start lg:self-end  md:self-end sm:self-end ">
           <Link
             className={"self-end"}
             target="_blank"
-            href={`${url}/${matchingFile?.fileUrl}`}
+            to={`${url}/${matchingFile?.fileUrl}`}
           >
             <Button
               variant="gradient"

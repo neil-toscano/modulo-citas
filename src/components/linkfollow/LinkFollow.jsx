@@ -1,16 +1,15 @@
 import { Button } from "@mantine/core";
-import Link from "next/link";
-import React from "react";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const LinkFollow = ({ idDocument, sectionSlug }) => {
   return (
     <>
-      { (
+      {
         <>
           Gracias por registrarse.{" "}
           <Link
-            href={`/tramite/seguimiento-${sectionSlug}?id=${idDocument}`}
+            to={`/tramite/documento-seguimiento/${sectionSlug}?id=${idDocument}`}
             className="font-bold"
           >
             <Button
@@ -22,7 +21,7 @@ const LinkFollow = ({ idDocument, sectionSlug }) => {
             </Button>
           </Link>
         </>
-      )}
+      }
     </>
   );
 };

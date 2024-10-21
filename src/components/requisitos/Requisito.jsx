@@ -1,6 +1,5 @@
-"use client";
 import { List } from "@mantine/core";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Stepper, Button, Group } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
@@ -22,7 +21,6 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
   const [completFileInput, setCompletFileInput] = useState([]);
   const [memoryProcess, setMemoryProcess] = useState([]);
   const lengthState = Object.keys(stateOk).length;
-  const [update, setUpdate] = useState(false);
   let allTrue = 0;
   if (lengthState !== 0)
     allTrue = Object.values(stateOk).filter((value) => value === true).length;
@@ -46,6 +44,12 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
       if (incomplete && errorStatus && completo) setActive(3);
     };
     verifyFileUser();
+    // Limpiar o reiniciar los estados cuando cambie el idDocument
+    setActive(0);
+    setEstadoOk({});
+    setFiles({});
+    setCompletFileInput([]);
+    setMemoryProcess([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countFile, idDocument]);
 
@@ -54,7 +58,6 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
     if (active === 1) {
       const res = await dataApi.getProcessFile(user.token, idDocument);
       const resProcees = await dataApi.startTramiteDocument(user.token, res.id);
-
       setActive(3);
       return;
     }
@@ -95,12 +98,9 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
               setMemoryProcess={setMemoryProcess}
               memoryProcess={memoryProcess}
               setCompletFileInput={setCompletFileInput}
-              update={update}
-              setUpdate={setUpdate}
               completFileInput={completFileInput}
               idDocument={idDocument}
               setLoadingFile={setLoadingFile}
-              loadingFile={loadingFile}
               dataDocument={dataDocument}
               files={files}
               setFiles={setFiles}

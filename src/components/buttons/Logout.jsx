@@ -1,14 +1,12 @@
 import { Button } from "@mantine/core";
-import { useRouter } from "next/navigation";
-
-import React from "react";
 import { CiLogout } from "react-icons/ci";
+import { useNavigate } from "react-router-dom";
 
 const Logout = () => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const handleClose = () => {
     localStorage.removeItem("token");
-    router.push("/");
+    navigate("/");
   };
   return (
     <Button

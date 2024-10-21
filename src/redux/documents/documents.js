@@ -1,6 +1,6 @@
 // app/providerSlice.js
 import { createSlice } from "@reduxjs/toolkit";
-import { convertAndUploadPdf, getAllDocumentsSection } from "./actions";
+import { getAllDocumentsSection } from "./actions";
 
 const providerSlice = createSlice({
   name: "documents",

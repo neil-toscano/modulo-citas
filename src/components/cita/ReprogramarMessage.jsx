@@ -10,7 +10,7 @@ function ReprogramarMessage({ id, token, message }) {
   const [opened, { open, close }] = useDisclosure(false);
   const [details, setDetails] = useState(null);
   const [alert, setAlert] = useState(false);
-
+ 
   const handleDetail = async () => {
     notifications.show({
       id: id,

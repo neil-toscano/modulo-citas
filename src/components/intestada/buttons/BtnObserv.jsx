@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { FileButton, Button, Group, Text } from "@mantine/core";
+import { FileButton, Button, Group} from "@mantine/core";
 import { FaCloudArrowUp } from "react-icons/fa6";
 import dataApi from "@/data/fetchData";
 import { useProduct } from "@/provider/ProviderContext";

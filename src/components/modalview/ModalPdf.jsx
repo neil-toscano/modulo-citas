@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { FileInput, Pill, ActionIcon } from "@mantine/core";
 
 const ValueComponent = ({ value, onRemove }) => {

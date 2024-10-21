@@ -30,7 +30,7 @@ const registreApi = async (data, dateRegistre) => {
   const formdate = formatDateToISO(dateRegistre);
   data.birthDate = formdate;
 
-  const url = `${process.env.NEXT_PUBLIC_URL}/auth/register`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/auth/register`;
   try {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");

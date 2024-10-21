@@ -1,10 +1,10 @@
-"use client";
 import { Button } from "@mantine/core";
-import { useRouter } from "next/navigation";
-import React from "react";
+import { useNavigate } from "react-router-dom";
+
+
 
 const MessageDocument = () => {
-  const router = useRouter();
+  const navigate = useNavigate();
   return (
     <div className="cal-header-main w-100 flex justify-center items-center">
       <div className="flex flex-col gap-3 justify-center items-center">
@@ -12,7 +12,7 @@ const MessageDocument = () => {
           Ya no hay más documentos por revisar
         </h2>
         <Button
-          onClick={() => router.back()}
+          onClick={() => navigate(-1)}
           variant="gradient"
           gradient={{ from: "indigo", to: "violet", deg: 90 }}
         >

@@ -1,5 +1,4 @@
 import { Avatar } from '@mantine/core'
-import React from 'react'
 
 const Username = ({firstName,paterno,materno}) => {
   return (

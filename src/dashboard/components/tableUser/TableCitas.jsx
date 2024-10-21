@@ -4,18 +4,19 @@ import { IoEyeSharp } from "react-icons/io5";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import { Button, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "react-router-dom";
 
-
-export default function TablesCita({ allUser,setRefresh = false,refresh = false }) {
+// eslint-disable-next-line react/prop-types
+export default function TablesCita({allUser}) {
   const [rows, setRows] = React.useState([]);
   const [message,setMessage] = React.useState(null)
   const [opened, { open, close }] = useDisclosure(false);
-  const router = useRouter()
+  const Navigate = useNavigate()
 
  
   React.useEffect(() => {
     if (allUser) {
+      // eslint-disable-next-line react/prop-types
       const transformedRows = allUser.map((appointment,index) => ({
         idIndex:index,
         id: appointment.id,
@@ -43,7 +44,7 @@ export default function TablesCita({ allUser,setRefresh = false,refresh = false 
   };
 
   const handleInformationClick = (sectionId, reservedById,slug,email) => () => {
-    router.push(`/dashboard/revision/${slug}/${reservedById}?id=${sectionId}&email=${email}`)
+    Navigate(`/dashboard/revision/${slug}/${reservedById}?id=${sectionId}&email=${email}`)
   };
 
   const columns = [

@@ -1,13 +1,10 @@
-"use client";
 import React, { useState } from "react";
 import { useForm } from "@mantine/form";
 import FormLogin from "./FormLogin";
-
 import FormCreateUser from "./FormCreateUser";
-import Image from "next/image";
 import sjl from "@/assets/logo.png";
 import ModalPasswordReset from "../modalview/ModalPasswordReset";
-export const Login = () => {
+const Login = () => {
   const [view, setView] = useState(true);
 
   const form = useForm({
@@ -75,7 +72,7 @@ export const Login = () => {
     >
       {/* title */}
       <div className="flex justify-center items-center mb-2">
-        <Image src={sjl} width={250} alt="logo san juan de lurigancho" />
+        <img src={sjl} className="logo-img" alt="logo san juan de lurigancho" />{" "}
       </div>
       <h2 className={`text-center text-[1.2rem] font-medium mb-4`}>
         {view ? "INGRESAR A GENERADOR DE CITAS" : "CREAR CUENTA"}{" "}
@@ -88,7 +85,6 @@ export const Login = () => {
       {/* link bottom nav */}
       {view && (
         <div className="flex justify-between mt-3">
-          {/* <p className="text-xs">Olvide mi contraseña</p> */}
           <ModalPasswordReset />
           <span className="flex gap-3">
             <p
@@ -113,3 +109,5 @@ export const Login = () => {
     </div>
   );
 };
+
+export default Login;

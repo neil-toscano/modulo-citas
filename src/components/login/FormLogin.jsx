@@ -9,14 +9,14 @@ import {
 } from "@mantine/core";
 import { LiaDigitalTachographSolid } from "react-icons/lia";
 import { TbPasswordFingerprint } from "react-icons/tb";
-import { useRouter } from "next/navigation";
+import { useNavigate } from 'react-router-dom';
 import { notifications } from "@mantine/notifications";
 import dataApi from "@/data/fetchData";
 import UpdateForm from "./UpdateForm";
 import { IMaskInput } from "react-imask";
 
 const FormLogin = ({ form }) => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const [opened, { open, close }] = useDisclosure(false);
 
   const [verifyEmail, setVerifyEmail] = useState(false);
@@ -96,7 +96,7 @@ const FormLogin = ({ form }) => {
           color: "green",
           loading: false,
         });
-        router.push("/tramite/inscripcion-de-independizacion");
+        navigate("/tramite/documento/inscripcion-de-independizacion");
         return;
       } else if (jsondata.roles[0] == "platform-operator") {
         notifications.update({
@@ -110,7 +110,7 @@ const FormLogin = ({ form }) => {
           loading: false,
         });
 
-        router.push(`/dashboard/presentacion`);
+        navigate(`/dashboard/presentacion`);
         return;
       } else if (jsondata.roles[0] === "administrator") {
         notifications.update({
@@ -123,7 +123,7 @@ const FormLogin = ({ form }) => {
           className: "",
           loading: false,
         });
-        router.push("/dashboard/administrador/asignacion");
+        navigate("/dashboard/administrador/asignacion");
         return;
       }
       // router.push("/");

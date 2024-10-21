@@ -1,14 +1,11 @@
 import { Badge, Box, Divider, NavLink } from "@mantine/core";
-import Link from "next/link";
+import { Link, useLocation } from "react-router-dom";
 import React, { useState, useMemo, useEffect } from "react";
-
-import { usePathname } from "next/navigation";
-
 import { RiFolderUserFill } from "react-icons/ri";
 import { FaHouseUser } from "react-icons/fa6";
 import { MdOutlineFamilyRestroom } from "react-icons/md";
 import { useProduct } from "@/provider/ProviderContext";
-import { BsCalendar2CheckFill, BsCalendar2DateFill } from "react-icons/bs";
+import { BsCalendar2DateFill } from "react-icons/bs";
 
 import Logout from "../buttons/Logout";
 
@@ -33,21 +30,11 @@ const data2 = [
   },
 ];
 
-const followNav = [
-  {
-    icon: BsCalendar2CheckFill,
-    label: "LISTA DE CITAS RESERVADAS",
-    description: "Visualizar todas las citas reservadas.",
-    link: "/dashboard/cita-reservada",
-    slug: "cita-reservada",
-  },
-];
-
 const NewHeaderDashboard = ({ Followid }) => {
   const { documentSection } = useProduct();
   const [countProcess, setCountProcess] = useState(0);
-  const pathname = usePathname();
-  const arrayPathname = pathname.split("/");
+  const location = useLocation()
+  const arrayPathname = location.pathname.split("/");
   const slug = arrayPathname[arrayPathname.length - 1];
 
   useEffect(() => {
@@ -101,7 +88,7 @@ const NewHeaderDashboard = ({ Followid }) => {
 
           return (
             <Link
-              href={`${item.link}${item.sectionSlug}-nuevos?idnuevo=${item.sectionId}`}
+              to={`${item.link}${item.sectionSlug}-nuevos?idnuevo=${item.sectionId}`}
               key={`${item.sectionSlug}-nuevos`}
             >
               <NavLink
@@ -154,7 +141,7 @@ const NewHeaderDashboard = ({ Followid }) => {
 
       return (
         <Link
-          href={`${item.link}${item.sectionSlug}-pendientes?idpendiente=${item.sectionId}`}
+          to={`${item.link}${item.sectionSlug}-pendientes?idpendiente=${item.sectionId}`}
           key={`${item.sectionSlug}-pendientes`}
         >
           <NavLink
@@ -181,7 +168,7 @@ const NewHeaderDashboard = ({ Followid }) => {
             variant="filled"
           >
             <Link
-              href={`${item.link}${item.sectionSlug}-pendientes-corregido?idpendiente=${item.sectionId}`}
+              to={`${item.link}${item.sectionSlug}-pendientes-corregido?idpendiente=${item.sectionId}`}
             >
               <NavLink
                 active={`${item.sectionSlug}-pendientes-corregido` === slug}
@@ -203,7 +190,7 @@ const NewHeaderDashboard = ({ Followid }) => {
               />
             </Link>
             <Link
-              href={`${item.link}${item.sectionSlug}-pendientes-no-corregido?id-subpendiente=${item.sectionId}`}
+              to={`${item.link}${item.sectionSlug}-pendientes-no-corregido?id-subpendiente=${item.sectionId}`}
             >
               <NavLink
                 active={`${item.sectionSlug}-pendientes-no-corregido` === slug}
@@ -233,7 +220,7 @@ const NewHeaderDashboard = ({ Followid }) => {
 
   const follows = useMemo(() => {
     return (
-      <Link href={`/dashboard/cita-reservada`}>
+      <Link to={`/dashboard/cita-reservada`}>
         <NavLink
           active={slug === "cita-reservada"}
           label={"LISTA DE CITAS RESERVADAS"}

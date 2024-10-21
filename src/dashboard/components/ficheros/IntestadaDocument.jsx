@@ -1,11 +1,9 @@
-"use client";
 import dataApi from "@/data/fetchData";
 import { Button, Input, Select } from "@mantine/core";
-import Link from "next/link";
-import React from "react";
 import { FaFilePdf } from "react-icons/fa6";
 import ModalObservadoText from "../observado/ModalObservadoText";
 import { useProduct } from "@/provider/ProviderContext";
+import { Link } from "react-router-dom";
 
 const IntestadaDocument = ({
   documentUser,
@@ -19,7 +17,7 @@ const IntestadaDocument = ({
 }) => {
   const { setDocumentUser } = useProduct();
 
-  const url = `${process.env.NEXT_PUBLIC_URL}/files/pdf`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/files/pdf`;
 
   const handleChange = async (id, value) => {
     await dataApi.updateStatus(token, value, id, null, true);
@@ -73,7 +71,7 @@ const IntestadaDocument = ({
                 {getfile.status}
               </Button>
             )}
-            <Link target="_blank" href={`${url}/${getfile.fileUrl}`}>
+            <Link target="_blank" to={`${url}/${getfile.fileUrl}`}>
               <Button
                 leftSection={<FaFilePdf size={14} />}
                 variant="filled"

@@ -1,6 +1,6 @@
-"use client";
+
 import dataApi from "@/data/fetchData";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 
 const VisualCita = ({ id, token }) => {
   const [data, setData] = useState({});

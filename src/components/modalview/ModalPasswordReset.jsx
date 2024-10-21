@@ -1,8 +1,6 @@
-import React from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Button, InputBase } from "@mantine/core";
 import sjl from "@/assets/logo.png";
-import Image from "next/image";
 import { useForm } from "@mantine/form";
 import dataApi from "@/data/fetchData";
 import { notifications } from "@mantine/notifications";
@@ -70,7 +68,7 @@ const ModalPasswordReset = () => {
       <Modal
         opened={opened}
         onClose={close}
-        withCloseButton={false}
+        withCloseButton={true}
         centered
         overlayProps={{
           backgroundOpacity: 0.55,
@@ -82,7 +80,11 @@ const ModalPasswordReset = () => {
           onSubmit={formEmail.onSubmit((values) => HandleRecuEmail(values))}
         >
           <div className="flex justify-center items-center mb-2">
-            <Image src={sjl} width={250} alt="logo san juan de lurigancho" />
+            <img
+              src={sjl}
+              className="logo-img"
+              alt="logo san juan de lurigancho"
+            />
           </div>
           <InputBase
             withAsterisk

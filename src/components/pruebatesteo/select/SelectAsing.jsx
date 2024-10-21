@@ -1,8 +1,8 @@
-import { MultiSelect, Group, Text, Badge } from "@mantine/core";
-import { useState } from "react";
+import { MultiSelect, Badge } from "@mantine/core";
+
 
 const renderMultiSelectOption = ({ option }) => {
-  console.log(option, "viendo si hay");
+
 
   // Filtramos por status que sea "CORREGIDO" o "COMPLETO"
   const sumando = option?.statusCounts

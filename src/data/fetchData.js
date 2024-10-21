@@ -1,5 +1,5 @@
 async function sectionDocument(token) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/section-type-document`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/section-type-document`;
   const document = await fetch(url, {
     method: "GET",
     headers: {
@@ -22,7 +22,7 @@ async function postFileAsynId(fileUrl, typeId, token, idFileDocument) {
     status: "EN PROCESO",
     details: "esta todo bien",
   };
-  const url = `${process.env.NEXT_PUBLIC_URL}/documents`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/documents`;
   const document = await fetch(url, {
     method: "POST",
     headers: {
@@ -43,7 +43,7 @@ async function updateDocumentFile(fileUrl, token, idFileDocument) {
     details: "",
   };
 
-  const url = `${process.env.NEXT_PUBLIC_URL}/documents/${idFileDocument}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/documents/${idFileDocument}`;
   const document = await fetch(url, {
     method: "PATCH",
     headers: {
@@ -61,7 +61,7 @@ async function postFileOne(token, file, typeId, type, idFileInput) {
   const formData = new FormData();
   formData.append("file", file);
 
-  const url = `${process.env.NEXT_PUBLIC_URL}/files/pdf`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/files/pdf`;
   const document = await fetch(url, {
     method: "POST",
     headers: {
@@ -86,8 +86,8 @@ async function postFileOne(token, file, typeId, type, idFileInput) {
 }
 
 async function getFilesUser(id, token) {
-  // const url = `${process.env.NEXT_PUBLIC_URL}/documents/${id}`;
-  const url = `${process.env.NEXT_PUBLIC_URL}/documents/section/${id}`;
+  // const url = `${import.meta.env.VITE_PUBLIC_URL}/documents/${id}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/documents/section/${id}`;
   const document = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -108,7 +108,7 @@ async function updateFile(token, file, id, newStatus = false) {
   const fileStatus = { fileUrl: newFile.fileUrl, status: "EN PROCESO" };
   const jsonBody = newStatus ? fileStatus : onefile;
 
-  const url = `${process.env.NEXT_PUBLIC_URL}/documents/${id}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/documents/${id}`;
   const document = await fetch(url, {
     method: "PATCH",
     headers: {
@@ -125,8 +125,8 @@ async function updateStatus(token, status, id, details = null, admi = false) {
   const jsonBody = details ? { details: details } : { status: status };
 
   const url = admi
-    ? `${process.env.NEXT_PUBLIC_URL}/documents/admin/${id}`
-    : `${process.env.NEXT_PUBLIC_URL}/documents/${id}`;
+    ? `${import.meta.env.VITE_PUBLIC_URL}/documents/admin/${id}`
+    : `${import.meta.env.VITE_PUBLIC_URL}/documents/${id}`;
   const document = await fetch(url, {
     method: "PATCH",
     headers: {
@@ -140,7 +140,7 @@ async function updateStatus(token, status, id, details = null, admi = false) {
 }
 
 async function getAllUser(token) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/user`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/user`;
 
   try {
     const document = await fetch(url, {
@@ -163,7 +163,7 @@ async function getAllUser(token) {
 }
 
 async function getIdUserDocument(token, id) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/documents/super-user/sections/${id}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/documents/super-user/sections/${id}`;
   const document = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -176,7 +176,7 @@ async function getIdUserDocument(token, id) {
 }
 
 async function getValidCita(token, id) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/process-status/is-eligible-for-appointment/${id}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/process-status/is-eligible-for-appointment/${id}`;
   const document = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -188,7 +188,7 @@ async function getValidCita(token, id) {
 }
 
 async function getTimeCita(token) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/schedule`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/schedule`;
   const document = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -201,7 +201,7 @@ async function getTimeCita(token) {
 }
 
 async function postCita(token, id, idSection) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/schedule/reserve/${id}/${idSection}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/schedule/reserve/${id}/${idSection}`;
   const document = await fetch(url, {
     method: "POST",
     headers: {
@@ -215,7 +215,7 @@ async function postCita(token, id, idSection) {
 }
 
 async function verifyCita(token, id) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/appointment/verify/${id}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/appointment/verify/${id}`;
   const verify = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -228,7 +228,7 @@ async function verifyCita(token, id) {
 }
 
 async function getSuperUser(token, idSection) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/user-permissions/platform-operators/${idSection} `;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/user-permissions/platform-operators/${idSection} `;
   const verify = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -241,7 +241,7 @@ async function getSuperUser(token, idSection) {
 }
 
 async function getSuperTime(token, id, time) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/appointment/week/${id}?date=${time} `;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/appointment/week/${id}?date=${time} `;
   const resTime = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -264,7 +264,7 @@ async function getCreateCita(
   const fecha = reprograme
     ? { appointmentDate: dataTime, isFirstTime: true }
     : { appointmentDate: dataTime, isFirstTime: false };
-  const url = `${process.env.NEXT_PUBLIC_URL}/appointment/${idSection}/${scheduleId}/${userId} `;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/appointment/${idSection}/${scheduleId}/${userId} `;
   const resTime = await fetch(url, {
     method: "POST",
     headers: {
@@ -279,7 +279,7 @@ async function getCreateCita(
 }
 
 async function getUserOneCard(token, idSection) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/process-status/next-review/${idSection} `;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/process-status/next-review/${idSection} `;
   const resUser = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -292,7 +292,7 @@ async function getUserOneCard(token, idSection) {
 }
 
 async function getUserDocumentSection(token, idSection, userId) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/admin/section/documents/${idSection}/${userId} `;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/admin/section/documents/${idSection}/${userId} `;
   const resUser = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -305,7 +305,7 @@ async function getUserDocumentSection(token, idSection, userId) {
 }
 
 async function getAllCitaReserv(token) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/appointment`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/appointment`;
   const resUser = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -318,7 +318,7 @@ async function getAllCitaReserv(token) {
 }
 
 async function sendEmailUser(token, email) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/email/send?email=${email}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/email/send?email=${email}`;
   const resUser = await fetch(url, {
     method: "POST",
     headers: {
@@ -332,7 +332,7 @@ async function sendEmailUser(token, email) {
 }
 
 async function getPedingOne(token, idSection) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/process-status/next-corrected/${idSection}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/process-status/next-corrected/${idSection}`;
   const resUser = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -345,7 +345,7 @@ async function getPedingOne(token, idSection) {
 }
 
 async function deleteCita(token, idSection, idUser) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/appointment/section/${idSection}/${idUser}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/appointment/section/${idSection}/${idUser}`;
   const resUser = await fetch(url, {
     method: "DELETE",
     headers: {
@@ -359,7 +359,7 @@ async function deleteCita(token, idSection, idUser) {
 }
 
 async function deleteHisoryUser(token, idSection, userId) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/admin/finalize/${userId}/${idSection}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/admin/finalize/${userId}/${idSection}`;
   const resUser = await fetch(url, {
     method: "DELETE",
     headers: {
@@ -373,7 +373,7 @@ async function deleteHisoryUser(token, idSection, userId) {
 }
 
 async function postTokenVerifyEmail(token) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/auth/verify-email?token=${token}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/auth/verify-email?token=${token}`;
   const resUser = await fetch(url, {
     method: "POST",
     headers: {
@@ -386,7 +386,7 @@ async function postTokenVerifyEmail(token) {
 }
 
 // async function RecupePasswordEmail(email) {
-//   const url = `${process.env.NEXT_PUBLIC_URL}/auth/reset-password?email=${email}`;
+//   const url = `${import.meta.env.VITE_PUBLIC_URL}/auth/reset-password?email=${email}`;
 //   const resUser = await fetch(url, {
 //     method: "POST",
 //     headers: {
@@ -400,7 +400,7 @@ async function postTokenVerifyEmail(token) {
 
 // async function newPassword(token, password) {
 //   const jsonNewPassword = { password: password };
-//   const url = `${process.env.NEXT_PUBLIC_URL}/auth/set-password?token=${token}`;
+//   const url = `${import.meta.env.VITE_PUBLIC_URL}/auth/set-password?token=${token}`;
 //   const resUser = await fetch(url, {
 //     method: "POST",
 //     headers: {
@@ -414,7 +414,7 @@ async function postTokenVerifyEmail(token) {
 // }
 
 async function getAllPedingCita(token) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/documents/all-valid/without-appointment`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/documents/all-valid/without-appointment`;
   const resUser = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -427,7 +427,7 @@ async function getAllPedingCita(token) {
 }
 
 async function getProcessFile(token, id) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/process-status/${id}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/process-status/${id}`;
   const resProcess = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -440,7 +440,7 @@ async function getProcessFile(token, id) {
 }
 
 async function getCompletFilesInputs(token, id) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/documents/section/${id}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/documents/section/${id}`;
   const resProcess = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -457,7 +457,7 @@ async function CreateAsingSection(token, sectionId, idUser) {
     userId: idUser,
     sectionId: sectionId,
   };
-  const url = `${process.env.NEXT_PUBLIC_URL}/user-permissions`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/user-permissions`;
   const resProcess = await fetch(url, {
     method: "POST",
     headers: {
@@ -472,7 +472,7 @@ async function CreateAsingSection(token, sectionId, idUser) {
 }
 
 async function getValueAccess(token, userId) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/user-permissions/${userId}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/user-permissions/${userId}`;
   const resProcess = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -485,7 +485,7 @@ async function getValueAccess(token, userId) {
 }
 
 async function deleteValueAccess(token, id) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/user-permissions/${id}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/user-permissions/${id}`;
   const resProcess = await fetch(url, {
     method: "DELETE",
     headers: {
@@ -502,7 +502,7 @@ async function updateMessageCite(token, idCita, message) {
   const bodyJson = {
     message: message,
   };
-  const url = `${process.env.NEXT_PUBLIC_URL}/appointment/${idCita}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/appointment/${idCita}`;
   const resProcess = await fetch(url, {
     method: "PATCH",
     headers: {
@@ -517,7 +517,7 @@ async function updateMessageCite(token, idCita, message) {
 }
 
 async function sendObserDocument(token, email) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/email/state-change?email=${email}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/email/state-change?email=${email}`;
   const resProcess = await fetch(url, {
     method: "POST",
     headers: {
@@ -531,7 +531,7 @@ async function sendObserDocument(token, email) {
 }
 
 async function sendVeryDocument(token, email) {
-  const url = `${process.env.NEXT_PUBLIC_URL}/email/verified-documents?email=${email}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/email/verified-documents?email=${email}`;
   const resProcess = await fetch(url, {
     method: "POST",
     headers: {
@@ -556,7 +556,7 @@ async function startTramiteDocument(token, idProcess, status = false) {
     };
   }
 
-  const url = `${process.env.NEXT_PUBLIC_URL}/process-status/${idProcess}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/process-status/${idProcess}`;
   const resProcess = await fetch(url, {
     method: "PATCH",
     headers: {
@@ -571,7 +571,7 @@ async function startTramiteDocument(token, idProcess, status = false) {
 }
 
 // todo login para el usuario
-const urlPagoOnline = process.env.NEXT_PUBLIC_URL_PAGO_ONLLINE;
+const urlPagoOnline = import.meta.env.VITE_PUBLIC_URL_PAGO_ONLLINE;
 async function LoginPagoOnline(data) {
   const url = `${urlPagoOnline}/inicio-sesion?codigo=${data.dni}&password=${data.password}`;
   const resLogin = await fetch(url, {
@@ -587,42 +587,42 @@ async function LoginPagoOnline(data) {
 
 async function LoginFormPost(data) {
   // todo: solo usalo en el trabajo
-  const resPagoOnline = await LoginPagoOnline(data);
+  // const resPagoOnline = await LoginPagoOnline(data);
 
-  if (!resPagoOnline.success) {
-    return {
-      error: true,
-      message: resPagoOnline?.message || resPagoOnline?.errors.codigo,
-    };
-  }
-  const bodyForm = {
-    documentNumber: resPagoOnline.usuario.numero_documento,
-    firstName: resPagoOnline.usuario.nombres,
-    apellido_paterno: resPagoOnline.usuario.apellido_paterno,
-    apellido_materno: resPagoOnline.usuario.apellido_materno,
-    email: resPagoOnline.usuario.email,
-  };
-  // todo solo usalo fuera del trabajo
-  // let bodyForm;
-  // if (data.dni === "60702651") {
-  //   bodyForm = {
-  //     documentNumber: "60702651",
-  //     email: "jacoborosseau@gmail.com",
-  //     firstName: "NEIL",
-  //     apellido_paterno: "TOSCANO",
-  //     apellido_materno: "FERNANDEZ",
-  //   };
-  // } else if (data.dni === "76735903") {
-  //   bodyForm = {
-  //     documentNumber: "76735903",
-  //     email: "76735963@CERTUS.EDU.PE",
-  //     firstName: "EMMA",
-  //     apellido_paterno: "ABREGU",
-  //     apellido_materno: "LOPEZ",
+  // if (!resPagoOnline.success) {
+  //   return {
+  //     error: true,
+  //     message: resPagoOnline?.message || resPagoOnline?.errors.codigo,
   //   };
   // }
+  // const bodyForm = {
+  //   documentNumber: resPagoOnline.usuario.numero_documento,
+  //   firstName: resPagoOnline.usuario.nombres,
+  //   apellido_paterno: resPagoOnline.usuario.apellido_paterno,
+  //   apellido_materno: resPagoOnline.usuario.apellido_materno,
+  //   email: resPagoOnline.usuario.email,
+  // };
+  // todo solo usalo fuera del trabajo
+  let bodyForm;
+  if (data.dni === "60702651") {
+    bodyForm = {
+      documentNumber: "60702651",
+      email: "jacoborosseau@gmail.com",
+      firstName: "NEIL",
+      apellido_paterno: "TOSCANO",
+      apellido_materno: "FERNANDEZ",
+    };
+  } else if (data.dni === "76735903") {
+    bodyForm = {
+      documentNumber: "76735903",
+      email: "76735963@CERTUS.EDU.PE",
+      firstName: "EMMA",
+      apellido_paterno: "ABREGU",
+      apellido_materno: "LOPEZ",
+    };
+  }
 
-  const url = `${process.env.NEXT_PUBLIC_URL}/auth/login`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/auth/login`;
   const resProcess = await fetch(url, {
     method: "POST",
     headers: {
@@ -681,7 +681,7 @@ async function CreateUserLogin(data) {
     district: data.district,
   };
 
-  const url = `${process.env.NEXT_PUBLIC_URL}/auth/register`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/auth/register`;
   const resProcess = await fetch(url, {
     method: "POST",
     headers: {
@@ -697,7 +697,7 @@ async function CreateUserLogin(data) {
 async function UpdateUserLogin(data) {
   const idUser = { ...data };
   delete data.idUser;
-  const url = `${process.env.NEXT_PUBLIC_URL}/user/${idUser.idUser}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/user/${idUser.idUser}`;
   const resProcess = await fetch(url, {
     method: "PATCH",
     headers: {

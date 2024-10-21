@@ -1,5 +1,5 @@
-"use client";
-import React, {  useState } from "react";
+
+import  {  useState } from "react";
 import { FaFilePdf } from "react-icons/fa6";
 import { RiInboxUnarchiveFill } from "react-icons/ri";
 import { ActionIcon, Button, FileInput, Pill } from "@mantine/core";
@@ -9,8 +9,8 @@ import ModalView from "@/components/modalview/ModalView";
 import { MdDeleteForever } from "react-icons/md";
 import { notifications } from "@mantine/notifications";
 import { PDFDocument } from "pdf-lib";
-import usePdfValidator from "@/hook/usePdfValidator";
-import Link from "next/link";
+import usePdfValidator from "@/hooks/usePdfValidator";
+import { Link } from "react-router-dom";
 
 const FileGroupFollow = ({
   id,
@@ -30,7 +30,7 @@ const FileGroupFollow = ({
   const { user } = useProduct();
   const { validatePdf, error } = usePdfValidator(10);
   const [pdfLink, setPdfLink] = useState(null);
-  const url = `${process.env.NEXT_PUBLIC_URL}/files/pdf`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/files/pdf`;
 
   const ValueComponent = ({ value, onRemove }) => {
     if (value === null) {
@@ -226,7 +226,7 @@ const FileGroupFollow = ({
                     : "self-end"
                 }
                 target="_blank"
-                href={`${url}/${pdfLink || getfile.fileUrl}`}
+                to={`${url}/${pdfLink || getfile.fileUrl}`}
               >
                 <Button
                   variant="gradient"

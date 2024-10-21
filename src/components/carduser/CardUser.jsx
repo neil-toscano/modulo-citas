@@ -1,17 +1,16 @@
-"use client";
 import { PiArchiveFill } from "react-icons/pi";
 import { Button } from "@mantine/core";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "react-router-dom";
 
-function CardUser({slug, idSection, nuevo, pendiente }) {
-  const router = useRouter();
+function CardUser({ slug, idSection, nuevo, pendiente }) {
+  const navigate = useNavigate();
 
   const handleDocumentUser = () => {
     if (nuevo) {
-      router.push(`/dashboard/${slug}/${idSection}?nuevo=true`);
+      navigate(`/dashboard/files/${slug}/${idSection}?nuevo=true`);
     }
     if (pendiente) {
-      router.push(`/dashboard/${slug}/${idSection}?pendiente=true`);
+      navigate(`/dashboard/files/${slug}/${idSection}?pendiente=true`);
     }
   };
 
