@@ -621,7 +621,7 @@ async function LoginFormPost(data) {
       apellido_materno: "LOPEZ",
     };
   }
-
+  console.log("entrando");
   const url = `${import.meta.env.VITE_PUBLIC_URL}/auth/login`;
   const resProcess = await fetch(url, {
     method: "POST",
@@ -632,7 +632,8 @@ async function LoginFormPost(data) {
   });
 
   const res = await resProcess.json();
-
+  console.log(res,"viendo respuesta login");
+  
   return res;
 }
 
