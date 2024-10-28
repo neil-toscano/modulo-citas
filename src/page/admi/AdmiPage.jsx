@@ -48,7 +48,7 @@ const AdmiPage = () => {
               color="red"
               onClick={handleOpenPdf}
             >
-              Manual de usuario
+              Manual de administrador
             </Button>
             <Button
               variant="gradient"

@@ -23,7 +23,7 @@ const PresentPage = () => {
             horas disponibles, optimizando el proceso y asegurando una
             experiencia más organizada y rápida para la gestión de solicitudes.
           </p>
-          <Button leftSection={<FaFilePdf size={14} />} className="mt-3"  variant="filled" color="red" onClick={handleOpenPdf}>Manual de usuario</Button>
+          <Button leftSection={<FaFilePdf size={14} />} className="mt-3"  variant="filled" color="red" onClick={handleOpenPdf}>Manual de plataformista</Button>
         </div>
       </main>
     </div>
