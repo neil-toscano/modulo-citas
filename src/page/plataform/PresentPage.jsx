@@ -1,6 +1,13 @@
 import Movil from "@/components/header/Movil";
-
+import { Button } from "@mantine/core";
+import pdfManual from "@/assets/pdf/PLATAFORMISTA.pdf"
+import { FaFilePdf } from "react-icons/fa";
 const PresentPage = () => {
+
+  const handleOpenPdf = ()=>{
+    window.open(pdfManual, '_blank');
+  }
+
   return (
     <div className="">
       {<Movil role={"super user"} />}
@@ -16,6 +23,7 @@ const PresentPage = () => {
             horas disponibles, optimizando el proceso y asegurando una
             experiencia más organizada y rápida para la gestión de solicitudes.
           </p>
+          <Button leftSection={<FaFilePdf size={14} />} className="mt-3"  variant="filled" color="red" onClick={handleOpenPdf}>Manual de usuario</Button>
         </div>
       </main>
     </div>

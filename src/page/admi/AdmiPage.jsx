@@ -4,7 +4,9 @@ import { useProduct } from "@/provider/ProviderContext";
 import { getAllPlataform } from "@/redux/dashboard/actions";
 import { Button } from "@mantine/core";
 import React, { useEffect, useState } from "react";
+import { FaFilePdf } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import pdfManual from "@/assets/pdf/ADMINISTRADOR.pdf"
 
 const AdmiPage = () => {
   const dispatch = useDispatch();
@@ -26,6 +28,11 @@ const AdmiPage = () => {
     setDataSelect(dataSection);
     dispatch(getAllPlataform({ token: user.token }));
   }, [allDocumets, dispatch, , refresh]);
+
+  const handleOpenPdf = ()=>{
+    window.open(pdfManual, '_blank');
+  }
+
   return (
     <div>
       {<Movil role={"administrator"} />}
@@ -34,13 +41,23 @@ const AdmiPage = () => {
           <h1 className="text-2xl mb-3 font-bold uppercase">
             Tabla de Asignaciónes
           </h1>
-          <Button
-            variant="gradient"
-            gradient={{ from: "violet", to: "indigo", deg: 90 }}
-            onClick={() => setRefresh(!refresh)}
-          >
-            ACTUALIZAR LISTA
-          </Button>
+          <div className="flex gap-3 items-center">
+            <Button
+              leftSection={<FaFilePdf size={14} />}
+              variant="filled"
+              color="red"
+              onClick={handleOpenPdf}
+            >
+              Manual de usuario
+            </Button>
+            <Button
+              variant="gradient"
+              gradient={{ from: "violet", to: "indigo", deg: 90 }}
+              onClick={() => setRefresh(!refresh)}
+            >
+              ACTUALIZAR LISTA
+            </Button>
+          </div>
         </div>
         <div>
           <TableAsignacion

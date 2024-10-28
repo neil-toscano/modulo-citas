@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useDisclosure, useLocalStorage } from "@mantine/hooks";
 import {
   Button,
@@ -14,6 +14,8 @@ import { notifications } from "@mantine/notifications";
 import dataApi from "@/data/fetchData";
 import UpdateForm from "./UpdateForm";
 import { IMaskInput } from "react-imask";
+import pdfManual from "@/assets/pdf/ADMINISTRADO.pdf"
+import { FaFilePdf } from "react-icons/fa";
 
 const FormLogin = ({ form }) => {
   const navigate = useNavigate();
@@ -153,6 +155,10 @@ const FormLogin = ({ form }) => {
     }
   };
 
+  const handleOpenPdf = ()=>{
+    window.open(pdfManual, '_blank');
+  }
+
   return (
     <>
       <Modal
@@ -206,6 +212,7 @@ const FormLogin = ({ form }) => {
           <Button type="submit" fullWidth>
             Iniciar sesión
           </Button>
+          <Button leftSection={<FaFilePdf size={14} />} fullWidth variant="filled" color="red" onClick={handleOpenPdf}>Manual de usuario</Button>
         </Group>
       </form>
     </>
