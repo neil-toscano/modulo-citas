@@ -3,7 +3,7 @@ import TableAsignacion from "@/dashboard/components/tableUser/TableAsignacion";
 import { useProduct } from "@/provider/ProviderContext";
 import { getAllPlataform } from "@/redux/dashboard/actions";
 import { Button } from "@mantine/core";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { FaFilePdf } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import pdfManual from "@/assets/pdf/ADMINISTRADOR.pdf"
