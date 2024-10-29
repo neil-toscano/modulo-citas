@@ -194,7 +194,6 @@ const SeguimientoDocuPage = () => {
               )}
               {view == 2 && mixto !== 6 && (
                 <ButtonFollow
-                  loading={loading}
                   allTrue={allTrue}
                   confirmar={true}
                   color="indigo"
