@@ -125,8 +125,9 @@ async function updateStatus(token, status, id, details = null, admi = false) {
   const jsonBody = details ? { details: details } : { status: status };
 
   const url = admi
-    ? `${import.meta.env.VITE_PUBLIC_URL}/documents/admin/${id}`
-    : `${import.meta.env.VITE_PUBLIC_URL}/documents/${id}`;
+  ? `${import.meta.env.VITE_PUBLIC_URL}/documents/admin/${id}`
+  : `${import.meta.env.VITE_PUBLIC_URL}/documents/${id}`;
+  console.log(url,"viendo body");
   const document = await fetch(url, {
     method: "PATCH",
     headers: {
@@ -585,7 +586,7 @@ async function startTramiteDocument(token, idProcess, status = false) {
       status: "CORREGIDO",
     };
   }
-
+  
   const url = `${import.meta.env.VITE_PUBLIC_URL}/process-status/${idProcess}`;
   const resProcess = await fetch(url, {
     method: "PATCH",
@@ -595,8 +596,11 @@ async function startTramiteDocument(token, idProcess, status = false) {
     },
     body: JSON.stringify(bodyJson),
   });
-
+  
   const res = await resProcess.json();
+  console.log(bodyJson, 'body');
+  console.log(res,"viendo respuesta de proceess");
+  
   return res;
 }
 

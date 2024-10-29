@@ -16,7 +16,6 @@ const FileGroup = ({
   idDocument,
   completFileInput,
   setCompletFileInput,
-
   memoryProcess,
   setMemoryProcess,
 }) => {

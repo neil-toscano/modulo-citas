@@ -56,7 +56,7 @@ export default function TablesCita({allUser}) {
       getActions: ({ id, row }) => [
         <GridActionsCellItem
           key={id}
-          icon={<IoEyeSharp />}
+          icon={<IoEyeSharp size={20} />}
           label="Información"
           onClick={handleInformationClick(row.sectionId, row.reservedById,row.slug,row.email)}
         />,

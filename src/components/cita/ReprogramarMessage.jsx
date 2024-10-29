@@ -6,7 +6,7 @@ import { FaRegStickyNote } from "react-icons/fa";
 import { notifications } from "@mantine/notifications";
 import { FiAlertOctagon } from "react-icons/fi";
 
-function ReprogramarMessage({ id, token, message }) {
+function ReprogramarMessage({ id, token, message,setRefresh,refresh }) {
   const [opened, { open, close }] = useDisclosure(false);
   const [details, setDetails] = useState(null);
   const [alert, setAlert] = useState(false);
@@ -38,6 +38,7 @@ function ReprogramarMessage({ id, token, message }) {
         className: "my-notification-class",
         loading: false,
       });
+      setRefresh(!refresh);
     }
     close();
   };
@@ -74,8 +75,7 @@ function ReprogramarMessage({ id, token, message }) {
               </h3>
               <p>
                 {" "}
-                Al reprogramar tu cita, se cancelará la fecha y hora actuales, y
-                nos pondremos en contacto contigo para confirmar la nueva
+                Al reprogramar tu cita,nos pondremos en contacto contigo para confirmar la nueva
                 disponibilidad. Esta acción no puede deshacerse. ¿Deseas
                 continuar con la reprogramación de la cita?
               </p>

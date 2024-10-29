@@ -10,6 +10,8 @@ import { useProduct } from "@/provider/ProviderContext";
 import LodingFile from "../loading/LodingFile";
 
 const Requisito = ({ dataDocument, inestadaReq }) => {
+
+  
   const idDocument = dataDocument?.sectionId;
   const { user } = useProduct();
   const [active, setActive] = useState(0);
@@ -30,10 +32,11 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
       const res = await dataApi.getProcessFile(user.token, idDocument);
       const CompletFileInput = await dataApi.getCompletFilesInputs(
         user.token,
-        idDocument
+        dataDocument.sectionId
       );
-      //estados a confirmar
-
+      console.log(CompletFileInput,"viendo files api");
+      
+      
       const incomplete = res?.status !== "INCOMPLETO";
       const completo = res?.status !== "COMPLETO";
       const errorStatus =
@@ -50,9 +53,11 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
     setFiles({});
     setCompletFileInput([]);
     setMemoryProcess([]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countFile, idDocument]);
-
+     //estados a confirmar
+     console.log(files,"all files");
   const nextStep = async () => {
     //asegurate que llene el formulario
     if (active === 1) {

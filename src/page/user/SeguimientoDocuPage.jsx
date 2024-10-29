@@ -5,7 +5,7 @@ import { Button } from "@mantine/core";
 import dataApi from "@/data/fetchData";
 import { useEffect, useState } from "react";
 import Movil from "@/components/header/Movil";
-import { useMediaQuery } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 
 import FileGroupFollow from "@/components/intestada/seguimiento/FileGroupFollow";
 import ButtonFollow from "@/components/buttons/ButtonFollow";
@@ -20,7 +20,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 // 3 SOLICITAR CITA verificados
 
 const SeguimientoDocuPage = () => {
-    const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
   const navigate = useNavigate();
   const { user } = useProduct();
@@ -29,7 +29,7 @@ const SeguimientoDocuPage = () => {
   const [filesArray, setFilesArray] = useState([]);
   const [validCita, setValidCita] = useState([]);
   const [status, setStatus] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loadingF, setLoading] = useState(true);
   const [refresh, setRefresh] = useState(false);
   const [files, setFiles] = useState({}); // era objeto
   const [filesMap, setFilesMap] = useState([]); // era objeto
@@ -50,7 +50,7 @@ const SeguimientoDocuPage = () => {
     const fetchFile = async (id, token) => {
       try {
         const resVeryStatus = await dataApi.getProcessFile(token, id);
-        
+
         setStatusComplete(resVeryStatus);
         const data = await dataApi.getFilesUser(id, token);
         setFilesArray(data);
@@ -59,10 +59,18 @@ const SeguimientoDocuPage = () => {
 
         setValidCita(validCitaFetch);
         if (
-          statusComplete?.status === "INCOMPLETO" ||
-          statusComplete?.statusCode === 404
-        )
+          resVeryStatus?.status === "INCOMPLETO" ||
+          resVeryStatus?.statusCode === 404
+        ) {
+          // setStatus({});
+          // setFilesMap({});
+          setView(0);
+          // setFilesArray([]);
+          // setStatusComplete({});
+          setMixto(0);
+          // setValidCita([])
           return;
+        }
 
         const hasObserved = data.some((doc) => doc.status == "OBSERVADO");
         const allInProcess = data.every((doc) => doc.status == "EN PROCESO");
@@ -94,7 +102,7 @@ const SeguimientoDocuPage = () => {
       }
     };
     fetchFile(id, user.token);
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, refresh]);
 
@@ -109,16 +117,19 @@ const SeguimientoDocuPage = () => {
   };
 
   const handleRefresh = async () => {
-    filesMap.map(async (fileDocu) => {
+    // acutalizar solo documentos
+
+    for (const fileDocu of filesMap) {
       await dataApi.updateDocumentFile(
         { fileUrl: fileDocu.fileUrl },
         user.token,
         fileDocu.idFile
       );
-    });
-
+    }
+    // ver status
     const resVeryStatus = await dataApi.getProcessFile(user.token, id);
-    await dataApi.startTramiteDocument(user.token,resVeryStatus.id,true);
+    //actutalizo el process
+    await dataApi.startTramiteDocument(user.token, resVeryStatus.id, true);
 
     setFiles({});
     setRefresh(!refresh);
@@ -164,7 +175,7 @@ const SeguimientoDocuPage = () => {
               setEstadoOk={setEstadoOk}
               files={files}
               setFiles={setFiles}
-              loading={loading}
+              loading={loadingF}
               setView={setView}
               id={id}
               filesArray={filesArray}
@@ -183,6 +194,7 @@ const SeguimientoDocuPage = () => {
               )}
               {view == 2 && mixto !== 6 && (
                 <ButtonFollow
+                  loading={loading}
                   allTrue={allTrue}
                   confirmar={true}
                   color="indigo"
@@ -191,17 +203,20 @@ const SeguimientoDocuPage = () => {
                 />
               )}
               <div className="flex gap-3">
-                {(view == 4 && mixto == 0) ||  validCita?.processStatus?.status === "CITA_PROGRAMADA"  && (
-                  <Button
-                    onClick={() => handleViewCita(id)}
-                    className="self-end"
-                    color="indigo"
-                  >
-                    VER CITA
-                  </Button>
-                )}
+                {(view == 4 && mixto == 0) ||
+                  (validCita?.processStatus?.status === "CITA_PROGRAMADA" && (
+                    <Button
+                      onClick={() => handleViewCita(id)}
+                      className="self-end"
+                      color="indigo"
+                    >
+                      VER CITA
+                    </Button>
+                  ))}
                 {validCita?.processStatus?.status === "CITA_PROGRAMADA" && (
                   <ReprogramarMessage
+                    setRefresh={setRefresh}
+                    refresh={refresh}
                     id={idVeryCite.idcita}
                     message={idVeryCite.message}
                     token={user.token}
