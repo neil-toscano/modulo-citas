@@ -5,8 +5,8 @@ async function sectionDocument(token) {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${JSON.parse(token)}`,
-    }
-  })
+    },
+  });
   const resDocument = document.json();
 
   return resDocument;
@@ -19,7 +19,7 @@ async function sectionDocument2(token) {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
-    }
+    },
   });
   const resDocument = document.json();
 
@@ -249,7 +249,7 @@ async function verifyCita(token, id) {
 async function getSuperUser(token, idSection) {
   const url = `${
     import.meta.env.VITE_PUBLIC_URL
-  }/user-permissions/platform-operators/${idSection} `;
+  }/user-permissions/platform-operators/${idSection}`;
   const verify = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -610,7 +610,6 @@ async function startTramiteDocument(token, idProcess, status = false) {
   });
 
   const res = await resProcess.json();
-
 
   return res;
 }

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "@mantine/form";
 import FormLogin from "./FormLogin";
 import FormCreateUser from "./FormCreateUser";
 import sjl from "@/assets/logo.png";
 import ModalPasswordReset from "../modalview/ModalPasswordReset";
+import HoverInformation from "./HoverInformation";
 const Login = () => {
   const [view, setView] = useState(true);
 
@@ -74,9 +75,13 @@ const Login = () => {
       <div className="flex justify-center items-center mb-2">
         <img src={sjl} className="logo-img" alt="logo san juan de lurigancho" />{" "}
       </div>
-      <h2 className={`text-center text-[1.2rem] font-medium mb-4`}>
-        {view ? "INGRESAR A GENERADOR DE CITAS" : "CREAR CUENTA"}{" "}
-      </h2>
+      <div className="mb-3">
+        <h2 className={`text-center text-[1.2rem] font-medium mb-2`}>
+          {view ? "INGRESAR A GENERADOR DE CITAS" : "CREAR CUENTA"}{" "}
+        </h2>
+        <HoverInformation />
+      </div>
+
       {/* form */}
       {view && <FormLogin form={form} />}
       {!view && (
