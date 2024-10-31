@@ -16,6 +16,7 @@ export const getAllDocumentsSection = createAsyncThunk(
     });
 
     const data = await response.json();
+    console.log(data,"viendo data docuemnt");
     
     return data;
   }

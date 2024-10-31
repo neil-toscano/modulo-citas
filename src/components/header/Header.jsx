@@ -32,7 +32,7 @@ const Header = () => {
   const location = useLocation();
   const { allDocumets } = useSelector((state) => state.DocumentsGlobalRedux);
   const arrayPhatname = location.pathname.split("/");
-  console.log(arrayPhatname);
+
 
   const slug = arrayPhatname[arrayPhatname.length - 1];
   const documentNew = allDocumets.map((data, index) => ({

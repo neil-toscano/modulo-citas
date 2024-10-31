@@ -5,7 +5,7 @@ import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import { Button, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useNavigate } from "react-router-dom";
-
+import esLocaleText from "./traductor"
 // eslint-disable-next-line react/prop-types
 export default function TablesCita({allUser}) {
   const [rows, setRows] = React.useState([]);
@@ -123,6 +123,7 @@ export default function TablesCita({allUser}) {
           rows={rows}
           columns={columns}
           editMode="row"
+          localeText={esLocaleText} // Aplicar el idioma en español
           getRowId={(row) => row.idIndex}
           sx={{ minWidth: "100%", overflow: "hidden" }}
         />

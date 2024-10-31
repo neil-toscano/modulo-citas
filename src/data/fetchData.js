@@ -5,14 +5,26 @@ async function sectionDocument(token) {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${JSON.parse(token)}`,
-    },
+    }
   })
-    .then((res) => res.json())
-    .catch((error) => console.log(error));
+  const resDocument = document.json();
 
-  return document;
+  return resDocument;
 }
 
+async function sectionDocument2(token) {
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/section-type-document`;
+  const document = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    }
+  });
+  const resDocument = document.json();
+
+  return resDocument;
+}
 async function postFileAsynId(fileUrl, typeId, token, idFileDocument) {
   const jsonBody = {
     sectionId: typeId,
@@ -125,9 +137,9 @@ async function updateStatus(token, status, id, details = null, admi = false) {
   const jsonBody = details ? { details: details } : { status: status };
 
   const url = admi
-  ? `${import.meta.env.VITE_PUBLIC_URL}/documents/admin/${id}`
-  : `${import.meta.env.VITE_PUBLIC_URL}/documents/${id}`;
-  console.log(url,"viendo body");
+    ? `${import.meta.env.VITE_PUBLIC_URL}/documents/admin/${id}`
+    : `${import.meta.env.VITE_PUBLIC_URL}/documents/${id}`;
+  console.log(url, "viendo body");
   const document = await fetch(url, {
     method: "PATCH",
     headers: {
@@ -586,7 +598,7 @@ async function startTramiteDocument(token, idProcess, status = false) {
       status: "CORREGIDO",
     };
   }
-  
+
   const url = `${import.meta.env.VITE_PUBLIC_URL}/process-status/${idProcess}`;
   const resProcess = await fetch(url, {
     method: "PATCH",
@@ -596,11 +608,10 @@ async function startTramiteDocument(token, idProcess, status = false) {
     },
     body: JSON.stringify(bodyJson),
   });
-  
+
   const res = await resProcess.json();
-  console.log(bodyJson, 'body');
-  console.log(res,"viendo respuesta de proceess");
-  
+
+
   return res;
 }
 
@@ -610,7 +621,9 @@ const urlPagoOnline = import.meta.env.VITE_PUBLIC_URL_PAGO_ONLLINE;
 async function tokenAccesPagoOnline() {
   const url = `${urlPagoOnline}/login-acceso?email=${
     import.meta.env.VITE_PUBLIC_EMAIL_ONLINE
-  }&password=${import.meta.env.VITE_PUBLIC_PASSWORD_ONLINE}${import.meta.env.VITE_PUBLIC_NUMBER} `;
+  }&password=${import.meta.env.VITE_PUBLIC_PASSWORD_ONLINE}${
+    import.meta.env.VITE_PUBLIC_NUMBER
+  }sjlh`;
   const resToken = await fetch(url, {
     method: "POST",
     headers: {
@@ -783,6 +796,7 @@ async function ResetPassword(dni) {
 
 //getCompletFilesInputs
 const dataApi = {
+  sectionDocument2,
   ResetPassword,
   updateDocumentFile,
   startTramiteDocument,

@@ -1,4 +1,3 @@
-"use client";
 import { useDisclosure } from "@mantine/hooks";
 import { Drawer, Burger, Avatar } from "@mantine/core";
 import Header from "./Header";

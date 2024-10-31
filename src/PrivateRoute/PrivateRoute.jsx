@@ -9,6 +9,8 @@ import { useDispatch } from "react-redux";
 import { getAllDocumentsSection } from "@/redux/documents/actions";
 
 const PrivateRoute = ({ children, requiredRole }) => {
+  
+  
   const dispatch = useDispatch();
   const { setUser, setAllUser, setDocumentSection } = useProduct();
 
@@ -49,6 +51,7 @@ const PrivateRoute = ({ children, requiredRole }) => {
       return fetchUserData(token);
     },
     retry: false, // No reintentar en caso de error
+    refetchOnWindowFocus: false, // No revalidar al enfocar la ventana
     onError: (error) => {
       console.error("Error during authentication:", error);
       localStorage.removeItem("token");

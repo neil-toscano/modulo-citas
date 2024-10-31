@@ -42,7 +42,6 @@ const AppRoutes = () => {
           <Route path="revision/:namesection/:id" element={<RevisionPage />} />
           <Route path="documento/:namesection" element={<DocumentoPage />} />
           <Route path="presentacion" element={<PresentPage />} />
-          {/* <Route path="revision:id" element={<Citas />} /> */}
         </Route>
         {/* Rutas privadas administrador*/}
         <Route

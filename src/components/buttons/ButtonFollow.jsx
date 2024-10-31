@@ -6,6 +6,7 @@ const ButtonFollow = ({
   text,
   confirmar = false,
   allTrue,
+  loading
 }) => {
   return (
     <>
@@ -16,6 +17,7 @@ const ButtonFollow = ({
       )}
       {confirmar && (
         <Button
+          loading={loading}
           disabled={!allTrue}
           onClick={handleFunction}
           className="self-end"

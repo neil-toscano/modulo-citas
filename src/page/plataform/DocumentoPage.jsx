@@ -74,7 +74,7 @@ const DocumentoPage = () => {
     refetchInterval: 10000, // Intervalo de actualización
     staleTime: 30000, // Considerar datos frescos durante 30 segundos
     cacheTime: 60000, // Mantener datos en caché durante 60 segundos
-    refetchOnWindowFocus: false, // No revalidar al enfocar la ventana
+    refetchOnWindowFocus: true, // si revalidar al enfocar la ventana
     onError: (error) => {
       console.error("Error fetching data:", error);
     },

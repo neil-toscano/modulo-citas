@@ -27,7 +27,8 @@ const AdmiPage = () => {
     }));
     setDataSelect(dataSection);
     dispatch(getAllPlataform({ token: user.token }));
-  }, [allDocumets, dispatch, , refresh]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allDocumets, dispatch, refresh]);
 
   const handleOpenPdf = ()=>{
     window.open(pdfManual, '_blank');

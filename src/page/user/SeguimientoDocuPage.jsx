@@ -23,6 +23,7 @@ const SeguimientoDocuPage = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
   const navigate = useNavigate();
+  const [loading, { toggle, close }] = useDisclosure();
   const { user } = useProduct();
   const [view, setView] = useState(0);
   const [mixto, setMixto] = useState(0);
@@ -46,6 +47,10 @@ const SeguimientoDocuPage = () => {
     Object.values(stateOk).every((value) => value === true);
   // fetch
   useEffect(() => {
+    setView(0);
+    // setFilesArray([]);
+    // setStatusComplete({});
+    setMixto(0);
     setLoadingFile(true);
     const fetchFile = async (id, token) => {
       try {
@@ -118,8 +123,9 @@ const SeguimientoDocuPage = () => {
 
   const handleRefresh = async () => {
     // acutalizar solo documentos
-
-    for (const fileDocu of filesMap) {
+    toggle();
+    try {
+        for (const fileDocu of filesMap) {
       await dataApi.updateDocumentFile(
         { fileUrl: fileDocu.fileUrl },
         user.token,
@@ -133,6 +139,10 @@ const SeguimientoDocuPage = () => {
 
     setFiles({});
     setRefresh(!refresh);
+    } finally {
+      close();
+    }
+  
   };
 
   const handleCita = (id) => {
@@ -194,6 +204,7 @@ const SeguimientoDocuPage = () => {
               )}
               {view == 2 && mixto !== 6 && (
                 <ButtonFollow
+                  loading={loading}
                   allTrue={allTrue}
                   confirmar={true}
                   color="indigo"

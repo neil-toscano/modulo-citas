@@ -1,14 +1,14 @@
 import { Badge, Box, Divider, NavLink } from "@mantine/core";
 import { Link, useLocation } from "react-router-dom";
-import React, { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { RiFolderUserFill } from "react-icons/ri";
 import { FaHouseUser } from "react-icons/fa6";
 import { MdOutlineFamilyRestroom } from "react-icons/md";
 import { useProduct } from "@/provider/ProviderContext";
 import { BsCalendar2DateFill } from "react-icons/bs";
-
 import Logout from "../buttons/Logout";
-
+import { useQuery } from "@tanstack/react-query";
+import dataApi from "@/data/fetchData";
 const data2 = [
   {
     icon: RiFolderUserFill,
@@ -31,9 +31,24 @@ const data2 = [
 ];
 
 const NewHeaderDashboard = ({ Followid }) => {
-  const { documentSection } = useProduct();
+  const { user } = useProduct();
+
+  const fetchAllDocument = async (token) => {
+    const response = await dataApi.sectionDocument2(token);
+    return response;
+  };
+
+  const { data: documentSection = [] } = useQuery({
+    queryKey: ["documentSection"], // Clave de la consulta
+    queryFn: () => fetchAllDocument(user.token),
+    refetchOnWindowFocus: true, // No revalidar al enfocar la ventana
+    enabled: !!user.token,
+    retry: false,
+  });
+
+
   const [countProcess, setCountProcess] = useState(0);
-  const location = useLocation()
+  const location = useLocation();
   const arrayPathname = location.pathname.split("/");
   const slug = arrayPathname[arrayPathname.length - 1];
 
@@ -265,12 +280,10 @@ const NewHeaderDashboard = ({ Followid }) => {
           </Box>
         </div>
 
-        {true && (
-          <div>
-            <Divider my="xs" label="CITA RESERVADA" labelPosition="center" />
-            <Box w={400}>{follows}</Box>
-          </div>
-        )}
+        <div>
+          <Divider my="xs" label="CITA RESERVADA" labelPosition="center" />
+          <Box w={400}>{follows}</Box>
+        </div>
       </div>
 
       <div className="w-full">

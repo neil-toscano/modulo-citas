@@ -23,7 +23,6 @@ const CitaCalendaryPage = () => {
   const [idTime, setIdTime] = useState(null);
   const [disable, setDisable] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [refresh, setRefresh] = useState(false);
   const [timeInitial, setTimeInitial] = useState(false);
   const [update, setUpdate] = useState(false);
   const matches = useMediaQuery("(min-width: 1099px)");
@@ -65,7 +64,7 @@ const CitaCalendaryPage = () => {
 
     getAdmi();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [refresh]);
+  }, []);
 
   useEffect(() => {
     const timeAvilid = async () => {
@@ -124,7 +123,7 @@ const CitaCalendaryPage = () => {
     );
 
     //todo valida si ya tiene cita de verdad
-    const verifyCita = await dataApi.verifyCita(user.token, id);
+    await dataApi.verifyCita(user.token, id);
     if (res.error) {
       notifications.update({
         id: id,
@@ -222,6 +221,7 @@ const CitaCalendaryPage = () => {
                 />
                 <div className="mt-3">
                   <Button
+                  disabled={(!idTime || !idSuper) || !selectedDate}
                     variant="filled"
                     color="green"
                     onClick={handleCreateCita}

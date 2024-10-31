@@ -1,6 +1,5 @@
-
 import Movil from "@/components/header/Movil";
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import IntestadaDocument from "@/dashboard/components/ficheros/IntestadaDocument";
 import { useProduct } from "@/provider/ProviderContext";
 import dataApi from "@/data/fetchData";
@@ -10,6 +9,7 @@ import LoadingSJL from "@/components/loading/LoadingSJL";
 import MessageDocument from "@/components/mensajes/MessageDocument";
 import { notifications } from "@mantine/notifications";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useDisclosure } from "@mantine/hooks";
 
 const FilesPage = () => {
   const { user, documentUser, setDocumentUser } = useProduct();
@@ -17,14 +17,14 @@ const FilesPage = () => {
   const [verified, setVerified] = useState(true);
   const [ObserFile, setObserFile] = useState(false);
   const [userOne, setUserOne] = useState([]);
-  const [loading, setLoading] = useState(true);
-  
+  const [loadingCarga, setLoading] = useState(true);
+  const [loading, { toggle, close }] = useDisclosure();
 
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-//   const idSection = params.slug[1];
-  const { id:idSection } = useParams()
+  //   const idSection = params.slug[1];
+  const { id: idSection } = useParams();
   const nuevoQuery = searchParams.get("nuevo"); // nuevo pendiente o no pendiente
   const pendienteQuery = searchParams.get("pendiente");
   const noPendiente = searchParams.get("nopendiente");
@@ -94,11 +94,12 @@ const FilesPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idSection, setDocumentUser, user.token]);
 
-  if (loading) {
+  if (loadingCarga) {
     return <LoadingSJL />;
   }
 
   const handleSkipUser = async () => {
+    toggle()
     notifications.show({
       id: 1,
       withCloseButton: true,
@@ -113,13 +114,13 @@ const FilesPage = () => {
     if (verified) {
       const emailSendVery = await dataApi.sendVeryDocument(
         user.token,
-        userOne[0].user.email
+        documentUser[0].user.email 
       );
       message = emailSendVery.message;
     } else if (ObserFile) {
       const emailSendObser = await dataApi.sendObserDocument(
         user.token,
-        userOne[0].user.email
+        documentUser[0]?.user?.email
       );
       message = emailSendObser.message;
     }
@@ -138,17 +139,17 @@ const FilesPage = () => {
 
     setRefresh(false);
     setDocumentUser([]);
+    close()
     navigate(-1);
   };
-
 
   return (
     <>
       <div className="">
         {<Movil role={"super user"} />}
         <main className="cal-header-main bg-white p-10 flex flex-col gap-4">
-          {!userOne.length && !documentUser.length && <MessageDocument />}
-          {(userOne.length || documentUser.length) && (
+          {!documentUser.length && <MessageDocument />}
+          {documentUser.length && (
             <div>
               <div className="mb-4">
                 <h1 className="text-2xl font-bold mb-3">
@@ -189,6 +190,7 @@ const FilesPage = () => {
                       }
                     >
                       <Button
+                        loading={loading}
                         disabled={refresh}
                         onClick={handleSkipUser}
                         rightSection={
@@ -204,6 +206,7 @@ const FilesPage = () => {
                   )}
                   {noPendiente && (
                     <Button
+                      loading={loading}
                       onClick={handleSkipUser}
                       rightSection={
                         <FaPersonWalkingArrowRight
@@ -225,5 +228,4 @@ const FilesPage = () => {
   );
 };
 
-
-export default FilesPage
+export default FilesPage;

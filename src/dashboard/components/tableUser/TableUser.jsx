@@ -32,7 +32,7 @@ export default function TablesUser({
       .trim();
 
       navigate(
-      `/dashboard/${cleanedString}nuevos/${idSectionSubPendiente}?nopendiente=true&iduser=${id}`
+      `/dashboard/files/${cleanedString}nuevos/${idSectionSubPendiente}?nopendiente=true&iduser=${id}`
     );
   };
 
