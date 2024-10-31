@@ -1,9 +1,11 @@
 import { HoverCard, Button, Text, Group } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 
 function HoverInformation() {
+    const matches = useMediaQuery("(min-width: 600px)");
   return (
     <Group justify="center">
-      <HoverCard width={480} shadow="md">
+      <HoverCard width={matches ? 480 : 340} shadow="md">
         <HoverCard.Target>
           <Button variant="outline" color="red" size="xs">
             Nota Importante
