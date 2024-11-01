@@ -3,9 +3,9 @@ import fondo from "@/assets/fondojsl.webp";
 const LoginPage = () => {
   return (
     // login-page
-    <main className="">
+    <main className="h-full relative ">
       <img className="fondo-xd" src={fondo} alt="" />
-      <div className=" h-screen container mx-auto px-4 flex items-center justify-center">
+      <div className="py-5 container mx-auto px-4 flex items-center justify-center  main-login">
         <Login />
       </div>
     </main>
