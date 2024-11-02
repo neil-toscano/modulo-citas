@@ -622,7 +622,7 @@ async function tokenAccesPagoOnline() {
     import.meta.env.VITE_PUBLIC_EMAIL_ONLINE
   }&password=${import.meta.env.VITE_PUBLIC_PASSWORD_ONLINE}${
     import.meta.env.VITE_PUBLIC_NUMBER
-  }sjlh`;
+  }sjl`;
   const resToken = await fetch(url, {
     method: "POST",
     headers: {
