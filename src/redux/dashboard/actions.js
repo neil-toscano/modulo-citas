@@ -5,13 +5,14 @@ const url = import.meta.env.VITE_PUBLIC_URL;
 
 export const fetchhAllNewTables = createAsyncThunk(
   "dashboard/fetchhAllNewTables", // Tipo de acción
-  async ({ token, idSection,message }, thunkAPI) => {
+  async ({ token, idSection, message }, thunkAPI) => {
     try {
-     if(message) messageRedux.initialMessageTable()
+      if (message) messageRedux.initialMessageTable();
       const resUser = await fetch(
         `${url}/process-status/completed-users/${idSection}`,
         {
           headers: {
+            "ngrok-skip-browser-warning": "true",
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
@@ -30,21 +31,21 @@ export const fetchhAllNewTables = createAsyncThunk(
       // En caso de error (por ejemplo, error de red)
       return thunkAPI.rejectWithValue(error.message);
     } finally {
-      if(message) messageRedux.messageUpdateList();
+      if (message) messageRedux.messageUpdateList();
     }
   }
 );
 
 export const getAllPeding = createAsyncThunk(
   "dashboard/getAllPeding", // Tipo de acción
-  async ({ token, idSection,message }, thunkAPI) => {
-    
+  async ({ token, idSection, message }, thunkAPI) => {
     try {
-      if(message) messageRedux.initialMessageTable()
+      if (message) messageRedux.initialMessageTable();
       const resUser = await fetch(
         `${url}/process-status/corrected/${idSection}`,
         {
           headers: {
+            "ngrok-skip-browser-warning": "true",
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
@@ -63,20 +64,21 @@ export const getAllPeding = createAsyncThunk(
       // En caso de error (por ejemplo, error de red)
       return thunkAPI.rejectWithValue(error.message);
     } finally {
-     if(message) messageRedux.messageUpdateList();
+      if (message) messageRedux.messageUpdateList();
     }
   }
 );
 
 export const getAllPedingUnresolved = createAsyncThunk(
   "dashboard/getAllPedingUnresolved", // Tipo de acción
-  async ({ token, idSection ,message }, thunkAPI) => {
+  async ({ token, idSection, message }, thunkAPI) => {
     try {
-      if(message) messageRedux.initialMessageTable()
+      if (message) messageRedux.initialMessageTable();
       const resUser = await fetch(
         `${url}/process-status/unresolved-documents/${idSection}`,
         {
           headers: {
+            "ngrok-skip-browser-warning": "true",
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
@@ -95,27 +97,23 @@ export const getAllPedingUnresolved = createAsyncThunk(
       // En caso de error (por ejemplo, error de red)
       return thunkAPI.rejectWithValue(error.message);
     } finally {
-      if(message) messageRedux.messageUpdateList();
+      if (message) messageRedux.messageUpdateList();
     }
   }
 );
 
-
-
 export const getAllPlataform = createAsyncThunk(
   "dashboard/getAllPlataform", // Tipo de acción
-  async ({token},thunkAPI) => {
+  async ({ token }, thunkAPI) => {
     try {
       messageRedux.initialMessageTable();
-      const resUser = await fetch(
-        `${url}/user/roles/platform-operators`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const resUser = await fetch(`${url}/user/roles/platform-operators`, {
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       // Si la respuesta no es OK (por ejemplo 404, 500, etc.)
       if (!resUser.ok) {

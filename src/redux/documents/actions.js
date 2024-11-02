@@ -10,15 +10,15 @@ export const getAllDocumentsSection = createAsyncThunk(
 
     const response = await fetch(`${url}/section-type-document`, {
       headers: {
+        "ngrok-skip-browser-warning": "true",
         "Content-Type": "application/json",
         Authorization: `Bearer ${JSON.parse(token)}`, // No es necesario JSON.parse si el token es una cadena.
       },
     });
 
     const data = await response.json();
-    console.log(data,"viendo data docuemnt");
-    
+    console.log(data, "viendo data docuemnt");
+
     return data;
   }
 );
-

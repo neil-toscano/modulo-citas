@@ -9,8 +9,7 @@ import { useDispatch } from "react-redux";
 import { getAllDocumentsSection } from "@/redux/documents/actions";
 
 const PrivateRoute = ({ children, requiredRole }) => {
-  
-  
+
   const dispatch = useDispatch();
   const { setUser, setAllUser, setDocumentSection } = useProduct();
 
