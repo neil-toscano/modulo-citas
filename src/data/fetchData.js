@@ -81,7 +81,7 @@ async function postFileOne(token, file, typeId, type, idFileInput) {
   const document = await fetch(url, {
     method: "POST",
     headers: {
-      // "ngrok-skip-browser-warning": "true",
+      "ngrok-skip-browser-warning": "true",
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
