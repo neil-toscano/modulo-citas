@@ -117,24 +117,46 @@ const ButtonUpdate = ({
     }
   };
 
+
+  const handleLinkPdf = async (fileUrl) => {
+    try {
+      const response = await fetch(`${url}/${fileUrl}`, {
+        headers: {
+          'ngrok-skip-browser-warning': 'true', // O cualquier valor
+        },
+      });
+
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+      } else {
+        console.error('Error fetching the PDF:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }; 
+
   return (
     <>
       {/* si hay documento muestra*/}
 
       {stateOk[getfileName] && (
         <div className="flex gap-2 self-start lg:self-end  md:self-end sm:self-end ">
-          <Link
+          <div
             className={"self-end"}
-            target="_blank"
-            to={`${url}/${matchingFile?.fileUrl}`}
+            // target="_blank"
+            // to={`${url}/${matchingFile?.fileUrl}`}
           >
             <Button
+            onClick={()=>handleLinkPdf(matchingFile?.fileUrl)}
               variant="gradient"
               gradient={{ from: "pink", to: "red", deg: 90 }}
             >
               <FaFilePdf />
             </Button>
-          </Link>
+          </div>
 
           <Button
             className="self-end"

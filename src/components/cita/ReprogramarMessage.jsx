@@ -75,8 +75,8 @@ function ReprogramarMessage({ id, token, message,setRefresh,refresh }) {
               </h3>
               <p>
                 {" "}
-                Al reprogramar tu cita,nos pondremos en contacto contigo para confirmar la nueva
-                disponibilidad. Esta acción no puede deshacerse. ¿Deseas
+                Al reprogramar tu cita, nos pondremos en contacto con usted para confirmar la nueva
+                disponibilidad. ¿Deseas
                 continuar con la reprogramación de la cita?
               </p>
 

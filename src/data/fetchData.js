@@ -81,7 +81,8 @@ async function postFileOne(token, file, typeId, type, idFileInput) {
   const document = await fetch(url, {
     method: "POST",
     headers: {
-      // "ngrok-skip-browser-warning": "true","Content-Type": "application/json",
+      "ngrok-skip-browser-warning": "true",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: formData,
@@ -703,25 +704,7 @@ async function LoginFormPost(data) {
     apellido_materno: resPagoOnline.usuario.apellido_materno,
     email: resPagoOnline.usuario.email,
   };
-  // todo solo usalo fuera del trabajo
-  // let bodyForm;
-  // if (data.dni === "60702651") {
-  //   bodyForm = {
-  //     documentNumber: "60702651",
-  //     email: "jacoborosseau@gmail.com",
-  //     firstName: "NEIL",
-  //     apellido_paterno: "TOSCANO",
-  //     apellido_materno: "FERNANDEZ",
-  //   };
-  // } else if (data.dni === "76735903") {
-  //   bodyForm = {
-  //     documentNumber: "76735903",
-  //     email: "76735963@CERTUS.EDU.PE",
-  //     firstName: "EMMA",
-  //     apellido_paterno: "ABREGU",
-  //     apellido_materno: "LOPEZ",
-  //   };
-  // }
+
 
   const url = `${import.meta.env.VITE_PUBLIC_URL}/auth/login`;
   const resProcess = await fetch(url, {

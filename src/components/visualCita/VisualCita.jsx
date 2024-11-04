@@ -42,6 +42,9 @@ const VisualCita = ({ id, token }) => {
             - En caso de representante legal: Carta poder legalizada o vigencia
             de poder; según corresponda.
           </p>
+          <p className="text-1xl lg:text-2xl md:text-2xl">
+            - Traer sus documentos: Físicos y originales.
+          </p>
         </div>
       </div>
     </div>

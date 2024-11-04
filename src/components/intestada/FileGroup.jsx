@@ -56,7 +56,7 @@ const FileGroup = ({
   };
 
   const handleFileMultiple = (file, typeId, name, idFile) => {
-    if (file.type !== "application/pdf") {
+    if (file?.type !== "application/pdf") {
       notifications.show({
         id: 10,
         withCloseButton: true,

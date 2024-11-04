@@ -1,5 +1,4 @@
-
-import  {  useState } from "react";
+import { useState } from "react";
 import { FaFilePdf } from "react-icons/fa6";
 import { RiInboxUnarchiveFill } from "react-icons/ri";
 import { ActionIcon, Button, FileInput, Pill } from "@mantine/core";
@@ -159,6 +158,26 @@ const FileGroupFollow = ({
     }
   };
 
+  const handleLinkPdf = async (fileUrl) => {
+    try {
+      const response = await fetch(`${url}/${fileUrl}`, {
+        headers: {
+          "ngrok-skip-browser-warning": "true", // O cualquier valor
+        },
+      });
+
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, "_blank");
+      } else {
+        console.error("Error fetching the PDF:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <>
       {" "}
@@ -219,22 +238,21 @@ const FileGroupFollow = ({
                   : "self-end"
               }`}
             >
-              <Link
+              <div
                 className={
                   getfile.status == "OBSERVADO" && !(view == 2)
                     ? "self-center"
                     : "self-end"
                 }
-                target="_blank"
-                to={`${url}/${pdfLink || getfile.fileUrl}`}
               >
                 <Button
+                  onClick={() => handleLinkPdf(getfile.fileUrl)}
                   variant="gradient"
                   gradient={{ from: "pink", to: "red", deg: 90 }}
                 >
                   <FaFilePdf />
                 </Button>
-              </Link>{" "}
+              </div>{" "}
               {stateOk[getfile.typeDocument.name] &&
                 getfile.status == "OBSERVADO" && (
                   <Button

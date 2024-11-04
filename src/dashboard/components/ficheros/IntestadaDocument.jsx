@@ -37,6 +37,28 @@ const IntestadaDocument = ({
     setRefresh(allInProcess);
   };
 
+
+  const handleLinkPdf = async (fileUrl) => {
+    try {
+      const response = await fetch(`${url}/${fileUrl}`, {
+        headers: {
+          'ngrok-skip-browser-warning': 'true', // O cualquier valor
+        },
+      });
+
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, '_blank');
+      } else {
+        console.error('Error fetching the PDF:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }; 
+
+
   return (
     <div className="flex flex-col gap-3">
       {documentUser?.map((getfile, index) => (
@@ -71,15 +93,16 @@ const IntestadaDocument = ({
                 {getfile.status}
               </Button>
             )}
-            <Link target="_blank" to={`${url}/${getfile.fileUrl}`}>
+            {/* <Link target="_blank" to={`${url}/${getfile.fileUrl}`}> */}
               <Button
+              onClick={()=>handleLinkPdf(getfile.fileUrl)}
                 leftSection={<FaFilePdf size={14} />}
                 variant="filled"
                 color="red"
               >
                 VER
               </Button>
-            </Link>
+            {/* </Link> */}
             {getfile.status === "OBSERVADO" && (
               <ModalObservadoText id={getfile.id} token={token} />
             )}

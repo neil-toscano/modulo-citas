@@ -29,12 +29,12 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
 
   useEffect(() => {
     const verifyFileUser = async () => {
-      const res = await dataApi.getProcessFile(user.token, idDocument);
+      const res = await dataApi.getProcessFile(user.token, dataDocument.sectionId);
       const CompletFileInput = await dataApi.getCompletFilesInputs(
         user.token,
         dataDocument.sectionId
       );
-      console.log(CompletFileInput,"viendo files api");
+ 
       
       
       const incomplete = res?.status !== "INCOMPLETO";
@@ -46,7 +46,7 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
 
       if (incomplete && errorStatus && completo) setActive(3);
     };
-    verifyFileUser();
+    if(dataDocument?.sectionId) verifyFileUser();
     // Limpiar o reiniciar los estados cuando cambie el idDocument
     setActive(0);
     setEstadoOk({});
@@ -55,9 +55,8 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
     setMemoryProcess([]);
    
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [countFile, idDocument]);
+  }, [countFile, dataDocument]);
      //estados a confirmar
-     console.log(files,"all files");
   const nextStep = async () => {
     //asegurate que llene el formulario
     if (active === 1) {
