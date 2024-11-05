@@ -72,24 +72,29 @@ async function updateDocumentFile(fileUrl, token, idFileDocument) {
 async function postFileOne(token, file, typeId, type, idFileInput) {
   const formData = new FormData();
   formData.append("file", file);
+  
 
   const url = `${import.meta.env.VITE_PUBLIC_URL}/files/pdf`;
   const document = await fetch(url, {
     method: "POST",
     headers: {
-     "Content-Type": "application/json",
+    //  "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: formData,
   });
 
   const res = await document.json();
-
+  console.log(res ,"viendo repuesta del res pdf");
+  
   if (type == "seguimiento") {
     return res;
   }
   if (type === "update") {
+    
     const updateFile = await updateDocumentFile(res, token, idFileInput);
+    console.log(updateFile,"viendo return del file");
+    
     return updateFile;
   }
   const resAsync = await postFileAsynId(res, typeId, token, idFileInput);

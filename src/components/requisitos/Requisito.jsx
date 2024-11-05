@@ -10,8 +10,6 @@ import { useProduct } from "@/provider/ProviderContext";
 import LodingFile from "../loading/LodingFile";
 
 const Requisito = ({ dataDocument, inestadaReq }) => {
-
-  
   const idDocument = dataDocument?.sectionId;
   const { user } = useProduct();
   const [active, setActive] = useState(0);
@@ -29,14 +27,15 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
 
   useEffect(() => {
     const verifyFileUser = async () => {
-      const res = await dataApi.getProcessFile(user.token, dataDocument.sectionId);
+      const res = await dataApi.getProcessFile(
+        user.token,
+        dataDocument.sectionId
+      );
       const CompletFileInput = await dataApi.getCompletFilesInputs(
         user.token,
         dataDocument.sectionId
       );
- 
-      
-      
+
       const incomplete = res?.status !== "INCOMPLETO";
       const completo = res?.status !== "COMPLETO";
       const errorStatus =
@@ -46,17 +45,17 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
 
       if (incomplete && errorStatus && completo) setActive(3);
     };
-    if(dataDocument?.sectionId) verifyFileUser();
+    if (dataDocument?.sectionId) verifyFileUser();
     // Limpiar o reiniciar los estados cuando cambie el idDocument
     setActive(0);
     setEstadoOk({});
     setFiles({});
     setCompletFileInput([]);
     setMemoryProcess([]);
-   
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countFile, dataDocument]);
-     //estados a confirmar
+  //estados a confirmar
   const nextStep = async () => {
     //asegurate que llene el formulario
     if (active === 1) {
