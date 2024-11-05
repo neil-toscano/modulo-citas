@@ -40,11 +40,7 @@ const IntestadaDocument = ({
 
   const handleLinkPdf = async (fileUrl) => {
     try {
-      const response = await fetch(`${url}/${fileUrl}`, {
-        headers: {
-          'ngrok-skip-browser-warning': 'true', // O cualquier valor
-        },
-      });
+      const response = await fetch(`${url}/${fileUrl}`);
 
       if (response.ok) {
         const blob = await response.blob();

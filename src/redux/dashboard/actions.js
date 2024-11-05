@@ -12,7 +12,6 @@ export const fetchhAllNewTables = createAsyncThunk(
         `${url}/process-status/completed-users/${idSection}`,
         {
           headers: {
-            "ngrok-skip-browser-warning": "true",
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
@@ -45,7 +44,6 @@ export const getAllPeding = createAsyncThunk(
         `${url}/process-status/corrected/${idSection}`,
         {
           headers: {
-            "ngrok-skip-browser-warning": "true",
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
@@ -78,7 +76,6 @@ export const getAllPedingUnresolved = createAsyncThunk(
         `${url}/process-status/unresolved-documents/${idSection}`,
         {
           headers: {
-            "ngrok-skip-browser-warning": "true",
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
@@ -109,7 +106,6 @@ export const getAllPlataform = createAsyncThunk(
       messageRedux.initialMessageTable();
       const resUser = await fetch(`${url}/user/roles/platform-operators`, {
         headers: {
-          "ngrok-skip-browser-warning": "true",
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },

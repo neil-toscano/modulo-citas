@@ -6,7 +6,6 @@ async function tokenLoginUser(token) {
   try {
     const response = await axios.get(url, {
       headers: {
-        "ngrok-skip-browser-warning": "true",
         "Content-Type": "application/json",
         Authorization: `Bearer ${JSON.parse(token)}`,
       },

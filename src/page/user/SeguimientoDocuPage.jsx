@@ -61,7 +61,7 @@ const SeguimientoDocuPage = () => {
         setFilesArray(data);
         const validCitaFetch = await dataApi.getValidCita(token, id);
         const veryReserva = await dataApi.verifyCita(token, id);
-
+        
         setValidCita(validCitaFetch);
         if (
           resVeryStatus?.status === "INCOMPLETO" ||
@@ -99,6 +99,7 @@ const SeguimientoDocuPage = () => {
             idcita: veryReserva.appointment.id,
             message: veryReserva.appointment.message,
           });
+          
           setView(4);
         }
       } finally {
@@ -213,7 +214,7 @@ const SeguimientoDocuPage = () => {
                 />
               )}
               <div className="flex gap-3">
-                {(view == 4 && mixto == 0) ||
+                {
                   (validCita?.processStatus?.status === "CITA_PROGRAMADA" && (
                     <Button
                       onClick={() => handleViewCita(id)}
