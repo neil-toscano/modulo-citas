@@ -10,10 +10,8 @@ const CitaPage = () => {
   const { data: allCita = [], refetch } = useQuery({
     queryKey: ['citaReserv'], // Clave de la consulta
     queryFn: () => dataApi.getAllCitaReserv(user.token),
-    staleTime: 60000, // Mantiene los datos en caché durante 60 segundos
     refetchInterval: 30000, // Refresca automáticamente cada 30 segundos
     enabled: !!user.token, // Solo ejecuta si el token está disponible
-    cacheTime: 60000, // Mantener datos en caché durante 60 segundos
     refetchOnWindowFocus: true,
   });
 

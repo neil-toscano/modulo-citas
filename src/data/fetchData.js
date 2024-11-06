@@ -3,7 +3,7 @@ async function sectionDocument(token) {
   const document = await fetch(url, {
     method: "GET",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${JSON.parse(token)}`,
     },
   });
@@ -17,7 +17,7 @@ async function sectionDocument2(token) {
   const document = await fetch(url, {
     method: "GET",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -38,7 +38,7 @@ async function postFileAsynId(fileUrl, typeId, token, idFileDocument) {
   const document = await fetch(url, {
     method: "POST",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(jsonBody),
@@ -59,7 +59,7 @@ async function updateDocumentFile(fileUrl, token, idFileDocument) {
   const document = await fetch(url, {
     method: "PATCH",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(jsonBody),
@@ -72,29 +72,27 @@ async function updateDocumentFile(fileUrl, token, idFileDocument) {
 async function postFileOne(token, file, typeId, type, idFileInput) {
   const formData = new FormData();
   formData.append("file", file);
-  
 
   const url = `${import.meta.env.VITE_PUBLIC_URL}/files/pdf`;
   const document = await fetch(url, {
     method: "POST",
     headers: {
-    //  "Content-Type": "application/json",
+      //  "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: formData,
   });
 
   const res = await document.json();
-  console.log(res ,"viendo repuesta del res pdf");
-  
+  console.log(res, "viendo repuesta del res pdf");
+
   if (type == "seguimiento") {
     return res;
   }
   if (type === "update") {
-    
     const updateFile = await updateDocumentFile(res, token, idFileInput);
-    console.log(updateFile,"viendo return del file");
-    
+    console.log(updateFile, "viendo return del file");
+
     return updateFile;
   }
   const resAsync = await postFileAsynId(res, typeId, token, idFileInput);
@@ -107,7 +105,7 @@ async function getFilesUser(id, token) {
   const url = `${import.meta.env.VITE_PUBLIC_URL}/documents/section/${id}`;
   const document = await fetch(url, {
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -129,7 +127,7 @@ async function updateFile(token, file, id, newStatus = false) {
   const document = await fetch(url, {
     method: "PATCH",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(jsonBody),
@@ -148,7 +146,7 @@ async function updateStatus(token, status, id, details = null, admi = false) {
   const document = await fetch(url, {
     method: "PATCH",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(jsonBody),
@@ -186,7 +184,7 @@ async function getIdUserDocument(token, id) {
   }/documents/super-user/sections/${id}`;
   const document = await fetch(url, {
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -201,7 +199,7 @@ async function getValidCita(token, id) {
   }/process-status/is-eligible-for-appointment/${id}`;
   const document = await fetch(url, {
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -213,7 +211,7 @@ async function getTimeCita(token) {
   const url = `${import.meta.env.VITE_PUBLIC_URL}/schedule`;
   const document = await fetch(url, {
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -241,7 +239,7 @@ async function verifyCita(token, id) {
   const url = `${import.meta.env.VITE_PUBLIC_URL}/appointment/verify/${id}`;
   const verify = await fetch(url, {
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -256,7 +254,7 @@ async function getSuperUser(token, idSection) {
   }/user-permissions/platform-operators/${idSection}`;
   const verify = await fetch(url, {
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -271,7 +269,7 @@ async function getSuperTime(token, id, time) {
   }/appointment/week/${id}?date=${time} `;
   const resTime = await fetch(url, {
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -297,7 +295,7 @@ async function getCreateCita(
   const resTime = await fetch(url, {
     method: "POST",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(fecha),
@@ -313,7 +311,7 @@ async function getUserOneCard(token, idSection) {
   }/process-status/next-review/${idSection} `;
   const resUser = await fetch(url, {
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -328,7 +326,7 @@ async function getUserDocumentSection(token, idSection, userId) {
   }/admin/section/documents/${idSection}/${userId} `;
   const resUser = await fetch(url, {
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -341,7 +339,7 @@ async function getAllCitaReserv(token) {
   const url = `${import.meta.env.VITE_PUBLIC_URL}/appointment`;
   const resUser = await fetch(url, {
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -355,7 +353,7 @@ async function sendEmailUser(token, email) {
   const resUser = await fetch(url, {
     method: "POST",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -370,7 +368,7 @@ async function getPedingOne(token, idSection) {
   }/process-status/next-corrected/${idSection}`;
   const resUser = await fetch(url, {
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -386,7 +384,7 @@ async function deleteCita(token, idSection, idUser) {
   const resUser = await fetch(url, {
     method: "DELETE",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -402,7 +400,7 @@ async function deleteHisoryUser(token, idSection, userId) {
   const resUser = await fetch(url, {
     method: "DELETE",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -418,7 +416,7 @@ async function postTokenVerifyEmail(token) {
   const resUser = await fetch(url, {
     method: "POST",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
     },
   });
 
@@ -460,7 +458,7 @@ async function getAllPedingCita(token) {
   }/documents/all-valid/without-appointment`;
   const resUser = await fetch(url, {
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -473,7 +471,7 @@ async function getProcessFile(token, id) {
   const url = `${import.meta.env.VITE_PUBLIC_URL}/process-status/${id}`;
   const resProcess = await fetch(url, {
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -486,7 +484,7 @@ async function getCompletFilesInputs(token, id) {
   const url = `${import.meta.env.VITE_PUBLIC_URL}/documents/section/${id}`;
   const resProcess = await fetch(url, {
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -504,7 +502,7 @@ async function CreateAsingSection(token, sectionId, idUser) {
   const resProcess = await fetch(url, {
     method: "POST",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(bodyJson),
@@ -518,7 +516,7 @@ async function getValueAccess(token, userId) {
   const url = `${import.meta.env.VITE_PUBLIC_URL}/user-permissions/${userId}`;
   const resProcess = await fetch(url, {
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -532,7 +530,7 @@ async function deleteValueAccess(token, id) {
   const resProcess = await fetch(url, {
     method: "DELETE",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -549,7 +547,7 @@ async function updateMessageCite(token, idCita, message) {
   const resProcess = await fetch(url, {
     method: "PATCH",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(bodyJson),
@@ -566,7 +564,7 @@ async function sendObserDocument(token, email) {
   const resProcess = await fetch(url, {
     method: "POST",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -582,7 +580,7 @@ async function sendVeryDocument(token, email) {
   const resProcess = await fetch(url, {
     method: "POST",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -607,7 +605,7 @@ async function startTramiteDocument(token, idProcess, status = false) {
   const resProcess = await fetch(url, {
     method: "PATCH",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(bodyJson),
@@ -622,15 +620,19 @@ async function startTramiteDocument(token, idProcess, status = false) {
 const urlPagoOnline = import.meta.env.VITE_PUBLIC_URL_PAGO_ONLLINE;
 
 async function tokenAccesPagoOnline() {
-  const url = `${urlPagoOnline}/login-acceso?email=${
-    import.meta.env.VITE_PUBLIC_EMAIL_ONLINE
-  }&password=${import.meta.env.VITE_PUBLIC_PASSWORD_ONLINE}${
-    import.meta.env.VITE_PUBLIC_NUMBER
-  }sjl`;
+  const bodyJson = {
+    email: `${import.meta.env.VITE_PUBLIC_EMAIL_ONLINE}`,
+    password: `${import.meta.env.VITE_PUBLIC_PASSWORD_ONLINE}${
+      import.meta.env.VITE_PUBLIC_NUMBER
+    }sjl`,
+  };
+
+  const url = `${urlPagoOnline}/login-acceso`;
   const resToken = await fetch(url, {
     method: "POST",
+    body: JSON.stringify(bodyJson),
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
     },
   });
 
@@ -646,7 +648,7 @@ async function LoginPagoOnline(data) {
   const resLogin = await fetch(url, {
     method: "POST",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${tokenOnline}`,
     },
   });
@@ -673,12 +675,11 @@ async function LoginFormPost(data) {
     email: resPagoOnline.usuario.email,
   };
 
-
   const url = `${import.meta.env.VITE_PUBLIC_URL}/auth/login`;
   const resProcess = await fetch(url, {
     method: "POST",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(bodyForm),
   });
@@ -700,7 +701,7 @@ async function CreateUserPagoOnline(data) {
   const resProcess = await fetch(url, {
     method: "POST",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${tokenOnline}`,
     },
   });
@@ -739,7 +740,7 @@ async function CreateUserLogin(data) {
   const resProcess = await fetch(url, {
     method: "POST",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(bodyForm),
   });
@@ -755,7 +756,7 @@ async function UpdateUserLogin(data) {
   const resProcess = await fetch(url, {
     method: "PATCH",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
@@ -770,7 +771,7 @@ async function ResetPassword(dni) {
   const resProcess = await fetch(url, {
     method: "POST",
     headers: {
-     "Content-Type": "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${tokenOnline}`,
     },
   });
