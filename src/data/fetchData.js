@@ -77,14 +77,13 @@ async function postFileOne(token, file, typeId, type, idFileInput) {
   const document = await fetch(url, {
     method: "POST",
     headers: {
-      //  "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: formData,
   });
 
   const res = await document.json();
-  console.log(res, "viendo repuesta del res pdf");
+
 
   if (type == "seguimiento") {
     return res;
@@ -616,65 +615,11 @@ async function startTramiteDocument(token, idProcess, status = false) {
   return res;
 }
 
-// todo login para el usuario
-const urlPagoOnline = import.meta.env.VITE_PUBLIC_URL_PAGO_ONLLINE;
-
-async function tokenAccesPagoOnline() {
-  const bodyJson = {
-    email: `${import.meta.env.VITE_PUBLIC_EMAIL_ONLINE}`,
-    password: `${import.meta.env.VITE_PUBLIC_PASSWORD_ONLINE}${
-      import.meta.env.VITE_PUBLIC_NUMBER
-    }sjl`,
-  };
-
-  const url = `${urlPagoOnline}/login-acceso`;
-  const resToken = await fetch(url, {
-    method: "POST",
-    body: JSON.stringify(bodyJson),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  const res = await resToken.json();
-
-  return res.access_token;
-}
-
-async function LoginPagoOnline(data) {
-  const tokenOnline = await tokenAccesPagoOnline();
-
-  const url = `${urlPagoOnline}/inicio-sesion?codigo=${data.dni}&password=${data.password}`;
-  const resLogin = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${tokenOnline}`,
-    },
-  });
-
-  const res = await resLogin.json();
-  return res;
-}
-
 async function LoginFormPost(data) {
-  // todo: solo usalo en el trabajo
-  const resPagoOnline = await LoginPagoOnline(data);
-
-  if (!resPagoOnline.success) {
-    return {
-      error: true,
-      message: resPagoOnline?.message || resPagoOnline?.errors.codigo,
-    };
-  }
   const bodyForm = {
-    documentNumber: resPagoOnline.usuario.numero_documento,
-    firstName: resPagoOnline.usuario.nombres,
-    apellido_paterno: resPagoOnline.usuario.apellido_paterno,
-    apellido_materno: resPagoOnline.usuario.apellido_materno,
-    email: resPagoOnline.usuario.email,
+    documentNumber: data.dni,
+    password: data.password,
   };
-
   const url = `${import.meta.env.VITE_PUBLIC_URL}/auth/login`;
   const resProcess = await fetch(url, {
     method: "POST",
@@ -689,52 +634,43 @@ async function LoginFormPost(data) {
   return res;
 }
 
-async function CreateUserPagoOnline(data) {
-  const tokenOnline = await tokenAccesPagoOnline();
-  const queryString =
-    `numero_documento=${data.dni}&correo=${data.email}&nombres=${data.firstName}` +
-    `&apellido_paterno=${data.apellido_paterno}&contrasena=${data.password}` +
-    `&tipo_documento_identidad=${2}` +
-    `&razon_social=${""}&apellido_materno=${data.apellido_materno}`;
+// async function CreateUserPagoOnline(data) {
+//   const tokenOnline = await tokenAccesPagoOnline();
+//   const queryString =
+//     `numero_documento=${data.dni}&correo=${data.email}&nombres=${data.firstName}` +
+//     `&apellido_paterno=${data.apellido_paterno}&contrasena=${data.password}` +
+//     `&tipo_documento_identidad=${2}` +
+//     `&razon_social=${""}&apellido_materno=${data.apellido_materno}`;
 
-  const url = `${urlPagoOnline}/registrar?${queryString}`;
-  const resProcess = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${tokenOnline}`,
-    },
-  });
+//   const url = `${urlPagoOnline}/registrar?${queryString}`;
+//   const resProcess = await fetch(url, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: `Bearer ${tokenOnline}`,
+//     },
+//   });
 
-  const res = await resProcess.json();
-  return res;
-}
+//   const res = await resProcess.json();
+//   return res;
+// }
 
 async function CreateUserLogin(data) {
-  const resPagoOnline = await CreateUserPagoOnline(data);
-  if (!resPagoOnline.success) {
-    if (resPagoOnline?.errors.numero_documento) {
-      return {
-        error: true,
-        message: resPagoOnline.errors.numero_documento,
-      };
-    } else if (resPagoOnline?.errors.correo) {
-      return {
-        error: true,
-        message: resPagoOnline.errors.correo,
-      };
-    }
-  }
-  const bodyForm = {
-    documentNumber: resPagoOnline.usuario.numero_documento,
-    firstName: resPagoOnline.usuario.nombres,
-    apellido_paterno: resPagoOnline.usuario.apellido_paterno,
-    apellido_materno: resPagoOnline.usuario.apellido_materno,
-    email: resPagoOnline.usuario.email,
-    address: data.address,
-    mobileNumber: data.mobileNumber,
-    district: data.district,
-  };
+  // const resPagoOnline = await CreateUserPagoOnline(data);
+  // if (!resPagoOnline.success) {
+  //   if (resPagoOnline?.errors.numero_documento) {
+  //     return {
+  //       error: true,
+  //       message: resPagoOnline.errors.numero_documento,
+  //     };
+  //   } else if (resPagoOnline?.errors.correo) {
+  //     return {
+  //       error: true,
+  //       message: resPagoOnline.errors.correo,
+  //     };
+  //   }
+  // }
+
 
   const url = `${import.meta.env.VITE_PUBLIC_URL}/auth/register`;
   const resProcess = await fetch(url, {
@@ -742,7 +678,7 @@ async function CreateUserLogin(data) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(bodyForm),
+    body: JSON.stringify(data),
   });
 
   const res = await resProcess.json();

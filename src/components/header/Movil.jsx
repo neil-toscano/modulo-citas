@@ -11,9 +11,9 @@ function Movil({ Followid, role }) {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
-    <nav className="bg-white bg-blue px-10 flex justify-between items-center py-5">
+    <nav className="bg-white bg-blue nav-header  px-10 flex justify-between items-center py-5">
       <div className="flex gap-3 justify-center items-center mr-3">
-        <Avatar variant="filled" radius="sm" color="lime" src="" />
+        <Avatar variant="filled" radius="sm" color="#F1A405" src="" />
         <p className="font-semibold text-white uppercase">
           {user.firstName} {user.apellido_paterno} {user.apellido_materno}
         </p>
@@ -25,7 +25,7 @@ function Movil({ Followid, role }) {
             {role === "super user" && <NewHeaderDashboard />}
             {role !== "super user" && <Header Followid={Followid} />}
           </Drawer>
-          <Burger color="lime" onClick={open} aria-label="Toggle navigation" />
+          <Burger color="#F1A405" onClick={open} aria-label="Toggle navigation" />
         </>
       )}
       {role === "administrator" && (

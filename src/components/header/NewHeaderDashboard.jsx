@@ -8,6 +8,7 @@ import { useProduct } from "@/provider/ProviderContext";
 import { BsCalendar2DateFill } from "react-icons/bs";
 import Logout from "../buttons/Logout";
 import { useQuery } from "@tanstack/react-query";
+import logoSjl from "@/assets/logo_blanco_sjl.png";
 import dataApi from "@/data/fetchData";
 const data2 = [
   {
@@ -46,14 +47,13 @@ const NewHeaderDashboard = ({ Followid }) => {
     retry: false,
   });
 
-
   const [countProcess, setCountProcess] = useState(0);
   const location = useLocation();
   const arrayPathname = location.pathname.split("/");
   const slug = arrayPathname[arrayPathname.length - 1];
 
   useEffect(() => {
-    const totalCount = documentSection.reduce((acc, item) => {
+    const totalCount = documentSection?.reduce((acc, item) => {
       const completeStatus = item.statusCounts.filter(
         (status) => status.status === "EN_PROCESO"
       );
@@ -72,7 +72,7 @@ const NewHeaderDashboard = ({ Followid }) => {
   }, [documentSection]);
   // Usa useMemo para memorizar el cálculo de items y pendientes
   const documentNew = useMemo(() => {
-    return documentSection.map((data, index) => ({
+    return documentSection?.map((data, index) => ({
       ...data,
       ...(data2[index] || {}),
     }));
@@ -95,8 +95,12 @@ const NewHeaderDashboard = ({ Followid }) => {
           </div>
         }
         description="Documentos que se ingresan por primera vez."
+        // active={`${item.sectionSlug}-nuevos` === slug}
+        active={slug.split("-")[slug.split("-").length - 1] === "nuevos"}
+        color="#F1A405"
+        variant="filled"
       >
-        {documentNew.map((item) => {
+        {documentNew?.map((item) => {
           const WithCompleteStatus = item.statusCounts.find(
             (itemStatus) => itemStatus.status === "EN_PROCESO"
           );
@@ -123,8 +127,7 @@ const NewHeaderDashboard = ({ Followid }) => {
                 }
                 description={item.description}
                 leftSection={<item.icon size="1rem" stroke={1.5} />}
-                color="lime"
-                variant="filled"
+                color="#F1A405"
               />
             </Link>
           );
@@ -134,7 +137,7 @@ const NewHeaderDashboard = ({ Followid }) => {
   }, [countProcess, documentNew, slug]); // Dependencias
 
   const pedientes = useMemo(() => {
-    return documentNew.map((item) => {
+    return documentNew?.map((item) => {
       const WithCompleteStatusOb = item.statusCounts.find(
         (itemStatus) => itemStatus.status === "OBSERVADO"
       );
@@ -179,7 +182,7 @@ const NewHeaderDashboard = ({ Followid }) => {
             }
             description={item.description}
             leftSection={<item.icon size="1rem" stroke={1.5} />}
-            color="lime"
+            color="#F1A405"
             variant="filled"
           >
             <Link
@@ -201,7 +204,7 @@ const NewHeaderDashboard = ({ Followid }) => {
                   </div>
                 }
                 description="Documentos que el usuario ya corrigió"
-                color="lime"
+                color="#F1A405"
               />
             </Link>
             <Link
@@ -209,7 +212,7 @@ const NewHeaderDashboard = ({ Followid }) => {
             >
               <NavLink
                 active={`${item.sectionSlug}-pendientes-no-corregido` === slug}
-                color="lime"
+                color="#F1A405"
                 label={
                   <div className="flex gap-3">
                     PENDIENTE NO CORREGIDO{" "}
@@ -235,18 +238,29 @@ const NewHeaderDashboard = ({ Followid }) => {
 
   const follows = useMemo(() => {
     return (
-      <Link to={`/dashboard/cita-reservada`}>
+      // <Link to={`/dashboard/cita-reservada`}>
+
+      <NavLink
+      active={slug === "cita-reservada"}
+      label="LISTA DE CITAS RESERVADAS"
+      description="Visualizar todas las citas reservadas."
+      leftSection={<BsCalendar2DateFill />}
+      color="#F1A405"
+      variant="filled"
+    >
+      {documentNew?.map((item) => (
         <NavLink
-          active={slug === "cita-reservada"}
-          label={"LISTA DE CITAS RESERVADAS"}
-          description={"Visualizar todas las citas reservadas."}
-          leftSection={<BsCalendar2DateFill />}
-          color="lime"
-          variant="filled"
+          key={item.id}
+          to={`/dashboard/cita-reservada/${item.id}`}  // Suponiendo que cada cita tiene una URL única
+          label={item.label}  // Mostrar el nombre o descripción de la cita
+          leftSection={<item.icon size="1rem" stroke={1.5} />}
+          color="#F1A405"
         />
-      </Link>
+      ))}
+    </NavLink>
+      // </Link>
     );
-  }, [slug]); // Dependencias
+  }, [documentNew, slug]); // Dependencias
 
   // if (loading) {
   //   return <HeaderSkeleton />;
@@ -255,6 +269,11 @@ const NewHeaderDashboard = ({ Followid }) => {
   return (
     <div className="w-full headerdas flex gap-0 flex-col justify-between items-center py-4  text-[white]">
       <div className="w-full flex flex-col items-center gap-4">
+        <img
+          className="logo-header"
+          src={logoSjl}
+          alt="san juan de lurigancho citas"
+        />
         <h1 className="text-center text-[1.4rem] font-semibold">
           Navegación de administrador
         </h1>

@@ -6,7 +6,7 @@ import { FaHouseUser } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import Logout from "../buttons/Logout";
 import { Link, useLocation } from "react-router-dom";
-
+import logoSjl from "@/assets/logo_blanco_sjl.png";
 const data2 = [
   {
     icon: RiFolderUserFill,
@@ -33,7 +33,6 @@ const Header = () => {
   const { allDocumets } = useSelector((state) => state.DocumentsGlobalRedux);
   const arrayPhatname = location.pathname.split("/");
 
-
   const slug = arrayPhatname[arrayPhatname.length - 1];
   const documentNew = allDocumets.map((data, index) => ({
     ...data,
@@ -48,7 +47,7 @@ const Header = () => {
         label={item.sectionName}
         description={item.description}
         leftSection={<item.icon size="1rem" stroke={1.5} />}
-        color="lime"
+        color="#F1A405"
         variant="filled"
       />
     </Link>
@@ -69,7 +68,7 @@ const Header = () => {
           label={item.sectionName}
           description={item.description}
           leftSection={<item.icon size="1rem" stroke={1.5} />}
-          color="lime"
+          color="#F1A405"
           variant="filled"
         />
       </Link>
@@ -77,8 +76,13 @@ const Header = () => {
   });
 
   return (
-    <div className="w-full flex h-full gap-0 flex-col justify-between  items-center  py-4 bg-[#365f96] text-[white]">
+    <div className="w-full flex h-full gap-0 flex-col justify-between  items-center  py-4 header-bg-image text-[white]">
       <div className="w-full flex flex-col items-center  gap-4">
+        <img
+          className="logo-header"
+          src={logoSjl}
+          alt="san juan de lurigancho citas"
+        />
         <h1 className="text-center text-[1.4rem] font-semibold">
           ¿Qué trámite desea realizar?
           <Divider my="xs" label="TRAMITES" labelPosition="center" />
