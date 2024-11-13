@@ -37,7 +37,7 @@ const AppRoutes = () => {
           path="/dashboard"
           element={<PrivateRoute requiredRole="platform-operator" />}
         >
-          <Route path="cita-reservada/:id" element={<CitaPage />} />
+          <Route path="cita-reservada/:idsection" element={<CitaPage />} />
           <Route path="files/:namesection/:id" element={<FilesPage />} />
           <Route path="revision/:namesection/:id" element={<RevisionPage />} />
           <Route path="documento/:namesection" element={<DocumentoPage />} />

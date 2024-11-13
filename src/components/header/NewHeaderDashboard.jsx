@@ -104,7 +104,6 @@ const NewHeaderDashboard = ({ Followid }) => {
           const WithCompleteStatus = item.statusCounts.find(
             (itemStatus) => itemStatus.status === "EN_PROCESO"
           );
-
           return (
             <Link
               to={`${item.link}${item.sectionSlug}-nuevos?idnuevo=${item.sectionId}`}
@@ -250,8 +249,8 @@ const NewHeaderDashboard = ({ Followid }) => {
     >
       {documentNew?.map((item) => (
         <NavLink
-          key={item.id}
-          to={`/dashboard/cita-reservada/${item.id}`}  // Suponiendo que cada cita tiene una URL única
+          key={item.sectionId}
+          href={`/dashboard/cita-reservada/${item.sectionId}`}  // Suponiendo que cada cita tiene una URL única
           label={item.label}  // Mostrar el nombre o descripción de la cita
           leftSection={<item.icon size="1rem" stroke={1.5} />}
           color="#F1A405"

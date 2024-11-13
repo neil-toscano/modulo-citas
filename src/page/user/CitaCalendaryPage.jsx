@@ -15,11 +15,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 const CitaCalendaryPage = () => {
   const { user } = useProduct();
-  const [memoryTime, setMemoryTime] = useState([]);
   const [dataTime, setDataTime] = useState([]);
-  const [dataSuperName, setDataSuperName] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [idSuper, setIdSuper] = useState(null);
   const [idTime, setIdTime] = useState(null);
   const [disable, setDisable] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -36,17 +33,10 @@ const CitaCalendaryPage = () => {
       setTimeInitial(validCitaFetch?.processStatus?.updatedAt);
 
       try {
-        const resSuper = await dataApi.getSuperUser(user.token, id);
         const resHorario = await dataApi.getTimeCita(user.token);
-        let nameSuperArray = [];
+        console.log(resHorario,"horarios");
+        
         let horarioArray = [];
-
-        resSuper.forEach((adm) => {
-          nameSuperArray.push({
-            value: adm.user.id,
-            label: `${adm.user.firstName} ${adm.user.apellido_paterno} ${adm.user.apellido_materno}`,
-          });
-        });
         resHorario.forEach((time) => {
           horarioArray.push({
             value: time.id,
@@ -54,9 +44,7 @@ const CitaCalendaryPage = () => {
           });
         });
 
-        setDataSuperName(nameSuperArray);
         setDataTime(horarioArray);
-        setMemoryTime(horarioArray);
       } finally {
         setLoading(false);
       }
@@ -70,25 +58,26 @@ const CitaCalendaryPage = () => {
     const timeAvilid = async () => {
       setDisable(true);
 
-      if (idSuper && selectedDate) {
-        const getTimes = await dataApi.getSuperTime(
+      if (selectedDate) {
+        //new horarios enpoint
+
+        const getTimes = await  await dataApi.getSuperTime(
           user.token,
-          idSuper,
-          selectedDate
+          selectedDate,
+          id
         );
 
-        // Obtener todos los IDs de horarios
-        const idsToDisable = getTimes.map((item) => item.schedule.id);
+        let horarioArray = [];
+        getTimes.forEach((time) => {
+          horarioArray.push({
+            value: time.scheduleId,
+            label: `${time.startTime} ${time.endTime}`,
+            disabled: time.status !== 'DISPONIBLE'
+          });
+        });
 
-        // Actualizar el estado de dataTime usando el estado anterior
-        const newDataTime = memoryTime.map((item) => ({
-          ...item,
-          disabled: idsToDisable.includes(item.value)
-            ? true
-            : item.disabled || false,
-        }));
         setDisable(false);
-        setDataTime(newDataTime);
+        setDataTime(horarioArray);
 
         // setSelectedDate(null);
       }
@@ -96,10 +85,14 @@ const CitaCalendaryPage = () => {
 
     timeAvilid();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idSuper, selectedDate, update]);
+  }, [selectedDate, update]);
+
+  // setIdTime(null);
+
+
 
   const handleCreateCita = async () => {
-    if (idTime && idSuper && selectedDate) {
+    if (idTime && selectedDate) {
       setLoading(true);
       notifications.show({
         id: id,
@@ -118,10 +111,10 @@ const CitaCalendaryPage = () => {
       user.token,
       id,
       idTime,
-      idSuper,
       selectedDate
     );
-
+   console.log(res,"mensajes de creando cita");
+   
     //todo valida si ya tiene cita de verdad
     await dataApi.verifyCita(user.token, id);
     if (res.error) {
@@ -140,7 +133,7 @@ const CitaCalendaryPage = () => {
       navigate(0);
       return;
     }
-    if (res.status === "PENDING") {
+    if (res.status === "OPEN") {
       setLoading(false);
       notifications.update({
         id: id,
@@ -172,11 +165,6 @@ const CitaCalendaryPage = () => {
     }
   };
 
-  const handleAdmi = (value) => {
-    setIdSuper(value);
-    setIdTime(null);
-  };
-
   return (
     <>
       <div className="body-grid">
@@ -198,13 +186,6 @@ const CitaCalendaryPage = () => {
               <div className="">
                 <div className="flex gap-3 mb-4 ">
                   <Select
-                    label="Seleccione la persona que lo atenderá"
-                    placeholder="ejemplo: Raúl Gonzales"
-                    data={dataSuperName}
-                    onChange={(value) => handleAdmi(value)}
-                  />
-
-                  <Select
                     label="Seleccione primero una fecha"
                     placeholder="Click aquí elige horario"
                     data={dataTime}
@@ -221,7 +202,7 @@ const CitaCalendaryPage = () => {
                 />
                 <div className="mt-3">
                   <Button
-                  disabled={(!idTime || !idSuper) || !selectedDate}
+                    disabled={!idTime || !selectedDate}
                     variant="filled"
                     color="green"
                     onClick={handleCreateCita}

@@ -155,9 +155,10 @@ body {
 /* .m_8d3f4000{
     background: linear-gradient(90deg, #fa5252 0%, #e64980 100%) !important;
   } */
-main {
+  /* todo main heigh*/
+/* main {
   min-height: 100vh;
-}
+} */
 /* .m_5df29311{
     height: calc(100vh - 60px); raro
   } */

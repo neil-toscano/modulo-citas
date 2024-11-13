@@ -3,13 +3,15 @@ import TablesCita from "@/dashboard/components/tableUser/TableCitas";
 import dataApi from "@/data/fetchData";
 import { useProduct } from "@/provider/ProviderContext";
 import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 
 const CitaPage = () => {
   const { user } = useProduct();
-
+  const { idsection } = useParams();
+  
   const { data: allCita = [], refetch } = useQuery({
     queryKey: ['citaReserv'], // Clave de la consulta
-    queryFn: () => dataApi.getAllCitaReserv(user.token),
+    queryFn: () => dataApi.getAllCitaReserv(user.token,idsection),
     refetchInterval: 30000, // Refresca automáticamente cada 30 segundos
     enabled: !!user.token, // Solo ejecuta si el token está disponible
     refetchOnWindowFocus: true,

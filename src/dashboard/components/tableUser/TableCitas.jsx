@@ -13,6 +13,7 @@ export default function TablesCita({allUser}) {
   const [opened, { open, close }] = useDisclosure(false);
   const Navigate = useNavigate()
 
+
  
   React.useEffect(() => {
     if (allUser) {
@@ -43,8 +44,14 @@ export default function TablesCita({allUser}) {
     open(); // Abre el modal
   };
 
-  const handleInformationClick = (sectionId, reservedById,slug,email) => () => {
-    Navigate(`/dashboard/revision/${slug}/${reservedById}?id=${sectionId}&email=${email}`)
+  const handleInformationClick = (sectionId, reservedById,slug,email,id) => () => {
+    Navigate(`/dashboard/revision/${slug}/${reservedById}?id=${sectionId}&email=${email}&idCita=${id}`,{
+      state: { 
+        id: sectionId,
+        email,
+        idCita:id, 
+      },
+    })
   };
 
   const columns = [
@@ -58,7 +65,7 @@ export default function TablesCita({allUser}) {
           key={id}
           icon={<IoEyeSharp size={20} />}
           label="Información"
-          onClick={handleInformationClick(row.sectionId, row.reservedById,row.slug,row.email)}
+          onClick={handleInformationClick(row.sectionId, row.reservedById,row.slug,row.email,row.id)}
         />,
       ],
     },

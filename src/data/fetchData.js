@@ -25,6 +25,22 @@ async function sectionDocument2(token) {
 
   return resDocument;
 }
+
+async function appointmentHistory(token, userId, sectionId) {
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/appointment-history`;
+  const document = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ userId, sectionId }),
+  });
+  const resDocument = document.json();
+
+  return resDocument;
+}
+
 async function postFileAsynId(fileUrl, typeId, token, idFileDocument) {
   const jsonBody = {
     sectionId: typeId,
@@ -84,13 +100,11 @@ async function postFileOne(token, file, typeId, type, idFileInput) {
 
   const res = await document.json();
 
-
   if (type == "seguimiento") {
     return res;
   }
   if (type === "update") {
     const updateFile = await updateDocumentFile(res, token, idFileInput);
-    console.log(updateFile, "viendo return del file");
 
     return updateFile;
   }
@@ -141,7 +155,7 @@ async function updateStatus(token, status, id, details = null, admi = false) {
   const url = admi
     ? `${import.meta.env.VITE_PUBLIC_URL}/documents/admin/${id}`
     : `${import.meta.env.VITE_PUBLIC_URL}/documents/${id}`;
-  console.log(url, "viendo body");
+
   const document = await fetch(url, {
     method: "PATCH",
     headers: {
@@ -262,10 +276,10 @@ async function getSuperUser(token, idSection) {
   return res;
 }
 
-async function getSuperTime(token, id, time) {
+async function getSuperTime(token, time, idSection) {
   const url = `${
     import.meta.env.VITE_PUBLIC_URL
-  }/appointment/week/${id}?date=${time} `;
+  }/appointment/week/${idSection}?date=${time}`;
   const resTime = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -277,11 +291,11 @@ async function getSuperTime(token, id, time) {
   return res;
 }
 
+// creacion de cita
 async function getCreateCita(
   token,
   idSection,
   scheduleId,
-  userId,
   dataTime,
   reprograme = true
 ) {
@@ -290,7 +304,7 @@ async function getCreateCita(
     : { appointmentDate: dataTime, isFirstTime: false };
   const url = `${
     import.meta.env.VITE_PUBLIC_URL
-  }/appointment/${idSection}/${scheduleId}/${userId} `;
+  }/appointment/${idSection}/${scheduleId}`;
   const resTime = await fetch(url, {
     method: "POST",
     headers: {
@@ -334,8 +348,10 @@ async function getUserDocumentSection(token, idSection, userId) {
   return res;
 }
 
-async function getAllCitaReserv(token) {
-  const url = `${import.meta.env.VITE_PUBLIC_URL}/appointment`;
+async function getAllCitaReserv(token, idSection) {
+  const url = `${
+    import.meta.env.VITE_PUBLIC_URL
+  }/appointment/section/${idSection}`;
   const resUser = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -422,34 +438,6 @@ async function postTokenVerifyEmail(token) {
   const res = await resUser.json();
   return res;
 }
-
-// async function RecupePasswordEmail(email) {
-//   const url = `${import.meta.env.VITE_PUBLIC_URL}/auth/reset-password?email=${email}`;
-//   const resUser = await fetch(url, {
-//     method: "POST",
-//     headers: {
-//       "ngrok-skip-browser-warning": "true","Content-Type": "application/json",
-//     },
-//   });
-
-//   const res = await resUser.json();
-//   return res;
-// }
-
-// async function newPassword(token, password) {
-//   const jsonNewPassword = { password: password };
-//   const url = `${import.meta.env.VITE_PUBLIC_URL}/auth/set-password?token=${token}`;
-//   const resUser = await fetch(url, {
-//     method: "POST",
-//     headers: {
-//       "ngrok-skip-browser-warning": "true","Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(jsonNewPassword),
-//   });
-
-//   const res = await resUser.json();
-//   return res;
-// }
 
 async function getAllPedingCita(token) {
   const url = `${
@@ -556,6 +544,22 @@ async function updateMessageCite(token, idCita, message) {
   return res;
 }
 
+async function updateFileReport(token, idCita, file) {
+  const newFile = await postFileOne(token, file, null, null);
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/appointment/${idCita}`;
+  const resProcess = await fetch(url, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ fileUrl: newFile }),
+  });
+
+  const res = await resProcess.json();
+  return res;
+}
+
 async function sendObserDocument(token, email) {
   const url = `${
     import.meta.env.VITE_PUBLIC_URL
@@ -566,6 +570,21 @@ async function sendObserDocument(token, email) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
+  });
+
+  const res = await resProcess.json();
+  return res;
+}
+
+async function processHistory(token, sectionId, userId, state) {
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/process-history`;
+  const resProcess = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ sectionId, userId, state }),
   });
 
   const res = await resProcess.json();
@@ -671,7 +690,6 @@ async function CreateUserLogin(data) {
   //   }
   // }
 
-
   const url = `${import.meta.env.VITE_PUBLIC_URL}/auth/register`;
   const resProcess = await fetch(url, {
     method: "POST",
@@ -718,6 +736,7 @@ async function ResetPassword(dni) {
 
 //getCompletFilesInputs
 const dataApi = {
+  processHistory,
   sectionDocument2,
   ResetPassword,
   updateDocumentFile,
@@ -756,6 +775,8 @@ const dataApi = {
   sectionDocument,
   postFileOne,
   updateFile,
+  appointmentHistory,
+  updateFileReport,
 };
 
 export default dataApi;

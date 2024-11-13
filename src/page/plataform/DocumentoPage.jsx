@@ -71,9 +71,9 @@ const DocumentoPage = () => {
         idSectionSubPendiente,
         dispatch,
       }),
-    refetchInterval: 10000, // Intervalo de actualización
-    staleTime: 30000, // Considerar datos frescos durante 30 segundos
-    cacheTime: 60000, // Mantener datos en caché durante 60 segundos
+    // refetchInterval: 10000, // Intervalo de actualización
+    // staleTime: 30000, // Considerar datos frescos durante 30 segundos
+    // cacheTime: 60000, // Mantener datos en caché durante 60 segundos
     refetchOnWindowFocus: true, // si revalidar al enfocar la ventana
     onError: (error) => {
       console.error("Error fetching data:", error);

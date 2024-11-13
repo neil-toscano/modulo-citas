@@ -23,7 +23,7 @@ const FilesPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  //   const idSection = params.slug[1];
+
   const { id: idSection } = useParams();
   const nuevoQuery = searchParams.get("nuevo"); // nuevo pendiente o no pendiente
   const pendienteQuery = searchParams.get("pendiente");
@@ -112,12 +112,14 @@ const FilesPage = () => {
     });
     let message = false;
     if (verified) {
+       await dataApi.processHistory(user.token,idSection ,documentUser[0].user.id,"VERIFICADO")
       const emailSendVery = await dataApi.sendVeryDocument(
         user.token,
         documentUser[0].user.email 
       );
       message = emailSendVery.message;
     } else if (ObserFile) {
+      await dataApi.processHistory(user.token,idSection ,documentUser[0].user.id,"OBSERVADO")
       const emailSendObser = await dataApi.sendObserDocument(
         user.token,
         documentUser[0]?.user?.email
