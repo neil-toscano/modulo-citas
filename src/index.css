@@ -188,7 +188,7 @@ body {
 }
 .header-bg-image {
   min-height: calc(100vh - 80px) !important;
-  background: url(https://plataformavirtual.munisjl.gob.pe/recursos-sjl/admin/banner.jpg) !important;
+  background: url(@/assets/fondoBlue.webp) !important;
   background-size: cover !important;
 }
 .greenyellow {
@@ -218,7 +218,7 @@ body {
 .mantine-Drawer-body,
 .mantine-Drawer-header,
 .nav-header {
-  background: url(https://plataformavirtual.munisjl.gob.pe/recursos-sjl/admin/banner.jpg) !important;
+  background: url(@/assets/fondoBlue.webp) !important;
   background-size: cover !important;
 }
 .mantine-NavLink-label {
