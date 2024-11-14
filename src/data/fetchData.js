@@ -112,7 +112,23 @@ async function postFileOne(token, file, typeId, type, idFileInput) {
 
   return resAsync;
 }
+async function postFileOneReport(token, file) {
+  const formData = new FormData();
+  formData.append("file", file);
 
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/files/pdf`;
+  const FileRes = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+
+  const res = await FileRes.json();
+  return res;
+
+}
 async function getFilesUser(id, token) {
   // const url = `${import.meta.env.VITE_PUBLIC_URL}/documents/${id}`;
   const url = `${import.meta.env.VITE_PUBLIC_URL}/documents/section/${id}`;
@@ -545,7 +561,9 @@ async function updateMessageCite(token, idCita, message) {
 }
 
 async function updateFileReport(token, idCita, file) {
-  const newFile = await postFileOne(token, file, null, null);
+  console.log(file,"viendo file enviado");
+  
+  const newFile = await postFileOneReport(token, file);
   const url = `${import.meta.env.VITE_PUBLIC_URL}/appointment/${idCita}`;
   const resProcess = await fetch(url, {
     method: "PATCH",
@@ -553,7 +571,7 @@ async function updateFileReport(token, idCita, file) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ fileUrl: newFile }),
+    body: JSON.stringify({ fileUrl: newFile.fileUrl }),
   });
 
   const res = await resProcess.json();

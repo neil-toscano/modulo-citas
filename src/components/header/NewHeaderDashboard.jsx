@@ -240,23 +240,26 @@ const NewHeaderDashboard = ({ Followid }) => {
       // <Link to={`/dashboard/cita-reservada`}>
 
       <NavLink
-      active={slug === "cita-reservada"}
-      label="LISTA DE CITAS RESERVADAS"
-      description="Visualizar todas las citas reservadas."
-      leftSection={<BsCalendar2DateFill />}
-      color="#F1A405"
-      variant="filled"
-    >
-      {documentNew?.map((item) => (
-        <NavLink
-          key={item.sectionId}
-          href={`/dashboard/cita-reservada/${item.sectionId}`}  // Suponiendo que cada cita tiene una URL única
-          label={item.label}  // Mostrar el nombre o descripción de la cita
-          leftSection={<item.icon size="1rem" stroke={1.5} />}
-          color="#F1A405"
-        />
-      ))}
-    </NavLink>
+        active={slug === "cita-reservada"}
+        label="LISTA DE CITAS RESERVADAS"
+        description="Visualizar todas las citas reservadas."
+        leftSection={<BsCalendar2DateFill />}
+        color="#F1A405"
+        variant="filled"
+      >
+        {documentNew?.map((item) => (
+          <Link
+            key={item.sectionId}
+            to={`/dashboard/cita-reservada/${item.sectionId}`}
+          >
+            <NavLink
+              label={item.label} // Mostrar el nombre o descripción de la cita
+              leftSection={<item.icon size="1rem" stroke={1.5} />}
+              color="#F1A405"
+            />
+          </Link>
+        ))}
+      </NavLink>
       // </Link>
     );
   }, [documentNew, slug]); // Dependencias

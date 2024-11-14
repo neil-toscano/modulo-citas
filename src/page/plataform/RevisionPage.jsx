@@ -60,7 +60,7 @@ const RevisionPage = () => {
     const sendEmail = await dataApi.sendEmailUser(user.token, emailUser);
 
     if (sendEmail.data.emailSent) {
-      await dataApi.updateFileReport(user.token,idCita,FileReport)
+      await dataApi.updateFileReport(user.token,idCita,reportFile)
       await dataApi.deleteHisoryUser(user.token, idSection, idUserParams);
       await dataApi.appointmentHistory(user.token, idUserParams, idSection);
       notifications.update({
