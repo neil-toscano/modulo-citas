@@ -113,6 +113,7 @@ const CitaCalendaryPage = () => {
       idTime,
       selectedDate
     );
+
    console.log(res,"mensajes de creando cita");
    
     //todo valida si ya tiene cita de verdad
