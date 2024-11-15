@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
@@ -10,11 +9,13 @@ import dataApi from "@/data/fetchData";
 import { useProduct } from "@/provider/ProviderContext";
 import { notifications } from "@mantine/notifications";
 
+
 export default function TableAsignacion({ allUser, dataSelect, nameSection }) {
   const { user } = useProduct();
   const [rows, setRows] = React.useState(allUser);
   const [selectValue, setSelectValue] = React.useState([]);
   const [memoryGetPermiss, setMemoryGetPermiss] = React.useState([]);
+ 
 
   React.useEffect(() => {
     const formattedUsers = allUser.map((user) => ({
@@ -205,58 +206,61 @@ export default function TableAsignacion({ allUser, dataSelect, nameSection }) {
   ];
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        height: "100%",
-        overflow: "auto",
-        "& .actions": {
-          color: "text.secondary",
-        },
-        "& .textPrimary": {
-          color: "text.primary",
-        },
-        "& .MuiDataGrid-root": {
-          backgroundColor: "#ffffff", // Fondo verde amarillento modificado
-          border: "1px solid #ccc", // Añadir una rejilla general
-        },
-        "& .MuiDataGrid-columnHeaders": {
-          backgroundColor: "#9e9d24", // Encabezado verde
-          color: "#000000", // Texto blanco en el encabezado
-        },
-        "& .MuiDataGrid-cell": {
-          borderRight: "1px solid #e0e0e0", // Bordes suaves entre celdas
-          borderBottom: "1px solid #e0e0e0", // Bordes suaves entre filas
-        },
-        "& .MuiDataGrid-footerContainer": {
-          backgroundColor: "#ffffff", // Footer verde
-          color: "#fff", // Texto blanco en el footer
-        },
-        "& .fila-par": {
-          backgroundColor: "#edffee", // Color de fondo para filas pares
-        },
-        "& .fila-impar": {
-          backgroundColor: "#ffffff", // Color de fondo para filas impares
-        },
-      }}
-    >
-      <DataGrid
-        autoHeight
-        rows={rows}
-        columns={columns}
-        editMode="row"
-        getRowId={(row) => row.id}
-        getRowClassName={(params) =>
-          params.indexRelativeToCurrentPage % 2 === 0
-            ? "fila-par"
-            : "fila-impar"
-        }
+    <>
+      <Box
         sx={{
-          minWidth: "100%",
-          overflow: "hidden",
+          width: "100%",
+          height: "100%",
+          overflow: "auto",
+          "& .actions": {
+            color: "text.secondary",
+          },
+          "& .textPrimary": {
+            color: "text.primary",
+          },
+          "& .MuiDataGrid-root": {
+            backgroundColor: "#ffffff", // Fondo verde amarillento modificado
+            border: "1px solid #ccc", // Añadir una rejilla general
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            backgroundColor: "#9e9d24", // Encabezado verde
+            color: "#000000", // Texto blanco en el encabezado
+          },
+          "& .MuiDataGrid-cell": {
+            borderRight: "1px solid #e0e0e0", // Bordes suaves entre celdas
+            borderBottom: "1px solid #e0e0e0", // Bordes suaves entre filas
+          },
+          "& .MuiDataGrid-footerContainer": {
+            backgroundColor: "#ffffff", // Footer verde
+            color: "#fff", // Texto blanco en el footer
+          },
+          "& .fila-par": {
+            backgroundColor: "#edffee", // Color de fondo para filas pares
+          },
+          "& .fila-impar": {
+            backgroundColor: "#ffffff", // Color de fondo para filas impares
+          },
         }}
-        localeText={esLocaleText} // Aplicar el idioma en español
-      />
-    </Box>
+      >
+        <DataGrid
+       
+          autoHeight
+          rows={rows}
+          columns={columns}
+          editMode="row"
+          getRowId={(row) => row.id}
+          getRowClassName={(params) =>
+            params.indexRelativeToCurrentPage % 2 === 0
+              ? "fila-par"
+              : "fila-impar"
+          }
+          sx={{
+            minWidth: "100%",
+            overflow: "hidden",
+          }}
+          localeText={esLocaleText} // Aplicar el idioma en español
+        />
+      </Box>
+    </>
   );
 }

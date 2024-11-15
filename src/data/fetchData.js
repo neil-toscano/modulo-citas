@@ -127,7 +127,6 @@ async function postFileOneReport(token, file) {
 
   const res = await FileRes.json();
   return res;
-
 }
 async function getFilesUser(id, token) {
   // const url = `${import.meta.env.VITE_PUBLIC_URL}/documents/${id}`;
@@ -440,6 +439,123 @@ async function deleteHisoryUser(token, idSection, userId) {
   return res;
 }
 
+async function PageHistoryProcess(
+  token,
+  limit = 2,
+  offset = 0,
+  fromDate,
+  toDate,
+  sectionId
+) {
+  // Construir la URL base
+  const baseUrl = `${import.meta.env.VITE_PUBLIC_URL}/process-history`;
+
+  // Crear los parámetros de la URL
+  const params = new URLSearchParams({
+    pageSize: limit,
+    page: offset - 1,  // Corregir el offset si es necesario
+  });
+
+  // Añadir parámetros opcionales solo si están presentes
+  if (fromDate) params.append("fromDate", fromDate);
+  if (toDate) params.append("toDate", toDate);
+  if (sectionId) params.append("sectionId", sectionId);
+
+  // Construir la URL completa con los parámetros
+  const url = `${baseUrl}?${params.toString()}`;
+
+  // Realizar la petición
+  const resUser = await fetch(url, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  // Devolver la respuesta en formato JSON
+  const res = await resUser.json();
+  return res;
+}
+
+async function PageHistoryReporte(
+  token,
+  limit = 2,
+  offset = 0,
+  fromDate,
+  toDate,
+  sectionId
+) {
+  // Construir la URL base
+  const baseUrl = `${import.meta.env.VITE_PUBLIC_URL}/appointment-history`;
+
+  // Crear los parámetros de la URL
+  const params = new URLSearchParams({
+    pageSize: limit,
+    page: offset - 1,  // Corregir el offset si es necesario
+  });
+
+  // Añadir parámetros opcionales solo si están presentes
+  if (fromDate) params.append("fromDate", fromDate);
+  if (toDate) params.append("toDate", toDate);
+  if (sectionId) params.append("sectionId", sectionId);
+
+  // Construir la URL completa con los parámetros
+  const url = `${baseUrl}?${params.toString()}`;
+
+  // Realizar la petición
+  const resUser = await fetch(url, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  // Devolver la respuesta en formato JSON
+  const res = await resUser.json();
+  return res;
+}
+
+async function HistoryCitaApi(
+  token,
+  limit = 2,
+  offset = 0,
+  fromDate,
+  toDate,
+  sectionId,
+  status,
+) {
+  // Construir la URL base
+  const baseUrl = `${import.meta.env.VITE_PUBLIC_URL}/appointment/filter`;
+
+  // Crear los parámetros de la URL
+  const params = new URLSearchParams({
+    pageSize: limit,
+    page: offset - 1,  // Corregir el offset si es necesario
+  });
+
+  // Añadir parámetros opcionales solo si están presentes
+  if (fromDate) params.append("fromDate", fromDate);
+  if (status) params.append("status", status);
+  if (toDate) params.append("toDate", toDate);
+  if (sectionId) params.append("sectionId", sectionId);
+
+  // Construir la URL completa con los parámetros
+  const url = `${baseUrl}?${params.toString()}`;
+
+  // Realizar la petición
+  const resUser = await fetch(url, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  // Devolver la respuesta en formato JSON
+  const res = await resUser.json();
+  return res;
+}
+
+
 async function postTokenVerifyEmail(token) {
   const url = `${
     import.meta.env.VITE_PUBLIC_URL
@@ -561,8 +677,8 @@ async function updateMessageCite(token, idCita, message) {
 }
 
 async function updateFileReport(token, idCita, file) {
-  console.log(file,"viendo file enviado");
-  
+  console.log(file, "viendo file enviado");
+
   const newFile = await postFileOneReport(token, file);
   const url = `${import.meta.env.VITE_PUBLIC_URL}/appointment/${idCita}`;
   const resProcess = await fetch(url, {
@@ -671,42 +787,9 @@ async function LoginFormPost(data) {
   return res;
 }
 
-// async function CreateUserPagoOnline(data) {
-//   const tokenOnline = await tokenAccesPagoOnline();
-//   const queryString =
-//     `numero_documento=${data.dni}&correo=${data.email}&nombres=${data.firstName}` +
-//     `&apellido_paterno=${data.apellido_paterno}&contrasena=${data.password}` +
-//     `&tipo_documento_identidad=${2}` +
-//     `&razon_social=${""}&apellido_materno=${data.apellido_materno}`;
 
-//   const url = `${urlPagoOnline}/registrar?${queryString}`;
-//   const resProcess = await fetch(url, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${tokenOnline}`,
-//     },
-//   });
-
-//   const res = await resProcess.json();
-//   return res;
-// }
 
 async function CreateUserLogin(data) {
-  // const resPagoOnline = await CreateUserPagoOnline(data);
-  // if (!resPagoOnline.success) {
-  //   if (resPagoOnline?.errors.numero_documento) {
-  //     return {
-  //       error: true,
-  //       message: resPagoOnline.errors.numero_documento,
-  //     };
-  //   } else if (resPagoOnline?.errors.correo) {
-  //     return {
-  //       error: true,
-  //       message: resPagoOnline.errors.correo,
-  //     };
-  //   }
-  // }
 
   const url = `${import.meta.env.VITE_PUBLIC_URL}/auth/register`;
   const resProcess = await fetch(url, {
@@ -738,13 +821,11 @@ async function UpdateUserLogin(data) {
 }
 
 async function ResetPassword(dni) {
-  const tokenOnline = await tokenAccesPagoOnline();
-  const url = `${urlPagoOnline}/recuperar-credenciales?numero_documento=${dni}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/reset-password?documentNumber${dni}`;
   const resProcess = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${tokenOnline}`,
     },
   });
 
@@ -754,6 +835,7 @@ async function ResetPassword(dni) {
 
 //getCompletFilesInputs
 const dataApi = {
+  HistoryCitaApi,
   processHistory,
   sectionDocument2,
   ResetPassword,
@@ -795,6 +877,8 @@ const dataApi = {
   updateFile,
   appointmentHistory,
   updateFileReport,
+  PageHistoryProcess,
+  PageHistoryReporte,
 };
 
 export default dataApi;

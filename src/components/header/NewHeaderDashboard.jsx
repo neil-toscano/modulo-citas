@@ -51,6 +51,7 @@ const NewHeaderDashboard = ({ Followid }) => {
   const location = useLocation();
   const arrayPathname = location.pathname.split("/");
   const slug = arrayPathname[arrayPathname.length - 1];
+  const slug2 = arrayPathname[arrayPathname.length - 2];
 
   useEffect(() => {
     const totalCount = documentSection?.reduce((acc, item) => {
@@ -126,7 +127,7 @@ const NewHeaderDashboard = ({ Followid }) => {
                 }
                 description={item.description}
                 leftSection={<item.icon size="1rem" stroke={1.5} />}
-                color="#F1A405"
+                color="#f2ca00"
               />
             </Link>
           );
@@ -203,7 +204,7 @@ const NewHeaderDashboard = ({ Followid }) => {
                   </div>
                 }
                 description="Documentos que el usuario ya corrigió"
-                color="#F1A405"
+                color="#f2ca00"
               />
             </Link>
             <Link
@@ -211,7 +212,7 @@ const NewHeaderDashboard = ({ Followid }) => {
             >
               <NavLink
                 active={`${item.sectionSlug}-pendientes-no-corregido` === slug}
-                color="#F1A405"
+                color="#f2ca00"
                 label={
                   <div className="flex gap-3">
                     PENDIENTE NO CORREGIDO{" "}
@@ -240,7 +241,7 @@ const NewHeaderDashboard = ({ Followid }) => {
       // <Link to={`/dashboard/cita-reservada`}>
 
       <NavLink
-        active={slug === "cita-reservada"}
+        active={slug2 === "cita-reservada"}
         label="LISTA DE CITAS RESERVADAS"
         description="Visualizar todas las citas reservadas."
         leftSection={<BsCalendar2DateFill />}
@@ -255,7 +256,8 @@ const NewHeaderDashboard = ({ Followid }) => {
             <NavLink
               label={item.label} // Mostrar el nombre o descripción de la cita
               leftSection={<item.icon size="1rem" stroke={1.5} />}
-              color="#F1A405"
+              color="#f2ca00"
+              active={slug === item.sectionId}
             />
           </Link>
         ))}
@@ -264,9 +266,7 @@ const NewHeaderDashboard = ({ Followid }) => {
     );
   }, [documentNew, slug]); // Dependencias
 
-  // if (loading) {
-  //   return <HeaderSkeleton />;
-  // }
+ 
 
   return (
     <div className="w-full headerdas flex gap-0 flex-col justify-between items-center py-4  text-[white]">
@@ -277,7 +277,7 @@ const NewHeaderDashboard = ({ Followid }) => {
           alt="san juan de lurigancho citas"
         />
         <h1 className="text-center text-[1.4rem] font-semibold">
-          Navegación de administrador
+          Navegación de Plataformista
         </h1>
         <div>
           <Divider

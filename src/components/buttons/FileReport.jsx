@@ -7,7 +7,7 @@ function FileReport({reportFile: file , setReportFile:setFile}) {
       <Group justify="center">
         <FileButton onChange={setFile} accept="application/pdf,.pdf">
           {(props) => (
-            <Button color="red" {...props}>
+            <Button variant="filled" color="indigo" {...props}>
               SUBIR CARGO
             </Button>
           )}

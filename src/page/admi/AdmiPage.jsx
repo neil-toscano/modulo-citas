@@ -8,11 +8,13 @@ import { FaFilePdf } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import pdfManual from "@/assets/pdf/ADMINISTRADOR.pdf"
 
+
 const AdmiPage = () => {
   const dispatch = useDispatch();
   const { user } = useProduct();
   const [refresh, setRefresh] = useState(false);
   const { allDocumets } = useSelector((state) => state.DocumentsGlobalRedux);
+
   const { allTablePlataform } = useSelector(
     (state) => state.DashboarAdmidRedux
   );

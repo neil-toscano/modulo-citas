@@ -13,6 +13,9 @@ import CitaCalendaryPage from "../page/user/CitaCalendaryPage";
 import InfoCitaPage from "../page/user/InfoCitaPage";
 import RevisionPage from "../page/plataform/RevisionPage";
 import EmailVerifyPage from "../page/EmailVerifyPage";
+import ReportAtencion from "@/page/admi/ReportAtencion"
+import ReportCargoPdf from "../page/admi/ReportCargoPdf";
+import HistoryCita from "@/page/admi/HistoryCita";
 
 const AppRoutes = () => {
   return (
@@ -49,6 +52,9 @@ const AppRoutes = () => {
           element={<PrivateRoute requiredRole="administrator" />}
         >
           <Route path="asignacion" element={<AdmiPage />} />
+          <Route path="historial-revision" element={<ReportAtencion />} />
+          <Route path="historial-reporte-cargo" element={<ReportCargoPdf />} />
+          <Route path="historial-citas-estatico" element={<HistoryCita />} />
         </Route>
       </Routes>
     </BrowserRouter>
