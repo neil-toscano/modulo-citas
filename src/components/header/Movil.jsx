@@ -22,7 +22,7 @@ function Movil({ Followid, role }) {
 
       <Drawer className="header-drawer" opened={opened} onClose={close}>
         {role === "super user" && <NewHeaderDashboard />}
-        {(role !== "super user" && role !== "administrator") && <Header Followid={Followid} />}
+        {(role !== "super user" && role !== "administrator") && <Header close={close} Followid={Followid} />}
         {role === "administrator" && <AdmiHeader />}
       </Drawer>
       <Burger color="#F1A405" onClick={open} aria-label="Toggle navigation" />

@@ -28,7 +28,7 @@ const data2 = [
   },
 ];
 
-const Header = () => {
+const Header = ({close}) => {
   const location = useLocation();
   const { allDocumets } = useSelector((state) => state.DocumentsGlobalRedux);
   const arrayPhatname = location.pathname.split("/");
@@ -42,6 +42,7 @@ const Header = () => {
   const tramite = documentNew.map((item, index) => (
     <Link to={item.link} key={index}>
       <NavLink
+        onClick={close}
         key={item.sectionId}
         active={item.sectionSlug == slug && arrayPhatname[2] === "documento"}
         label={item.sectionName}
@@ -65,6 +66,7 @@ const Header = () => {
             `${item.sectionSlug}` === slug &&
             arrayPhatname[2] === "documento-seguimiento"
           }
+          onClick={() =>close()}
           label={item.sectionName}
           description={item.description}
           leftSection={<item.icon size="1rem" stroke={1.5} />}

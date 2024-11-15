@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "@mantine/form";
 import FormLogin from "./FormLogin";
 import FormCreateUser from "./FormCreateUser";
-import sjl from "@/assets/logo.png";
+import sjl from "@/assets/logo2.png";
 import ModalPasswordReset from "../modalview/ModalPasswordReset";
 import HoverInformation from "./HoverInformation";
 const Login = () => {

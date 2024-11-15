@@ -26,7 +26,7 @@ async function sectionDocument2(token) {
   return resDocument;
 }
 
-async function appointmentHistory(token, userId, sectionId) {
+async function appointmentHistory(token, userId, sectionId,appointmentId) {
   const url = `${import.meta.env.VITE_PUBLIC_URL}/appointment-history`;
   const document = await fetch(url, {
     method: "POST",
@@ -34,7 +34,7 @@ async function appointmentHistory(token, userId, sectionId) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ userId, sectionId }),
+    body: JSON.stringify({ userId, sectionId,appointmentId}),
   });
   const resDocument = document.json();
 

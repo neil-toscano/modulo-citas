@@ -62,7 +62,7 @@ const RevisionPage = () => {
     if (sendEmail.data.emailSent) {
       await dataApi.updateFileReport(user.token,idCita,reportFile)
       await dataApi.deleteHisoryUser(user.token, idSection, idUserParams);
-      await dataApi.appointmentHistory(user.token, idUserParams, idSection);
+      await dataApi.appointmentHistory(user.token, idUserParams, idSection,idCita);
       notifications.update({
         id: 40,
         withCloseButton: true,
