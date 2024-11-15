@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .logo-img {
   width: 250px;
 }
@@ -179,14 +180,32 @@ body {
   animation: latido 2s infinite;
 }
 
+
+
+
+
+.bg-img::before{
+  position: absolute;
+  bottom: 0;
+  content: "";
+  width: 100%;
+  height: 30%;
+  background: #ffffff url("@/assets/fondojesus.webp") top center/cover no-repeat;
+}
+
 @media (max-width: 1099px) {
   .body-grid {
     display: flex;
     gap: 0;
     flex-direction: column;
   }
+  .bg-img{
+    height: calc(100vh - 78px);
+   }
+   .bg-img::before{
+    display: none;
+   }
 }
-
 .inputDateFilter {
   border: 2px solid transparent;
   width: 15em;
@@ -209,7 +228,8 @@ body {
 .header-bg-image {
   height: 100vh;
   min-height: calc(100vh - 80px) !important;
-  background: url(@/assets/fondoBlue.webp) !important;
+  /* background: url(@/assets/fondoBlue.webp) !important; */
+  background: #165b4a;
   background-size: cover !important;
 }
 .greenyellow {
@@ -239,7 +259,8 @@ body {
 .mantine-Drawer-body,
 .mantine-Drawer-header,
 .nav-header {
-  background: url(@/assets/fondoBlue.webp) !important;
+  /* background: url(@/assets/fondoBlue.webp) !important; */
+  background: #165b4a !important;
   background-size: cover !important;
 }
 .mantine-NavLink-label {

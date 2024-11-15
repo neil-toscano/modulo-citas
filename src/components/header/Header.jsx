@@ -6,7 +6,7 @@ import { FaHouseUser } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import Logout from "../buttons/Logout";
 import { Link, useLocation } from "react-router-dom";
-import logoSjl from "@/assets/logo_blanco_sjl.png";
+import logoSjl from "@/assets/logo2.png";
 const data2 = [
   {
     icon: RiFolderUserFill,

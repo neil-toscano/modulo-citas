@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import { TbZoomCheckFilled } from "react-icons/tb";
 import Logout from "../buttons/Logout";
 
-import logoSjl from "@/assets/logo_blanco_sjl.png";
+import logoSjl from "@/assets/logo2.png";
 import { FaCalendarAlt, FaFilePdf, FaUserShield } from "react-icons/fa";
 
 const data2 = [

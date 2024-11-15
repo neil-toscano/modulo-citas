@@ -155,7 +155,7 @@ const SeguimientoDocuPage = () => {
       <div className="body-grid">
         {!matches && <Movil Followid={id} />}
         {matches && <Header Followid={id} />}
-        <main className="bg-white relative">
+        <main className="bg-img relative">
           {loadingFile && <LodingFile />}
 
           {matches && (

@@ -18,7 +18,7 @@ const DocumentPage = () => {
     <div className="body-grid">
       {!matches && <Movil />}
       {matches && <Header />}
-      <main className="bg-white w-full relative">
+      <main className="bg-img w-full relative">
         {matches && (
           <Username
             firstName={user.firstName}

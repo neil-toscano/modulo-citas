@@ -8,7 +8,7 @@ import { useProduct } from "@/provider/ProviderContext";
 import { BsCalendar2DateFill } from "react-icons/bs";
 import Logout from "../buttons/Logout";
 import { useQuery } from "@tanstack/react-query";
-import logoSjl from "@/assets/logo_blanco_sjl.png";
+import logoSjl from "@/assets/logo2.png";
 import dataApi from "@/data/fetchData";
 const data2 = [
   {
