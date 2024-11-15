@@ -32,7 +32,7 @@ const data2 = [
   },
   {
     icon: FaCalendarAlt,
-    label: "HISTORIAL CITA ESTÁTICO",
+    label: "HISTORIAL CITA",
     description: "Historial de citas fijas o recurrentes",
     link: "/dashboard/administrador/historial-citas-estatico?pageSize=50&page=1",
     active: "historial-citas-estatico"
