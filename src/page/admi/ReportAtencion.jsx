@@ -43,7 +43,7 @@ const ReportAtencion = () => {
       <main className="bg-white p-10 main-admi relative">
         <div className="flex gap-4 justify-between mb-4">
           <h1 className="text-2xl mb-3 font-bold uppercase">
-            Tabla de Historial Revisiones
+            Tabla de Historial de Atenciones
           </h1>
           <div className="flex gap-3 items-center">
             <Button
