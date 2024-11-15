@@ -7,6 +7,7 @@
   width: 250px;
 }
 .fondo-xd {
+  filter: contrast(50px);
   position: absolute;
   left: 0;
   top: 0;
@@ -229,7 +230,7 @@ body {
   height: 100vh;
   min-height: calc(100vh - 80px) !important;
   /* background: url(@/assets/fondoBlue.webp) !important; */
-  background: #165b4a;
+  background: #f2f2f26b;
   background-size: cover !important;
 }
 .greenyellow {
@@ -260,7 +261,7 @@ body {
 .mantine-Drawer-header,
 .nav-header {
   /* background: url(@/assets/fondoBlue.webp) !important; */
-  background: #165b4a !important;
+  background: #f2f2f26b !important;
   background-size: cover !important;
 }
 .mantine-NavLink-label {
@@ -300,9 +301,13 @@ body {
 .mantine-162lpqd {
   color: white;
 }
-.m_57492dcc {
+/*color navar
+/* .m_57492dcc {
   color: #e4e4e4 !important;
-}
+} */
+ a{
+  color: black;
+ }
 .m_f0824112:where([data-active], [aria-current="page"]) .m_57492dcc {
   color: #ffffff !important;
 }
@@ -313,7 +318,7 @@ body {
 
 @media (hover: hover) {
   :where([data-mantine-color-scheme="light"]) .m_f0824112:hover {
-    background-color: #171717ba !important;
+    background-color: #F1A405 !important;
   }
 }
 

@@ -15,7 +15,7 @@ function Movil({ Followid, role }) {
     <nav className="bg-white bg-blue nav-header  px-10 flex justify-between items-center py-5 sticky top-0 z-[4] ">
       <div className="flex gap-3 justify-center items-center mr-3 ">
         <Avatar variant="filled" radius="sm" color="#F1A405" src="" />
-        <p className="font-semibold text-white uppercase">
+        <p className="font-semibold  uppercase">
           {user.firstName} {user.apellido_paterno} {user.apellido_materno}
         </p>
       </div>

@@ -78,7 +78,7 @@ const Header = ({close}) => {
   });
 
   return (
-    <div className="w-full flex h-full gap-0 flex-col justify-between  items-center  py-4 header-bg-image text-[white]">
+    <div className="w-full flex h-full gap-0 flex-col justify-between  items-center  py-4 header-bg-image">
       <div className="w-full flex flex-col items-center  gap-4">
         <img
           className="logo-header"

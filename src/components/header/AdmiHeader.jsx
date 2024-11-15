@@ -66,7 +66,7 @@ const AdmiHeader = ({ Followid }) => {
   }, [slug]); // Dependencias
 
   return (
-    <div className="w-full headerdas flex gap-0 flex-col justify-between items-center py-4  text-[white]">
+    <div className="w-full headerdas flex gap-0 flex-col justify-between items-center py-4">
       <div className="w-full flex flex-col items-center gap-4">
         <img
           className="logo-header"

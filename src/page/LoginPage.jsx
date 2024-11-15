@@ -1,5 +1,5 @@
 import Login from "@/components/login/Login";
-import fondo from "@/assets/fondojsl.webp";
+import fondo from "@/assets/fondojesus.webp";
 const LoginPage = () => {
   return (
     // login-page
