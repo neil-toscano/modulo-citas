@@ -2,20 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .logo-img {
   width: 250px;
 }
-.fondo-xd {
-  filter: contrast(50px);
+.fondo-login-wp {
+  z-index: -1;
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+}
+.logo-wp-login {
+  position: absolute;
+  top: 50px;
+  width: 400px;
+}
+.fondo-bg-login {
+  background: linear-gradient(rgba(0, 0, 0, 0.229), rgba(0, 0, 0, 0.481)),
+    url(@/assets/pruebawp.jpg) top center/cover no-repeat;
+  width: 100%;
+  height: 100%;
   z-index: -1;
 }
+
 /*SELECT NUMERO DOGBE*/
 .m_347db0ec:where([data-block]) {
   display: flex;
@@ -157,7 +167,7 @@ body {
 /* .m_8d3f4000{
     background: linear-gradient(90deg, #fa5252 0%, #e64980 100%) !important;
   } */
-  /* todo main heigh*/
+/* todo main heigh*/
 /* main {
   min-height: 100vh;
 } */
@@ -181,11 +191,7 @@ body {
   animation: latido 2s infinite;
 }
 
-
-
-
-
-.bg-img::before{
+.bg-img::before {
   position: absolute;
   bottom: 0;
   content: "";
@@ -200,12 +206,12 @@ body {
     gap: 0;
     flex-direction: column;
   }
-  .bg-img{
+  .bg-img {
     height: calc(100vh - 78px);
-   }
-   .bg-img::before{
+  }
+  .bg-img::before {
     display: none;
-   }
+  }
 }
 .inputDateFilter {
   border: 2px solid transparent;
@@ -305,9 +311,9 @@ body {
 /* .m_57492dcc {
   color: #e4e4e4 !important;
 } */
- a{
+a {
   color: black;
- }
+}
 .m_f0824112:where([data-active], [aria-current="page"]) .m_57492dcc {
   color: #ffffff !important;
 }
@@ -318,7 +324,7 @@ body {
 
 @media (hover: hover) {
   :where([data-mantine-color-scheme="light"]) .m_f0824112:hover {
-    background-color: #F1A405 !important;
+    background-color: #f1a405 !important;
   }
 }
 
