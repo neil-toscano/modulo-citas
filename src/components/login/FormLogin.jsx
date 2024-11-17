@@ -58,6 +58,7 @@ const FormLogin = ({ form }) => {
           color: "grape",
           loading: false,
         });
+        setToken(jsondata.token);
         open();
         return;
       }
@@ -167,7 +168,7 @@ const FormLogin = ({ form }) => {
         title="ACTUALIZE SUS DATOS A CONTINUACIÓN"
         centered
       >
-        <UpdateForm idUser={idUser} close={close} />
+        <UpdateForm idUser={idUser} close={close} token={token}/>
       </Modal>
       <form
         className="flex flex-col gap-3"

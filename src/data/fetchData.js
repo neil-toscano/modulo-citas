@@ -804,7 +804,7 @@ async function CreateUserLogin(data) {
   return res;
 }
 
-async function UpdateUserLogin(data) {
+async function UpdateUserLogin(data,token) {
   const idUser = { ...data };
   delete data.idUser;
   const url = `${import.meta.env.VITE_PUBLIC_URL}/user/${idUser.idUser}`;
@@ -812,6 +812,7 @@ async function UpdateUserLogin(data) {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(data),
   });

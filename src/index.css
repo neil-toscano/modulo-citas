@@ -197,7 +197,7 @@ body {
   content: "";
   width: 100%;
   height: 30%;
-  background: #ffffff url("@/assets/fondojesus.webp") top center/cover no-repeat;
+  background:  url("@/assets/removeLogoWp.png") top center/cover no-repeat;
 }
 
 @media (max-width: 1099px) {

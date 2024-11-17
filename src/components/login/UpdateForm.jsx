@@ -7,7 +7,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa6";
 import { IMaskInput } from "react-imask";
 
-const UpdateForm = ({ idUser,close }) => {
+const UpdateForm = ({ idUser,close,token }) => {
   const updateForm = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -36,7 +36,7 @@ const UpdateForm = ({ idUser,close }) => {
       className: "",
       loading: true,
     });
-    const resUpdate = await dataApi.UpdateUserLogin(data);
+    const resUpdate = await dataApi.UpdateUserLogin(data,token);
     if (resUpdate.ok) {
       notifications.update({
         id: 11,
