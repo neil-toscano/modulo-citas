@@ -70,7 +70,7 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
   return (
-    <div className="p-10 py-4">
+    <div className="bg-white px-10 py-10 full-call">
       {loadingFile && <LodingFile />}
       <Stepper
         active={active}

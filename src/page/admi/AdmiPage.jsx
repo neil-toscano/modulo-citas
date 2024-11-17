@@ -40,7 +40,7 @@ const AdmiPage = () => {
     <div>
       {<Movil role={"administrator"} />}
       <main className="bg-white p-10 main-admi relative">
-        <div className="flex gap-4 justify-between mb-4">
+        <div className="flex flex-col lg:flex-row gap-4 lg:justify-between mb-4">
           <h1 className="text-2xl mb-3 font-bold uppercase">
             Tabla de Asignaciónes
           </h1>

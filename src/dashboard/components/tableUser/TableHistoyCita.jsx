@@ -148,8 +148,8 @@ export default function TableHistoyCita({
 
   return (
     <>
-      <div className="flex flex-col gap-5 mb-4  ">
-        <div className="flex gap-3 ">
+      <div className="flex flex-col gap-5 mb-4 max-w-[700px]">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
           <Button
             onClick={handleFilterDate}
             rightSection={<FaFilter size={14} />}
@@ -170,7 +170,7 @@ export default function TableHistoyCita({
             RESTAURAR FILTRO
           </Button>
         </div>
-        <div className="flex gap-5 items-center">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
           <label className="flex flex-col gap-3 font-semibold">
             Inicio de fecha
             <DatePicketFilter dateTime={fromDate} setDate={setFromDate} />

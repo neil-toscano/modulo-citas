@@ -28,7 +28,7 @@ const data2 = [
   },
 ];
 
-const Header = ({close}) => {
+const Header = ({ close }) => {
   const location = useLocation();
   const { allDocumets } = useSelector((state) => state.DocumentsGlobalRedux);
   const arrayPhatname = location.pathname.split("/");
@@ -66,7 +66,7 @@ const Header = ({close}) => {
             `${item.sectionSlug}` === slug &&
             arrayPhatname[2] === "documento-seguimiento"
           }
-          onClick={() =>close()}
+          onClick={() => close()}
           label={item.sectionName}
           description={item.description}
           leftSection={<item.icon size="1rem" stroke={1.5} />}
@@ -78,7 +78,7 @@ const Header = ({close}) => {
   });
 
   return (
-    <div className="w-full flex h-full gap-0 flex-col justify-between  items-center  py-4 header-bg-image">
+    <div className="w-full flex  gap-0 flex-col justify-between  items-center  py-4 header-bg-image">
       <div className="w-full flex flex-col items-center  gap-4">
         <img
           className="logo-header"
@@ -87,16 +87,19 @@ const Header = ({close}) => {
         />
         <h1 className="text-center text-[1.4rem] font-semibold">
           ¿Qué trámite desea realizar?
-          <Divider my="xs" label="TRAMITES" labelPosition="center" />
         </h1>
-        <Box className="text-white-css" w={320}>
-          {tramite}
-        </Box>
-        {/* seguimiento */}
+        {/* auto scroll */}
+        <div className="header-auto-scroll">
+        <Divider my="xs" label="TRAMITES" labelPosition="center" />
+          <Box className="text-white-css" w={320}>
+            {tramite}
+          </Box>
+          {/* seguimiento */}
 
-        <div>
-          <Divider my="xs" label="SEGUIMIENTO" labelPosition="center" />
-          <Box w={320}>{follows}</Box>
+          <div>
+            <Divider my="xs" label="SEGUIMIENTO" labelPosition="center" />
+            <Box w={320}>{follows}</Box>
+          </div>
         </div>
       </div>
       <div className="w-full px-5">

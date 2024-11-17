@@ -12,10 +12,10 @@ function Movil({ Followid, role }) {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
-    <nav className="bg-white bg-blue nav-header  px-10 flex justify-between items-center py-5 sticky top-0 z-[4] ">
+    <nav className="bg-white nav-header  px-10 flex justify-between items-center py-5 sticky top-0 z-[4] ">
       <div className="flex gap-3 justify-center items-center mr-3 ">
         <Avatar variant="filled" radius="sm" color="#F1A405" src="" />
-        <p className="font-semibold  uppercase">
+        <p className="font-semibold  uppercase text-[0.9rem] lg:text-[1.2rem]  ">
           {user.firstName} {user.apellido_paterno} {user.apellido_materno}
         </p>
       </div>

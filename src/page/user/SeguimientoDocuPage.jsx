@@ -165,7 +165,7 @@ const SeguimientoDocuPage = () => {
               materno={user.apellido_materno}
             />
           )}
-          <div className="px-10 py-4">
+          <div className="px-10 py-8 bg-white full-call">
             {(view == 0 || view == 3) && (
               <h1 className="text-2xl font-bold mb-4">
                 SEGUIMIENTO DE TRÁMITE

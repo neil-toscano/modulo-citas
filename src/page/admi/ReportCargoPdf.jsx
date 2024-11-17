@@ -46,7 +46,7 @@ const ReportCargoPdf = () => {
       {<Movil role={"administrator"} />}
       <main className="bg-white p-10 main-admi relative">
         <div className="flex gap-4 justify-between mb-4">
-          <h1 className="text-2xl mb-3 font-bold uppercase">
+          <h1 className="text-[1.2rem] lg:text-2xl mb-3 font-bold uppercase">
             Tabla de Historial Revisiones
           </h1>
           <div className="flex gap-3 items-center">
