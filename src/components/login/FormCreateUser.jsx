@@ -99,8 +99,8 @@ const FormCreateUser = ({ registreForm, setView }) => {
               size={16}
             />
           }
-          key={registreForm.key("dni")}
-          {...registreForm.getInputProps("dni")}
+          key={registreForm.key("documentNumber")}
+          {...registreForm.getInputProps("documentNumber")}
         />
 
         <TextInput

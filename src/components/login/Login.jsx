@@ -28,7 +28,7 @@ const Login = () => {
   const registreForm = useForm({
     mode: "uncontrolled",
     initialValues: {
-      dni: "",
+      documentNumber: "",
       firstName: "",
       apellido_paterno: "",
       apellido_materno: "",
@@ -41,7 +41,7 @@ const Login = () => {
 
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Email inválido"),
-      dni: (value) => (/^\d{8}$/.test(value) ? null : "Ingrese un DNI válido"),
+      documentNumber: (value) => (/^\d{8}$/.test(value) ? null : "Ingrese un DNI válido"),
       mobileNumber: (value) =>
         /^\d{9}$/.test(value) ? null : "Ingrese un número válido",
       firstName: (value) => (value.trim() ? null : "El nombre es obligatorio"),
