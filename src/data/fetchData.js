@@ -26,7 +26,7 @@ async function sectionDocument2(token) {
   return resDocument;
 }
 
-async function appointmentHistory(token, userId, sectionId,appointmentId) {
+async function appointmentHistory(token, userId, sectionId, appointmentId) {
   const url = `${import.meta.env.VITE_PUBLIC_URL}/appointment-history`;
   const document = await fetch(url, {
     method: "POST",
@@ -34,7 +34,7 @@ async function appointmentHistory(token, userId, sectionId,appointmentId) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ userId, sectionId,appointmentId}),
+    body: JSON.stringify({ userId, sectionId, appointmentId }),
   });
   const resDocument = document.json();
 
@@ -453,7 +453,7 @@ async function PageHistoryProcess(
   // Crear los parámetros de la URL
   const params = new URLSearchParams({
     pageSize: limit,
-    page: offset - 1,  // Corregir el offset si es necesario
+    page: offset - 1, // Corregir el offset si es necesario
   });
 
   // Añadir parámetros opcionales solo si están presentes
@@ -491,7 +491,7 @@ async function PageHistoryReporte(
   // Crear los parámetros de la URL
   const params = new URLSearchParams({
     pageSize: limit,
-    page: offset - 1,  // Corregir el offset si es necesario
+    page: offset - 1, // Corregir el offset si es necesario
   });
 
   // Añadir parámetros opcionales solo si están presentes
@@ -522,15 +522,15 @@ async function HistoryCitaApi(
   fromDate,
   toDate,
   sectionId,
-  status,
+  status
 ) {
   // Construir la URL base
   const baseUrl = `${import.meta.env.VITE_PUBLIC_URL}/appointment/filter`;
 
   // Crear los parámetros de la URL
   const params = new URLSearchParams({
-    pageSize: limit,
-    page: offset - 1,  // Corregir el offset si es necesario
+    pageSize: limit ? limit : 2,
+    page: offset ? offset - 1 : 0, // Corregir el offset si es necesario
   });
 
   // Añadir parámetros opcionales solo si están presentes
@@ -555,6 +555,33 @@ async function HistoryCitaApi(
   return res;
 }
 
+async function ChartDataApi(token, fromDate, toDate, sectionId) {
+  // Construir la URL base
+  const baseUrl = `${import.meta.env.VITE_PUBLIC_URL}/process-history/chart`;
+
+  // Crear los parámetros de la URL
+  const params = new URLSearchParams({});
+
+  // Añadir parámetros opcionales solo si están presentes
+  if (fromDate) params.append("fromDate", fromDate);
+  if (toDate) params.append("toDate", toDate);
+  if (sectionId) params.append("sectionId", sectionId);
+
+  // Construir la URL completa con los parámetros
+  const url = `${baseUrl}?${params.toString()}`;
+
+  // Realizar la petición
+  const resUser = await fetch(url, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  // Devolver la respuesta en formato JSON
+  const res = await resUser.json();
+  return res;
+}
 
 async function postTokenVerifyEmail(token) {
   const url = `${
@@ -787,10 +814,7 @@ async function LoginFormPost(data) {
   return res;
 }
 
-
-
 async function CreateUserLogin(data) {
-
   const url = `${import.meta.env.VITE_PUBLIC_URL}/auth/register`;
   const resProcess = await fetch(url, {
     method: "POST",
@@ -804,7 +828,7 @@ async function CreateUserLogin(data) {
   return res;
 }
 
-async function UpdateUserLogin(data,token) {
+async function UpdateUserLogin(data, token) {
   const idUser = { ...data };
   delete data.idUser;
   const url = `${import.meta.env.VITE_PUBLIC_URL}/user/${idUser.idUser}`;
@@ -822,7 +846,9 @@ async function UpdateUserLogin(data,token) {
 }
 
 async function ResetPassword(dni) {
-  const url = `${import.meta.env.VITE_PUBLIC_URL}/reset-password?documentNumber${dni}`;
+  const url = `${
+    import.meta.env.VITE_PUBLIC_URL
+  }/reset-password?documentNumber${dni}`;
   const resProcess = await fetch(url, {
     method: "POST",
     headers: {
@@ -836,6 +862,7 @@ async function ResetPassword(dni) {
 
 //getCompletFilesInputs
 const dataApi = {
+  ChartDataApi,
   HistoryCitaApi,
   processHistory,
   sectionDocument2,

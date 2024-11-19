@@ -6,7 +6,7 @@ import { TbZoomCheckFilled } from "react-icons/tb";
 import Logout from "../buttons/Logout";
 
 import logoSjl from "@/assets/logo2.png";
-import { FaCalendarAlt, FaFilePdf, FaUserShield } from "react-icons/fa";
+import { FaCalendarAlt, FaFilePdf, FaRegChartBar, FaUserShield } from "react-icons/fa";
 
 const data2 = [
   {
@@ -36,6 +36,13 @@ const data2 = [
     description: "Historial de citas fijas o recurrentes",
     link: "/dashboard/administrador/historial-citas-estatico?pageSize=50&page=1",
     active: "historial-citas-estatico"
+  },
+  {
+    icon: FaRegChartBar ,
+    label: "DASHBOARD",
+    description: "Visualización y análisis de datos relacionados con las citas",
+    link: "/dashboard/administrador/historial-chart",
+    active: "historial-chart"
   },
 ];
 

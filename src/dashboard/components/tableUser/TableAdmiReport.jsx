@@ -32,6 +32,8 @@ export default function TableAdmiReport({
   
  
   React.useEffect(() => {
+    console.log("report x2");
+    
     const formattedUsers = allUser.map((data, i) => {
       const [datePart, timePart] = data.createdAt
         ? data.createdAt.split("T") // Separa la fecha y la hora por "T"

@@ -16,6 +16,7 @@ import EmailVerifyPage from "../page/EmailVerifyPage";
 import ReportAtencion from "@/page/admi/ReportAtencion"
 import ReportCargoPdf from "../page/admi/ReportCargoPdf";
 import HistoryCita from "@/page/admi/HistoryCita";
+import ChartPage from "../page/admi/ChartPage";
 
 const AppRoutes = () => {
   return (
@@ -55,6 +56,7 @@ const AppRoutes = () => {
           <Route path="historial-revision" element={<ReportAtencion />} />
           <Route path="historial-reporte-cargo" element={<ReportCargoPdf />} />
           <Route path="historial-citas-estatico" element={<HistoryCita />} />
+          <Route path="historial-chart" element={<ChartPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

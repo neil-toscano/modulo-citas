@@ -12,7 +12,7 @@ import { FaFilter } from "react-icons/fa";
 import { BsFiletypeXls } from "react-icons/bs";
 import SelectSection from "../inputs/SelectSection";
 
-export default function TableHistoyCita({
+function TableHistoyCita({
   allUser = [],
   totalPages,
   page,
@@ -262,3 +262,5 @@ export default function TableHistoyCita({
     </>
   );
 }
+
+export default React.memo(TableHistoyCita)

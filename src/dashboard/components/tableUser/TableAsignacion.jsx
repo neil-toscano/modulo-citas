@@ -18,6 +18,7 @@ export default function TableAsignacion({ allUser, dataSelect, nameSection }) {
  
 
   React.useEffect(() => {
+    console.log("asignacion x2");
     const formattedUsers = allUser.map((user) => ({
       ...user,
       dni: user.mobileNumber,

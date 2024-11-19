@@ -32,6 +32,7 @@ export default function TableAdmiCargo({
   
 
   React.useEffect(() => {
+    console.log("cargo x2");
     const formattedUsers = allUser?.map((data, i) => {
       const [datePart, timePart] = data.createdAt
         ? data.createdAt.split("T") // Separa la fecha y la hora por "T"
