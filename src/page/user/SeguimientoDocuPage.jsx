@@ -148,13 +148,13 @@ const SeguimientoDocuPage = () => {
           className: "my-notification-class",
           loading: true,
         });
-        
+
         return
       }
       // ver status
       const resVeryStatus = await dataApi.getProcessFile(user.token, id);
       //actutalizo el process
-      await dataApi.startTramiteDocument(user.token, resVeryStatus.id, true);
+      await dataApi.startTramiteDocument(user.token, resVeryStatus.id, false);
 
       setFiles({});
       setRefresh(!refresh);
