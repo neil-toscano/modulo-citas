@@ -69,7 +69,20 @@ const ButtonUpdate = ({
           veryupdateFile,
           idCondition
         );
-
+        if(res.error){
+          notifications.update({
+            id: idFile,
+            withCloseButton: true,
+            autoClose: 3000,
+            title: "Error pdf",
+            message: res.message,
+            color: "red",
+            icon: <FaFilePdf />,
+            className: "my-notification-class",
+            loading: false,
+          });
+          return
+        }
         // setFilePdf(res.fileUrl);
 
         if (res.fileUrl) {

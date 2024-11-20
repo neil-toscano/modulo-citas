@@ -105,7 +105,6 @@ async function postFileOne(token, file, typeId, type, idFileInput) {
   }
   if (type === "update") {
     const updateFile = await updateDocumentFile(res, token, idFileInput);
-
     return updateFile;
   }
   const resAsync = await postFileAsynId(res, typeId, token, idFileInput);
