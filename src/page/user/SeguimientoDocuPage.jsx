@@ -140,7 +140,7 @@ const SeguimientoDocuPage = () => {
         notifications.show({
           id: 45,
           withCloseButton: true,
-          autoClose: false,
+          autoClose: 3000,
           title: "Error PDF",
           message: Error[0],
           color: "red",
