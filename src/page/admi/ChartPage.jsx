@@ -41,10 +41,10 @@ const ChartPage = () => {
         toDate,
         sectionId
       );
-    //   const fomrDataChart = res.map(charts =>{
-    //     return {month:charts.data[0], label:charts.labels[0]}
-    //   })
-      setDataTable(res);
+      const fomrDataChart = res.map(charts =>{
+        return {month:charts.data[0], label:charts.labels[0]}
+      })
+      setDataTable(fomrDataChart);
       return res;
     };
 
@@ -53,7 +53,7 @@ const ChartPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh, fromDate, sectionId, toDate]);
 
-  console.log(dataTable, "viendo que devuelve chart");
+  
   return (
     <div>
       {<Movil role={"administrator"} />}

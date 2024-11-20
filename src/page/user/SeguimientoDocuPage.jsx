@@ -6,7 +6,7 @@ import dataApi from "@/data/fetchData";
 import { useEffect, useState } from "react";
 import Movil from "@/components/header/Movil";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
-
+import { notifications } from "@mantine/notifications";
 import FileGroupFollow from "@/components/intestada/seguimiento/FileGroupFollow";
 import ButtonFollow from "@/components/buttons/ButtonFollow";
 import Username from "@/components/username/Username";
@@ -61,7 +61,7 @@ const SeguimientoDocuPage = () => {
         setFilesArray(data);
         const validCitaFetch = await dataApi.getValidCita(token, id);
         const veryReserva = await dataApi.verifyCita(token, id);
-        
+
         setValidCita(validCitaFetch);
         if (
           resVeryStatus?.status === "INCOMPLETO" ||
@@ -99,7 +99,7 @@ const SeguimientoDocuPage = () => {
             idcita: veryReserva.appointment.id,
             message: veryReserva.appointment.message,
           });
-          
+
           setView(4);
         }
       } finally {
@@ -126,24 +126,41 @@ const SeguimientoDocuPage = () => {
     // acutalizar solo documentos
     toggle();
     try {
-        for (const fileDocu of filesMap) {
-      await dataApi.updateDocumentFile(
-        { fileUrl: fileDocu.fileUrl },
-        user.token,
-        fileDocu.idFile
-      );
-    }
-    // ver status
-    const resVeryStatus = await dataApi.getProcessFile(user.token, id);
-    //actutalizo el process
-    await dataApi.startTramiteDocument(user.token, resVeryStatus.id, true);
+      const Error = [];
 
-    setFiles({});
-    setRefresh(!refresh);
+      for (const fileDocu of filesMap) {
+        const update = await dataApi.updateDocumentFile(
+          { fileUrl: fileDocu.fileUrl },
+          user.token,
+          fileDocu.idFile,
+        );
+        if(update.error) Error.push(update.message)
+      }
+      if(Error.length > 0) {
+        notifications.show({
+          id: id,
+          withCloseButton: true,
+          autoClose: false,
+          title: "Error PDF",
+          message: Error[0],
+          color: "red",
+          // icon: <FaFilePdf />,
+          className: "my-notification-class",
+          loading: true,
+        });
+        
+        return
+      }
+      // ver status
+      const resVeryStatus = await dataApi.getProcessFile(user.token, id);
+      //actutalizo el process
+      await dataApi.startTramiteDocument(user.token, resVeryStatus.id, true);
+
+      setFiles({});
+      setRefresh(!refresh);
     } finally {
       close();
     }
-  
   };
 
   const handleCita = (id) => {
@@ -214,16 +231,15 @@ const SeguimientoDocuPage = () => {
                 />
               )}
               <div className="flex gap-3">
-                {
-                  (validCita?.processStatus?.status === "CITA_PROGRAMADA" && (
-                    <Button
-                      onClick={() => handleViewCita(id)}
-                      className="self-end"
-                      color="indigo"
-                    >
-                      VER CITA
-                    </Button>
-                  ))}
+                {validCita?.processStatus?.status === "CITA_PROGRAMADA" && (
+                  <Button
+                    onClick={() => handleViewCita(id)}
+                    className="self-end"
+                    color="indigo"
+                  >
+                    VER CITA
+                  </Button>
+                )}
                 {validCita?.processStatus?.status === "CITA_PROGRAMADA" && (
                   <ReprogramarMessage
                     setRefresh={setRefresh}

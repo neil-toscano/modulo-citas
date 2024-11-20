@@ -180,6 +180,7 @@ const FileGroupFollow = ({
       {(statusComplete?.status === "INCOMPLETO" ||
         statusComplete?.statusCode === 404 ||
         statusComplete?.status === "COMPLETO") && <p>No hay documentos</p>}
+        
       {statusComplete?.status !== "INCOMPLETO" &&
         statusComplete?.status !== "COMPLETO" &&
         filesArray?.map((getfile) => (
