@@ -161,7 +161,7 @@ const FileGroupFollow = ({
   const handleLinkPdf = async (fileUrl) => {
     try {
       const response = await fetch(`${url}/${fileUrl}`);
-
+      
       if (response.ok) {
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);

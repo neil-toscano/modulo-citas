@@ -136,9 +136,9 @@ const SeguimientoDocuPage = () => {
         );
         if(update.error) Error.push(update.message)
       }
-      if(Error.length > 0) {
+      if(Error.length > 0){
         notifications.show({
-          id: id,
+          id: 45,
           withCloseButton: true,
           autoClose: false,
           title: "Error PDF",
@@ -146,9 +146,8 @@ const SeguimientoDocuPage = () => {
           color: "red",
           // icon: <FaFilePdf />,
           className: "my-notification-class",
-          loading: true,
+          loading: false,
         });
-
         return
       }
       // ver status
