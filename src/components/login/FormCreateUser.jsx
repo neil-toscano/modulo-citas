@@ -49,6 +49,7 @@ const FormCreateUser = ({ registreForm, setView }) => {
           loading: false,
         });
       }
+      
       if (json.roles[0] == "user") {
         notifications.update({
           id: 15,

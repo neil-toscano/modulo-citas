@@ -822,8 +822,24 @@ async function CreateUserLogin(data) {
     },
     body: JSON.stringify(data),
   });
+  
 
   const res = await resProcess.json();
+  
+  if (!res.success) {
+    if (res?.errors.numero_documento) {
+      return {
+        error: true,
+        message: res.errors.numero_documento,
+      };
+    } else if (res?.errors.correo) {
+      return {
+        error: true,
+        message: res.errors.correo,
+      };
+    }
+  }
+
   return res;
 }
 
