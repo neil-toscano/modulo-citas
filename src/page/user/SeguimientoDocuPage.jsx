@@ -154,7 +154,7 @@ const SeguimientoDocuPage = () => {
       // ver status
       const resVeryStatus = await dataApi.getProcessFile(user.token, id);
       //actutalizo el process
-      await dataApi.startTramiteDocument(user.token, resVeryStatus.id, false);
+      await dataApi.startTramiteDocument(user.token, resVeryStatus.id, true);
 
       setFiles({});
       setRefresh(!refresh);
