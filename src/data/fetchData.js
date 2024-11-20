@@ -826,16 +826,16 @@ async function CreateUserLogin(data) {
 
   const res = await resProcess.json();
 
-  if (!res.success) {
-    if (res?.errors.numero_documento) {
+  if (!res.response.success) {
+    if (res?.response.errors.numero_documento) {
       return {
         error: true,
-        message: res.errors.numero_documento[0],
+        message: res.response.errors.numero_documento[0],
       };
-    } else if (res?.errors.correo) {
+    } else if (res?.response.errors.correo) {
       return {
         error: true,
-        message: res.errors.correo[0],
+        message: res.response.errors.correo[0],
       };
     }
   }
