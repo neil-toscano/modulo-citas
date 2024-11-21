@@ -62,7 +62,7 @@ const FormCreateUser = ({ registreForm, setView }) => {
           loading: false,
         });
         if (!json?.isVerified) setEmailVerify(true);
-
+        setView(true)
         return;
       }
       if (!json.ok) {
@@ -78,6 +78,8 @@ const FormCreateUser = ({ registreForm, setView }) => {
         });
       }
     } catch (error) {}
+
+    registreForm.reset();
   };
 
 
@@ -213,11 +215,11 @@ const FormCreateUser = ({ registreForm, setView }) => {
         </div>
       </div>
       <Group className="w-full" mt="md">
-        {emailVerify && (
+        {/* {emailVerify && (
           <div className="font-semibold rounded-md login-email-very p-3 text-center w-full">
             Por favor, verifica tu correo electrónico antes de iniciar sesión.
           </div>
-        )}
+        )} */}
         <Button type="submit" fullWidth>
           Enviar
         </Button>
