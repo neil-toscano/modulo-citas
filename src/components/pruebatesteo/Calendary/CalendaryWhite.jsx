@@ -13,7 +13,7 @@ const CalendaryWhite = ({ selectedDate, setSelectedDate, setIdTime, initialDate 
     let date = new Date(startDate);
     let count = 0;
 
-    while (count < 3) {
+    while (count < 2) {
       if (date.getDay() !== 0) { // Excluir domingos
         blocked.push(new Date(date));
         count++;
