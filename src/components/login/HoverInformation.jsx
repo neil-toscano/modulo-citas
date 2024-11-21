@@ -5,7 +5,7 @@ function HoverInformation() {
     const matches = useMediaQuery("(min-width: 600px)");
   return (
     <Group justify="center">
-      <HoverCard width={matches ? 480 : 340} shadow="md">
+      <HoverCard offset={-150} width={matches ? 480 : 340} shadow="md">
         <HoverCard.Target>
           <Button variant="outline" color="red" size="xs">
             Nota Importante
