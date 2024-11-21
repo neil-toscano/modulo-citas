@@ -12,6 +12,7 @@ import Username from "@/components/username/Username";
 import Calendary from "@/components/pruebatesteo/Calendary/Calendary";
 import LodingFile from "@/components/loading/LodingFile";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import CalendaryWhite from "../../components/pruebatesteo/Calendary/CalendaryWhite";
 
 const CitaCalendaryPage = () => {
   const { user } = useProduct();
@@ -34,8 +35,8 @@ const CitaCalendaryPage = () => {
 
       try {
         const resHorario = await dataApi.getTimeCita(user.token);
-        console.log(resHorario,"horarios");
-        
+        console.log(resHorario, "horarios");
+
         let horarioArray = [];
         resHorario.forEach((time) => {
           horarioArray.push({
@@ -61,7 +62,7 @@ const CitaCalendaryPage = () => {
       if (selectedDate) {
         //new horarios enpoint
 
-        const getTimes = await  await dataApi.getSuperTime(
+        const getTimes = await await dataApi.getSuperTime(
           user.token,
           selectedDate,
           id
@@ -72,7 +73,7 @@ const CitaCalendaryPage = () => {
           horarioArray.push({
             value: time.scheduleId,
             label: `${time.startTime} ${time.endTime}`,
-            disabled: time.status !== 'DISPONIBLE'
+            disabled: time.status !== "DISPONIBLE",
           });
         });
 
@@ -88,8 +89,6 @@ const CitaCalendaryPage = () => {
   }, [selectedDate, update]);
 
   // setIdTime(null);
-
-
 
   const handleCreateCita = async () => {
     if (idTime && selectedDate) {
@@ -114,8 +113,8 @@ const CitaCalendaryPage = () => {
       selectedDate
     );
 
-   console.log(res,"mensajes de creando cita");
-   
+    console.log(res, "mensajes de creando cita");
+
     //todo valida si ya tiene cita de verdad
     await dataApi.verifyCita(user.token, id);
     if (res.error) {
@@ -195,7 +194,14 @@ const CitaCalendaryPage = () => {
                     disabled={disable}
                   />
                 </div>
-                <Calendary
+                {/* <Calendary
+                  initialDate={timeInitial}
+                  setIdTime={setIdTime}
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}
+                />
+                <p>cita white</p> */}
+                <CalendaryWhite
                   initialDate={timeInitial}
                   setIdTime={setIdTime}
                   selectedDate={selectedDate}

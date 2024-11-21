@@ -1,23 +1,22 @@
-
 import { useState, useEffect } from "react";
 import { Calendar } from "@mantine/dates";
 import { Paper, Text, Indicator } from "@mantine/core";
 import "dayjs/locale/es";
 
-const Calendary = ({ selectedDate, setSelectedDate, setIdTime, initialDate }) => {
-  const [selectedSaturday, setSelectedSaturday] = useState(null);
+const CalendaryWhite = ({ selectedDate, setSelectedDate, setIdTime, initialDate }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [blockedSaturdays, setBlockedSaturdays] = useState([]);
+  const [blockedDates, setBlockedDates] = useState([]);
 
-  // Función para calcular los sábados dentro de los próximos 14 días
-  const calculateBlockedSaturdays = (startDate) => {
+  // Función para calcular los 3 días hábiles bloqueados desde initialDate
+  const calculateBlockedDates = (startDate) => {
     const blocked = [];
     let date = new Date(startDate);
+    let count = 0;
 
-    // Recorrer 14 días desde la fecha inicial
-    for (let i = 0; i < 14; i++) {
-      if (date.getDay() === 6) { // Si es sábado
-        blocked.push(new Date(date)); // Agregar el sábado bloqueado
+    while (count < 3) {
+      if (date.getDay() !== 0) { // Excluir domingos
+        blocked.push(new Date(date));
+        count++;
       }
       date.setDate(date.getDate() + 1); // Avanzar un día
     }
@@ -26,26 +25,26 @@ const Calendary = ({ selectedDate, setSelectedDate, setIdTime, initialDate }) =>
 
   useEffect(() => {
     if (initialDate) {
-      const blockedSats = calculateBlockedSaturdays(initialDate);
-      setBlockedSaturdays(blockedSats);
+      const blockedDays = calculateBlockedDates(initialDate);
+      setBlockedDates(blockedDays);
     }
   }, [initialDate]);
 
-  const isSaturday = (date) => date.getDay() === 6;
+  const isSunday = (date) => date.getDay() === 0;
 
-  const isSaturdayBeforeToday = (date) => {
+  const isPastDate = (date) => {
     const today = new Date();
-    return date < today && isSaturday(date);
+    return date < today;
   };
 
-  // Verificar si la fecha es seleccionable 
-  const isSelectable = (date) => {
-    const isBlocked = blockedSaturdays.some(
+  const isBlocked = (date) => {
+    return blockedDates.some(
       (blockedDate) => blockedDate.toISOString().split("T")[0] === date.toISOString().split("T")[0]
     );
-    const today = new Date();
-    // No se puede seleccionar si es sábado pasado o si está bloqueado
-    return isSaturday(date) && !isBlocked && date >= today;
+  };
+
+  const isSelectable = (date) => {
+    return !isBlocked(date) && !isPastDate(date) && !isSunday(date);
   };
 
   const handleFormatTime = (dateString) => {
@@ -55,7 +54,6 @@ const Calendary = ({ selectedDate, setSelectedDate, setIdTime, initialDate }) =>
     );
     setIdTime(null);
     setSelectedDate(utcDate.toISOString().split("T")[0]);
-    setSelectedSaturday(utcDate.toISOString().split("T")[0]); // Guardar el sábado seleccionado
   };
 
   const handleMonthChange = (newMonth) => {
@@ -63,13 +61,12 @@ const Calendary = ({ selectedDate, setSelectedDate, setIdTime, initialDate }) =>
       setCurrentMonth(newMonth);
     }
   };
-  
+
   const renderDay = (date) => {
-    const isPastSaturday = isSaturdayBeforeToday(date); // Sábados pasados
-    const isDisabled = !isSelectable(date) || isPastSaturday;
-    const isSelected = selectedSaturday === date.toISOString().split("T")[0];
-    const backgroundColor = isSelected ? "rgb(217 255 3)" : "white"; // Color mostaza si es seleccionado
-    const indicatorColor = isSelectable(date) ? "green" : "red"; // Verde si es seleccionable, rojo si no
+    const isDisabled = !isSelectable(date);
+    const isSelected = selectedDate === date.toISOString().split("T")[0];
+    const backgroundColor = isSelected ? "rgb(217 255 3)" : "white";
+    const indicatorColor = isBlocked(date) ? "red" : isSelectable(date) ? "green" : "gray";
 
     return (
       <Paper
@@ -85,7 +82,7 @@ const Calendary = ({ selectedDate, setSelectedDate, setIdTime, initialDate }) =>
         key={date.toString()}
       >
         <Text align="center">{date.getDate()}</Text>
-        {isSaturday(date) && (
+        {!isPastDate(date) && !isSunday(date) && (
           <Indicator
             color={indicatorColor} // Mostrar indicador verde o rojo
             size={8}
@@ -111,4 +108,4 @@ const Calendary = ({ selectedDate, setSelectedDate, setIdTime, initialDate }) =>
   );
 };
 
-export default Calendary;
+export default CalendaryWhite;

@@ -11,7 +11,7 @@ import { getAllDocumentsSection } from "@/redux/documents/actions";
 const PrivateRoute = ({ children, requiredRole }) => {
 
   const dispatch = useDispatch();
-  const { setUser, setAllUser, setDocumentSection } = useProduct();
+  const { setUser, setDocumentSection } = useProduct();
 
   // Función para verificar el token y obtener los datos del usuario
   const fetchUserData = async (token) => {
@@ -21,12 +21,11 @@ const PrivateRoute = ({ children, requiredRole }) => {
       throw new Error("Unauthorized");
     }
 
-    const allUsers = await dataApi.getAllUser(token);
+    
     const document = await dataApi.sectionDocument(token);
 
     dispatch(getAllDocumentsSection({ token }));
     setDocumentSection(document);
-    setAllUser(allUsers);
     setUser(userData);
 
     if (requiredRole && userData.roles[0] !== requiredRole) {
