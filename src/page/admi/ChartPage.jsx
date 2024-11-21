@@ -41,10 +41,7 @@ const ChartPage = () => {
         toDate,
         sectionId
       );
-      const fomrDataChart = res.map(charts =>{
-        return {month:charts.data[0], label:charts.labels[0]}
-      })
-      setDataTable(fomrDataChart);
+      setDataTable(res);
       return res;
     };
 
@@ -76,7 +73,7 @@ const ChartPage = () => {
           <FilterTables />
           <BarChart
             h={300}
-            data={data}
+            data={dataTable}
             dataKey="month"
             series={[
               { name: "Revisiones", color: 'blue' }, // Representa las revisiones
