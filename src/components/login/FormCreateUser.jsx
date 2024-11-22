@@ -17,9 +17,7 @@ import { notifications } from "@mantine/notifications";
 import "dayjs/locale/es";
 import dataApi from "@/data/fetchData";
 
-
 const FormCreateUser = ({ registreForm, setView }) => {
-
   const [emailVerify, setEmailVerify] = useState(false);
 
   const registreApi = async (data) => {
@@ -50,7 +48,7 @@ const FormCreateUser = ({ registreForm, setView }) => {
         });
       }
       console.log(json);
-      
+
       if (json.roles[0] === "user") {
         notifications.update({
           id: 15,
@@ -63,7 +61,7 @@ const FormCreateUser = ({ registreForm, setView }) => {
           loading: false,
         });
         if (!json?.isVerified) setEmailVerify(true);
-        setView(true)
+        setView(true);
         return;
       }
       if (!json.ok) {
@@ -85,13 +83,11 @@ const FormCreateUser = ({ registreForm, setView }) => {
     registreForm.reset();
   };
 
-
   return (
     <form
       className=""
       onSubmit={registreForm.onSubmit((values) => registreApi(values))}
     >
-
       <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-2 gap-x-10 gap-y-3">
         <InputBase
           withAsterisk
