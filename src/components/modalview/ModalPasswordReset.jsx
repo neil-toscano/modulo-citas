@@ -49,12 +49,12 @@ const ModalPasswordReset = () => {
       });
       close();
     }
-    if (!res.success) {
+    if (res.error) {
       notifications.update({
         id: 15,
         withCloseButton: true,
         autoClose: 3000,
-        title: res.errors.numero_documento,
+        title: res.message,
         message: "",
         color: "red",
         className: "",

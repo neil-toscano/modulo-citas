@@ -825,20 +825,6 @@ async function CreateUserLogin(data) {
 
   const res = await resProcess.json();
   
-  // if (!res.response.success) {
-  //   if (res?.response.errors.numero_documento) {
-  //     return {
-  //       error: true,
-  //       message: res.response.errors.numero_documento[0],
-  //     };
-  //   } else if (res.response.errors.correo) {
-  //     return {
-  //       error: true,
-  //       message: res.response.errors.correo[0],
-  //     };
-  //   }
-  // }
-
   return res;
 }
 
@@ -862,7 +848,7 @@ async function UpdateUserLogin(data, token) {
 async function ResetPassword(dni) {
   const url = `${
     import.meta.env.VITE_PUBLIC_URL
-  }/reset-password?documentNumber${dni}`;
+  }/auth/reset-password?documentNumber=${dni}`;
   const resProcess = await fetch(url, {
     method: "POST",
     headers: {
