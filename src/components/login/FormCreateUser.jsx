@@ -49,8 +49,9 @@ const FormCreateUser = ({ registreForm, setView }) => {
           loading: false,
         });
       }
+      console.log(json);
       
-      if (json.roles[0] == "user") {
+      if (json.roles[0] === "user") {
         notifications.update({
           id: 15,
           withCloseButton: true,
@@ -77,7 +78,9 @@ const FormCreateUser = ({ registreForm, setView }) => {
           loading: false,
         });
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
 
     registreForm.reset();
   };

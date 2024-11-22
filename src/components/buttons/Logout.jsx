@@ -1,10 +1,12 @@
 import { Button } from "@mantine/core";
 import { CiLogout } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
-
+import { useProduct } from "../../provider/ProviderContext";
 const Logout = () => {
+  const {setUser} = useProduct()
   const navigate = useNavigate();
   const handleClose = () => {
+    setUser([])
     localStorage.removeItem("token");
     navigate("/");
   };
