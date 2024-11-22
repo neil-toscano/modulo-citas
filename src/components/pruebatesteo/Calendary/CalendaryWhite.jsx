@@ -3,7 +3,12 @@ import { Calendar } from "@mantine/dates";
 import { Paper, Text, Indicator } from "@mantine/core";
 import "dayjs/locale/es";
 
-const CalendaryWhite = ({ selectedDate, setSelectedDate, setIdTime, initialDate }) => {
+const CalendaryWhite = ({
+  selectedDate,
+  setSelectedDate,
+  setIdTime,
+  initialDate,
+}) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [blockedDates, setBlockedDates] = useState([]);
 
@@ -13,11 +18,13 @@ const CalendaryWhite = ({ selectedDate, setSelectedDate, setIdTime, initialDate 
     let date = new Date(startDate);
     let count = 0;
 
-    while (count < 2) {
-      if (date.getDay() !== 0) { // Excluir domingos
+    while (count < 3) {
+      if (date.getDay() !== 0) {
+        // Excluir domingos
         blocked.push(new Date(date));
         count++;
       }
+
       date.setDate(date.getDate() + 1); // Avanzar un día
     }
     return blocked;
@@ -39,7 +46,9 @@ const CalendaryWhite = ({ selectedDate, setSelectedDate, setIdTime, initialDate 
 
   const isBlocked = (date) => {
     return blockedDates.some(
-      (blockedDate) => blockedDate.toISOString().split("T")[0] === date.toISOString().split("T")[0]
+      (blockedDate) =>
+        blockedDate.toISOString().split("T")[0] ===
+        date.toISOString().split("T")[0]
     );
   };
 
@@ -66,7 +75,11 @@ const CalendaryWhite = ({ selectedDate, setSelectedDate, setIdTime, initialDate 
     const isDisabled = !isSelectable(date);
     const isSelected = selectedDate === date.toISOString().split("T")[0];
     const backgroundColor = isSelected ? "rgb(217 255 3)" : "white";
-    const indicatorColor = isBlocked(date) ? "red" : isSelectable(date) ? "green" : "gray";
+    const indicatorColor = isBlocked(date)
+      ? "red"
+      : isSelectable(date)
+      ? "green"
+      : "gray";
 
     return (
       <Paper
