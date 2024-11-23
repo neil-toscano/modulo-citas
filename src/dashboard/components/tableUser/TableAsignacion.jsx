@@ -21,7 +21,7 @@ export default function TableAsignacion({ allUser, dataSelect, nameSection }) {
     console.log("asignacion x2");
     const formattedUsers = allUser.map((user) => ({
       ...user,
-      dni: user.mobileNumber,
+      dni: user.documentNumber,
       id: user.id,
       firstName: user.firstName?.toUpperCase() || "",
       lastName: user.lastName?.toUpperCase() || "",
