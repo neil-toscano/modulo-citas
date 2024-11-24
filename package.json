@@ -12,6 +12,7 @@
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "@mantine/carousel": "^7.14.1",
     "@mantine/charts": "^7.14.1",
     "@mantine/core": "^7.14.1",
     "@mantine/dates": "^7.14.1",
@@ -25,6 +26,8 @@
     "@tanstack/react-query": "^5.59.15",
     "axios": "^1.7.7",
     "dayjs": "^1.11.13",
+    "embla-carousel-autoplay": "^7.1.0",
+    "embla-carousel-react": "^7.1.0",
     "pdf-lib": "^1.17.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

@@ -2,12 +2,10 @@ import { useState } from "react";
 import { useForm } from "@mantine/form";
 import FormLogin from "./FormLogin";
 import FormCreateUser from "./FormCreateUser";
-import sjl from "@/assets/logo2.png";
 import ModalPasswordReset from "../modalview/ModalPasswordReset";
 import HoverInformation from "./HoverInformation";
-const Login = () => {
-  const [view, setView] = useState(true);
-
+const Login = ({view,setView}) => {
+  
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -67,13 +65,13 @@ const Login = () => {
 
   return (
     <div
-      className={` border-2 px-8 py-10 bg-white rounded-xl ${
+      className={` px-8 py-10 z-[2] ${
         view ? "login" : "registre"
       } `}
     >
       {/* title */}
-      <div className="flex justify-center items-center mb-2">
-        <img src={sjl} className="logo-img" alt="logo san juan de lurigancho" />{" "}
+      <div className="flex justify-center items-center mb-6">
+        <h1 className="text-8xl text-center font-bold text-[red] ">Jesús <p className="text-5xl text-black">Alcalde</p></h1>
       </div>
       <div className="mb-3">
         <h2 className={`text-center text-[1.2rem] font-medium mb-2`}>
@@ -111,6 +109,7 @@ const Login = () => {
           </p>
         </div>
       )}
+     
     </div>
   );
 };

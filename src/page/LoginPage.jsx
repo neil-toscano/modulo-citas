@@ -1,18 +1,35 @@
 import Login from "@/components/login/Login";
-import fondo from "@/assets/wp_fondo.webp";
 import logo from "@/assets/logo.png";
+import SwiperImg from "../components/login/SwiperImg";
+import { useState } from "react";
+import { useMediaQuery } from "@mantine/hooks";
+import Polygon from "@/assets/login/polygon.png" 
 const LoginPage = () => {
+  const [view, setView] = useState(true);
+  const matches = useMediaQuery("(min-width: 939px)");
   return (
-    // login-page
-    <main className="relative">
-      <div className="fondo-login-wp">
-        <img className="logo-wp-login" src={logo} alt="" />
-        <div className="fondo-bg-login"></div>
+    <main className="bg-white relative main-login h-screen">
+      {/* mx-auto items-center */}
+      <div
+        className={`h-full mx-auto container relative px-4 flex flex-col overflow-auto ${
+          !view ? "" : "justify-center"
+        }  self-center`}
+      >
+        <div className="absolute h-full w-[98] ">
+          <img src={Polygon} style={{width:"100%",height:"100%",objectFit:"cover"}} alt="fondo-login" />
+        </div>
+        <Login view={view} setView={setView} />
+        <div className="py-4 z-[2] flex justify-center items-center w-full">
+          <img
+            src={logo}
+            className="logo-img"
+            alt="logo san juan de lurigancho"
+          />{" "}
+        </div>
       </div>
-
-      <div className=" h-screen container mx-auto px-4 flex items-center justify-center">
-        <Login />
-      </div>
+      {matches && <div className="h-screen">
+        <SwiperImg />
+      </div>}
     </main>
   );
 };
