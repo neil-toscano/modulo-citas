@@ -11,22 +11,23 @@ const data2 = [
   {
     icon: RiFolderUserFill,
     label: "INSCRIPCIÓN DE INDEPENDIZACIÓN",
-    description: "Distribución de bienes sin testamento",
+    description: "Formaliza la independencia de tu propiedad.",
     link: "/tramite/documento/inscripcion-de-independizacion",
   },
   {
     icon: FaHouseUser,
     label: "INSCRIPCIÓN DE SUBDIVISIÓN DE LOTES",
-    description: "Registro de división de terrenos",
+    description: "Registra la subdivisión de tus lotes.",
     link: "/tramite/documento/inscripcion-de-subdivision-de-lotes",
   },
   {
     icon: MdOutlineFamilyRestroom,
     label: "SUCESIÓN INTESTADA",
-    description: "Registro de separación legal",
+    description: "Regulariza la herencia de bienes familiares.",
     link: "/tramite/documento/sucesion-intestada",
   },
 ];
+
 
 const Header = ({ close }) => {
   const location = useLocation();

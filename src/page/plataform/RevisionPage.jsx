@@ -19,12 +19,8 @@ const RevisionPage = () => {
   const [refresh, setRefresh] = useState(true);
   const [loadingCarga, setLoading] = useState(true);
   const location = useLocation();
-  //const searchParams = new URLSearchParams(location.search);
   const { id: idUserParams } = useParams();
   const { id:idSection, email:emailUser, idCita } = location.state || {};
-  // const idSection = searchParams.get("id");
-  // const emailUser = searchParams.get("email");
-  // const idCita = searchParams.get("idCita");
   const [loading, { toggle, close }] = useDisclosure();
 
   useEffect(() => {

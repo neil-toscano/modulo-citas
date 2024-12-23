@@ -28,6 +28,14 @@ export default [
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
+
+
+
+      "react/prop-types": "off", // Desactiva la validación de PropTypes
+      "no-unused-vars": "warn", // Cambia a advertencia para imports no usados
+      "react/display-name": "off", // Desactiva la advertencia de display name
+
+      
       'react/jsx-no-target-blank': 'off',
       'react-refresh/only-export-components': [
         'warn',
