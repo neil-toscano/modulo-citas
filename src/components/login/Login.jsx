@@ -16,8 +16,10 @@ const Login = ({view,setView}) => {
     validate: {
       dni: (value) => (/^\d{8}$/.test(value) ? null : "Ingrese un DNI valido"),
       password: (value) => {
-        if (value.length > 5)
-          return "La contraseña debe tener al maximo 5 caracteres";
+        const regex = /^[a-zA-Z0-9]{1,5}$/; // Expresión regular para máximo 5 caracteres, solo números y letras.
+        if (!regex.test(value)) {
+          return "La contraseña debe tener máximo 5 caracteres y solo contener números o letras.";
+        }
         return null;
       },
     },
@@ -51,8 +53,10 @@ const Login = ({view,setView}) => {
       address: (value) => (value.trim() ? null : "La dirección es obligatoria"),
       district: (value) => (value.trim() ? null : "El distrito es obligatorio"),
       password: (value) => {
-        if (value.length > 5)
-          return "La contraseña debe tener máximo 5 caracteres";
+        const regex = /^[a-zA-Z0-9]{1,5}$/; // Expresión regular para máximo 5 caracteres, solo números y letras.
+        if (!regex.test(value)) {
+          return "La contraseña debe tener máximo 5 caracteres y solo contener números o letras.";
+        }
         return null;
       },
     },

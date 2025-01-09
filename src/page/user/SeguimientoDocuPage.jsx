@@ -102,7 +102,7 @@ const SeguimientoDocuPage = () => {
           setVeryCiteid({
             idcita: veryReserva.appointment.id,
             message: veryReserva.appointment.message,
-            
+            appointment: veryReserva.appointment.appointmentDate
           });
 
           setView(4);
@@ -172,9 +172,10 @@ const SeguimientoDocuPage = () => {
   };
   
 
-   const startDate = new Date(validCita?.processStatus?.updatedAt);
    const currentDate = new Date();
-  const finishiReprogrmar = canReschedule(startDate,currentDate)
+   console.log(validCita?.processStatus,4343);
+   
+  const finishiReprogrmar = canReschedule(idVeryCite.appointment,currentDate)
   return (
     <>
       <div className="body-grid">
@@ -248,7 +249,7 @@ const SeguimientoDocuPage = () => {
                     VER CITA
                   </Button>
                 )}
-                {(validCita?.processStatus?.status === "CITA_PROGRAMADA" && !finishiReprogrmar && !validCita?.processStatus?.isRescheduled)  &&  (
+                {(validCita?.processStatus?.status === "CITA_PROGRAMADA" && finishiReprogrmar && !validCita?.processStatus?.isRescheduled)  &&  (
                   <ReprogramarMessage
                     setRefresh={setRefresh}
                     refresh={refresh}
