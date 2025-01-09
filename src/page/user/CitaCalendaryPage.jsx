@@ -9,7 +9,7 @@ import dataApi from "@/data/fetchData";
 import "@mantine/dates/styles.css";
 import { notifications } from "@mantine/notifications";
 import Username from "@/components/username/Username";
-import Calendary from "@/components/pruebatesteo/Calendary/Calendary";
+// import Calendary from "@/components/pruebatesteo/Calendary/Calendary";
 import LodingFile from "@/components/loading/LodingFile";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import CalendaryWhite from "../../components/pruebatesteo/Calendary/CalendaryWhite";
@@ -35,7 +35,6 @@ const CitaCalendaryPage = () => {
 
       try {
         const resHorario = await dataApi.getTimeCita(user.token);
-        console.log(resHorario, "horarios");
 
         let horarioArray = [];
         resHorario.forEach((time) => {
@@ -113,10 +112,42 @@ const CitaCalendaryPage = () => {
       selectedDate
     );
 
-    console.log(res, "mensajes de creando cita");
 
     //todo valida si ya tiene cita de verdad
     await dataApi.verifyCita(user.token, id);
+   
+    if (res.status === "OPEN") {
+      setLoading(false);
+      notifications.update({
+        id: id,
+        withCloseButton: true,
+        autoClose: 3000,
+        title: "Cita creada exitosa",
+        message: "",
+        color: "green",
+        // icon: <FaFilePdf />,
+        className: "my-notification-class",
+        loading: false,
+      });
+      window.open(`/tramite/confirmacion-de-cita?id=${id}`, "_blank");
+      navigate(-1);
+      return
+    }
+    if (res.ok) {
+      setLoading(false);
+      notifications.update({
+        id: id,
+        withCloseButton: true,
+        autoClose: 3000,
+        title: "Usted ya tiene una cita pediente",
+        message: "",
+        color: "red",
+        // icon: <FaFilePdf />,
+        className: "my-notification-class",
+        loading: false,
+      });
+      return
+    }
     if (res.error) {
       notifications.update({
         id: id,
@@ -133,36 +164,7 @@ const CitaCalendaryPage = () => {
       navigate(0);
       return;
     }
-    if (res.status === "OPEN") {
-      setLoading(false);
-      notifications.update({
-        id: id,
-        withCloseButton: true,
-        autoClose: 3000,
-        title: "Cita creada exitosa",
-        message: "",
-        color: "green",
-        // icon: <FaFilePdf />,
-        className: "my-notification-class",
-        loading: false,
-      });
-      window.open(`/tramite/confirmacion-de-cita?id=${id}`, "_blank");
-      navigate(-1);
-    }
-    if (res.ok) {
-      setLoading(false);
-      notifications.update({
-        id: id,
-        withCloseButton: true,
-        autoClose: 3000,
-        title: "Usted ya tiene una cita pediente",
-        message: "",
-        color: "red",
-        // icon: <FaFilePdf />,
-        className: "my-notification-class",
-        loading: false,
-      });
-    }
+   
   };
 
   return (
@@ -181,7 +183,7 @@ const CitaCalendaryPage = () => {
           <div className="px-10 py-4 relative">
             {loading && <LodingFile />}
             <h1 className="text-3xl font-bold uppercase">Reserve su cita</h1>
-            <p>Solo puede seleccionar los días sábados.</p>
+            <p>Eliga su cita</p>
             <div className="grid grid-cols-1 gap-y-8 lg:grid-cols-2 mt-4">
               <div className="">
                 <div className="flex gap-3 mb-4 ">

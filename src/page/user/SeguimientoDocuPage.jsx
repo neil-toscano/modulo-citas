@@ -13,6 +13,7 @@ import Username from "@/components/username/Username";
 import LodingFile from "@/components/loading/LodingFile";
 import ReprogramarMessage from "@/components/cita/ReprogramarMessage";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { canReschedule } from "../../utils/canReschedule";
 
 // 0 en processo
 // 1 SUBSANAR DOCUMENTOS
@@ -28,7 +29,9 @@ const SeguimientoDocuPage = () => {
   const [view, setView] = useState(0);
   const [mixto, setMixto] = useState(0);
   const [filesArray, setFilesArray] = useState([]);
+  // update cita
   const [validCita, setValidCita] = useState([]);
+
   const [status, setStatus] = useState(0);
   const [loadingF, setLoading] = useState(true);
   const [refresh, setRefresh] = useState(false);
@@ -61,7 +64,8 @@ const SeguimientoDocuPage = () => {
         setFilesArray(data);
         const validCitaFetch = await dataApi.getValidCita(token, id);
         const veryReserva = await dataApi.verifyCita(token, id);
-
+        
+        
         setValidCita(validCitaFetch);
         if (
           resVeryStatus?.status === "INCOMPLETO" ||
@@ -98,6 +102,7 @@ const SeguimientoDocuPage = () => {
           setVeryCiteid({
             idcita: veryReserva.appointment.id,
             message: veryReserva.appointment.message,
+            
           });
 
           setView(4);
@@ -165,7 +170,9 @@ const SeguimientoDocuPage = () => {
   const handleCita = (id) => {
     navigate(`/tramite/cita?id=${id}`);
   };
+  
 
+  const finishiReprogrmar = canReschedule(validCita?.processStatus?.updatedAt)
   return (
     <>
       <div className="body-grid">
@@ -239,12 +246,11 @@ const SeguimientoDocuPage = () => {
                     VER CITA
                   </Button>
                 )}
-                {validCita?.processStatus?.status === "CITA_PROGRAMADA" && (
+                {validCita?.processStatus?.status === "CITA_PROGRAMADA" && !finishiReprogrmar && (
                   <ReprogramarMessage
                     setRefresh={setRefresh}
                     refresh={refresh}
                     id={idVeryCite.idcita}
-                    message={idVeryCite.message}
                     token={user.token}
                   />
                 )}
