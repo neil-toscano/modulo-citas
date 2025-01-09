@@ -171,7 +171,8 @@ const SeguimientoDocuPage = () => {
     navigate(`/tramite/cita?id=${id}`);
   };
   
-
+  console.log(validCita,123132);
+  
   const finishiReprogrmar = canReschedule(validCita?.processStatus?.updatedAt)
   return (
     <>
@@ -246,7 +247,7 @@ const SeguimientoDocuPage = () => {
                     VER CITA
                   </Button>
                 )}
-                {validCita?.processStatus?.status === "CITA_PROGRAMADA" && !finishiReprogrmar && (
+                {(validCita?.processStatus?.status === "CITA_PROGRAMADA" && !finishiReprogrmar && !validCita?.processStatus?.isRescheduled)  &&  (
                   <ReprogramarMessage
                     setRefresh={setRefresh}
                     refresh={refresh}
