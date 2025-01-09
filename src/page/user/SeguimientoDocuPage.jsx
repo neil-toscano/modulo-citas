@@ -171,9 +171,10 @@ const SeguimientoDocuPage = () => {
     navigate(`/tramite/cita?id=${id}`);
   };
   
-  console.log(validCita,123132);
-  
-  const finishiReprogrmar = canReschedule(validCita?.processStatus?.updatedAt)
+
+   const startDate = new Date(validCita?.processStatus?.updatedAt);
+   const currentDate = new Date();
+  const finishiReprogrmar = canReschedule(startDate,currentDate)
   return (
     <>
       <div className="body-grid">

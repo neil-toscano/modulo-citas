@@ -1,7 +1,5 @@
 // reprogramacion despues de las 48 horas
-export const canReschedule = (startDate) => {
-    const currentDate = new Date();
-    const diffInHours = (currentDate - startDate) / (1000 * 60 * 60); 
-    return diffInHours >= 48;
-  };
-  
+export const canReschedule = (startDate, currentDate) => {
+  const diffInHours = (currentDate - startDate) / (1000 * 60 * 60); // Diferencia en horas
+  return diffInHours >= 48;
+};
