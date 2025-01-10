@@ -204,7 +204,8 @@ const CitaCalendaryPage = () => {
                 />
                 <p>cita white</p> */}
                 <CalendaryWhite
-                  initialDate={timeInitial}
+                  // initialDate={timeInitial}
+                  initialDate={"2025-01-10T03:10:20.311Z"}
                   setIdTime={setIdTime}
                   selectedDate={selectedDate}
                   setSelectedDate={setSelectedDate}
