@@ -1,37 +1,39 @@
-import { useDisclosure } from "@mantine/hooks";
-import { Modal, Button, Textarea, Alert } from "@mantine/core";
+import {  Button, Alert } from "@mantine/core";
 import { useState } from "react";
 import dataApi from "@/data/fetchData";
 import { FaRegStickyNote } from "react-icons/fa";
 import { notifications } from "@mantine/notifications";
 import { FiAlertOctagon } from "react-icons/fi";
 
-function ReprogramarMessage({ id, token, message,setRefresh,refresh }) {
-  const [opened, { open, close }] = useDisclosure(false);
-  const [details, setDetails] = useState(null);
+function ReprogramarMessage({ id, token, setRefresh, refresh }) {
+
   const [alert, setAlert] = useState(false);
- 
+
   const handleDetail = async () => {
     notifications.show({
       id: id,
       withCloseButton: true,
       autoClose: false,
-      title: "Enviando mensaje...",
+      title: "Espere un momento...",
       message: "",
       color: "green",
       icon: <FaRegStickyNote />,
       className: "my-notification-class",
       loading: true,
     });
+    const body = {
+      status:"CLOSED",
+      isRescheduled:true
+    }
 
-    const res = await dataApi.updateMessageCite(token, id, details);
+    const res = await dataApi.updateMessageCite(token, id, body);
 
     if (res.id) {
       notifications.update({
         id: id,
         withCloseButton: true,
         autoClose: 3000,
-        title: "El mensaje se envió con éxito.",
+        title: "Ya puede reprogramar, gracias.",
         message: "",
         color: "green",
         icon: <FaRegStickyNote />,
@@ -40,21 +42,17 @@ function ReprogramarMessage({ id, token, message,setRefresh,refresh }) {
       });
       setRefresh(!refresh);
     }
-    close();
   };
-  //open
-  const handleChange = (event) => {
-    if (event.target.value.length <= 500) {
-      setDetails(event.target.value);
-    }
-  };
+
+
 
   const handleAlert = () => {
     setAlert(true);
   };
+
   const handleModalView = () => {
+    handleDetail();
     setAlert(false);
-    open();
   };
 
   if (alert) {
@@ -75,9 +73,9 @@ function ReprogramarMessage({ id, token, message,setRefresh,refresh }) {
               </h3>
               <p>
                 {" "}
-                Al reprogramar tu cita, nos pondremos en contacto con usted para confirmar la nueva
-                disponibilidad. ¿Deseas
-                continuar con la reprogramación de la cita?
+                Para reprogramar tu cita, asegúrate de que la nueva fecha
+                solicitada tenga al menos <b>48 horas de anticipación</b>.
+                ¿Deseas continuar con la reprogramación de tu cita?
               </p>
 
               <div className="flex gap-3 mt-6">
@@ -108,47 +106,14 @@ function ReprogramarMessage({ id, token, message,setRefresh,refresh }) {
 
   return (
     <>
-      <Modal
-        opened={opened}
-        onClose={close}
-        title="Detalle el motivo de la reprogramación."
-        centered
-      >
-        <Textarea
-          autosize
-          label="Escriba aqui su detalle"
-          minRows={4}
-          maxRows={4}
-          placeholder="..."
-          onChange={handleChange}
-        />
-        <Button
-          className="mt-4"
-          variant="filled"
-          color="red"
-          fullWidth
-          onClick={handleDetail}
-        >
-          ENVIAR MENSAJE
-        </Button>
-      </Modal>
-
-      {(message === null || message === "" || message === undefined) && (
-        <Button
-          onClick={() => handleAlert()}
-          color="red"
-          disabled={
-            message === null || message === "" || message === undefined
-              ? false
-              : true
-          }
-        >
+      {
+        <Button onClick={() => handleAlert()} color="red">
           REPROGRAMAR
         </Button>
-      )}
-      {message?.length > 0 && (
-        <Button color="green">SU MENSAJE FUE ENVIADO</Button>
-      )}
+      }
+      {/* {message?.length > 0 && (
+        <Button color="green">Reprogramación exitosa</Button>
+      )} */}
     </>
   );
 }

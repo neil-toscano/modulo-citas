@@ -684,10 +684,8 @@ async function deleteValueAccess(token, id) {
   return res;
 }
 
-async function updateMessageCite(token, idCita, message) {
-  const bodyJson = {
-    message: message,
-  };
+async function updateMessageCite(token, idCita,body) {
+
   const url = `${import.meta.env.VITE_PUBLIC_URL}/appointment/${idCita}`;
   const resProcess = await fetch(url, {
     method: "PATCH",
@@ -695,7 +693,7 @@ async function updateMessageCite(token, idCita, message) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(bodyJson),
+    body: JSON.stringify(body),
   });
 
   const res = await resProcess.json();
