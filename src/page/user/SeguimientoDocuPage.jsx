@@ -134,9 +134,9 @@ const SeguimientoDocuPage = () => {
           user.token,
           fileDocu.idFile,
         );
-        if(update.error) Error.push(update.message)
+        if (update.error) Error.push(update.message)
       }
-      if(Error.length > 0){
+      if (Error.length > 0) {
         notifications.show({
           id: 45,
           withCloseButton: true,
@@ -167,6 +167,7 @@ const SeguimientoDocuPage = () => {
   };
 
   return (
+
     <>
       <div className="body-grid">
         {!matches && <Movil Followid={id} />}
