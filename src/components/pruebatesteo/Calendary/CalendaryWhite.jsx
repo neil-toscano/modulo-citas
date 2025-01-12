@@ -12,27 +12,31 @@ const CalendaryWhite = ({
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [blockedDates, setBlockedDates] = useState([]);
 
-  // Función para calcular los 3 días hábiles bloqueados desde initialDate
+  // Función para calcular los 18 días hábiles bloqueados desde initialDate
   const calculateBlockedDates = (startDate) => {
     const blocked = [];
     let date = new Date(startDate);
     let count = 0;
-
+  
     while (count < 18) {
+      blocked.push(new Date(date)); // Agregar cada fecha al arreglo
+  
+      // Incrementar el contador solo si el día no es domingo
       if (date.getDay() !== 0) {
-        // Excluir domingos
-        blocked.push(new Date(date));
         count++;
       }
-
-      date.setDate(date.getDate() + 1); // Avanzar un día
+  
+      // Avanzar un día
+      date.setDate(date.getDate() + 1);
     }
+  
     return blocked;
   };
 
   useEffect(() => {
     if (initialDate) {
       const blockedDays = calculateBlockedDates(initialDate);
+      console.log("Fechas bloqueadas:", blockedDays); // Para verificar las fechas bloqueadas
       setBlockedDates(blockedDays);
     }
   }, [initialDate]);
@@ -53,7 +57,7 @@ const CalendaryWhite = ({
   };
 
   const isSelectable = (date) => {
-    return !isBlocked(date) && !isPastDate(date) && !isSunday(date);
+    return !isBlocked(date) && !isSunday(date) && !isPastDate(date);
   };
 
   const handleFormatTime = (dateString) => {
@@ -77,9 +81,9 @@ const CalendaryWhite = ({
     const backgroundColor = isSelected ? "rgb(217 255 3)" : "white";
     const indicatorColor = isBlocked(date)
       ? "red"
-      : isSelectable(date)
-      ? "green"
-      : "gray";
+      : isDisabled
+      ? "gray"
+      : "green";
 
     return (
       <Paper
@@ -95,14 +99,12 @@ const CalendaryWhite = ({
         key={date.toString()}
       >
         <Text align="center">{date.getDate()}</Text>
-        {!isPastDate(date) && !isSunday(date) && (
-          <Indicator
-            color={indicatorColor} // Mostrar indicador verde o rojo
-            size={8}
-            offset={-2}
-            style={{ position: "absolute", top: 5, right: 4 }}
-          />
-        )}
+        <Indicator
+          color={indicatorColor}
+          size={8}
+          offset={-2}
+          style={{ position: "absolute", top: 5, right: 4 }}
+        />
       </Paper>
     );
   };
@@ -114,8 +116,8 @@ const CalendaryWhite = ({
         locale="es"
         renderDay={renderDay}
         value={currentMonth}
-        onChange={handleMonthChange}
-        disableOutsideDates // Bloquear los meses anteriores
+        onMonthChange={handleMonthChange}
+        // Removed disableOutsideDates (not supported in Mantine Calendar)
       />
     </div>
   );
