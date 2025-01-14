@@ -32,7 +32,7 @@ const CitaCalendaryPage = () => {
     const getAdmi = async () => {
       const validCitaFetch = await dataApi.getValidCita(user.token, id);
       console.log(validCitaFetch, 'validCita');
-      setTimeInitial(validCitaFetch?.processStatus?.updatedAt);
+      setTimeInitial(validCitaFetch?.processStatus?.verifiedAt);
 
       try {
         const resHorario = await dataApi.getTimeCita(user.token);
