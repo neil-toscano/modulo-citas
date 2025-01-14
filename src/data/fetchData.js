@@ -206,9 +206,8 @@ async function getAllUser(token) {
 }
 
 async function getIdUserDocument(token, id) {
-  const url = `${
-    import.meta.env.VITE_PUBLIC_URL
-  }/documents/super-user/sections/${id}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL
+    }/documents/super-user/sections/${id}`;
   const document = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -221,9 +220,8 @@ async function getIdUserDocument(token, id) {
 }
 
 async function getValidCita(token, id) {
-  const url = `${
-    import.meta.env.VITE_PUBLIC_URL
-  }/process-status/is-eligible-for-appointment/${id}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL
+    }/process-status/is-eligible-for-appointment/${id}`;
   const document = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -248,9 +246,8 @@ async function getTimeCita(token) {
 }
 
 async function postCita(token, id, idSection) {
-  const url = `${
-    import.meta.env.VITE_PUBLIC_URL
-  }/schedule/reserve/${id}/${idSection}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL
+    }/schedule/reserve/${id}/${idSection}`;
   const document = await fetch(url, {
     method: "POST",
     headers: {
@@ -276,9 +273,8 @@ async function verifyCita(token, id) {
 }
 
 async function getSuperUser(token, idSection) {
-  const url = `${
-    import.meta.env.VITE_PUBLIC_URL
-  }/user-permissions/platform-operators/${idSection}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL
+    }/user-permissions/platform-operators/${idSection}`;
   const verify = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -291,9 +287,8 @@ async function getSuperUser(token, idSection) {
 }
 
 async function getSuperTime(token, time, idSection) {
-  const url = `${
-    import.meta.env.VITE_PUBLIC_URL
-  }/appointment/week/${idSection}?date=${time}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL
+    }/appointment/week/${idSection}?date=${time}`;
   const resTime = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -316,9 +311,8 @@ async function getCreateCita(
   const fecha = reprograme
     ? { appointmentDate: dataTime, isFirstTime: true }
     : { appointmentDate: dataTime, isFirstTime: false };
-  const url = `${
-    import.meta.env.VITE_PUBLIC_URL
-  }/appointment/${idSection}/${scheduleId}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL
+    }/appointment/${idSection}/${scheduleId}`;
   const resTime = await fetch(url, {
     method: "POST",
     headers: {
@@ -333,9 +327,8 @@ async function getCreateCita(
 }
 
 async function getUserOneCard(token, idSection) {
-  const url = `${
-    import.meta.env.VITE_PUBLIC_URL
-  }/process-status/next-review/${idSection} `;
+  const url = `${import.meta.env.VITE_PUBLIC_URL
+    }/process-status/next-review/${idSection} `;
   const resUser = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -348,9 +341,8 @@ async function getUserOneCard(token, idSection) {
 }
 
 async function getUserDocumentSection(token, idSection, userId) {
-  const url = `${
-    import.meta.env.VITE_PUBLIC_URL
-  }/admin/section/documents/${idSection}/${userId} `;
+  const url = `${import.meta.env.VITE_PUBLIC_URL
+    }/admin/section/documents/${idSection}/${userId} `;
   const resUser = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -363,9 +355,8 @@ async function getUserDocumentSection(token, idSection, userId) {
 }
 
 async function getAllCitaReserv(token, idSection) {
-  const url = `${
-    import.meta.env.VITE_PUBLIC_URL
-  }/appointment/section/${idSection}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL
+    }/appointment/section/${idSection}`;
   const resUser = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -392,9 +383,8 @@ async function sendEmailUser(token, email) {
 }
 
 async function getPedingOne(token, idSection) {
-  const url = `${
-    import.meta.env.VITE_PUBLIC_URL
-  }/process-status/next-corrected/${idSection}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL
+    }/process-status/next-corrected/${idSection}`;
   const resUser = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -407,9 +397,8 @@ async function getPedingOne(token, idSection) {
 }
 
 async function deleteCita(token, idSection, idUser) {
-  const url = `${
-    import.meta.env.VITE_PUBLIC_URL
-  }/appointment/section/${idSection}/${idUser}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL
+    }/appointment/section/${idSection}/${idUser}`;
   const resUser = await fetch(url, {
     method: "DELETE",
     headers: {
@@ -423,9 +412,8 @@ async function deleteCita(token, idSection, idUser) {
 }
 
 async function deleteHisoryUser(token, idSection, userId) {
-  const url = `${
-    import.meta.env.VITE_PUBLIC_URL
-  }/admin/finalize/${userId}/${idSection}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL
+    }/admin/finalize/${userId}/${idSection}`;
   const resUser = await fetch(url, {
     method: "DELETE",
     headers: {
@@ -583,9 +571,8 @@ async function ChartDataApi(token, fromDate, toDate, sectionId) {
 }
 
 async function postTokenVerifyEmail(token) {
-  const url = `${
-    import.meta.env.VITE_PUBLIC_URL
-  }/auth/verify-email?token=${token}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL
+    }/auth/verify-email?token=${token}`;
   const resUser = await fetch(url, {
     method: "POST",
     headers: {
@@ -598,9 +585,8 @@ async function postTokenVerifyEmail(token) {
 }
 
 async function getAllPedingCita(token) {
-  const url = `${
-    import.meta.env.VITE_PUBLIC_URL
-  }/documents/all-valid/without-appointment`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL
+    }/documents/all-valid/without-appointment`;
   const resUser = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -684,7 +670,7 @@ async function deleteValueAccess(token, id) {
   return res;
 }
 
-async function updateMessageCite(token, idCita,body) {
+async function updateMessageCite(token, idCita, body) {
 
   const url = `${import.meta.env.VITE_PUBLIC_URL}/appointment/${idCita}`;
   const resProcess = await fetch(url, {
@@ -717,11 +703,41 @@ async function updateFileReport(token, idCita, file) {
   const res = await resProcess.json();
   return res;
 }
+async function updateAppointmentByPO(token, idCita, body) {
+  console.log(body, "viendo file enviado");
+
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/appointment/${idCita}`;
+  const resProcess = await fetch(url, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(body),
+  });
+
+  const res = await resProcess.json();
+  return res;
+}
+async function checkStatusUserQuery(token, userId, sectionId) {
+
+  const url = `${import.meta.env.VITE_PUBLIC_URL}/process-status/${userId}/${sectionId}`;
+  const resProcess = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    }
+  });
+
+  const res = await resProcess.json();
+  console.log('hello');
+  return res;
+}
 
 async function sendObserDocument(token, email) {
-  const url = `${
-    import.meta.env.VITE_PUBLIC_URL
-  }/email/state-change?email=${email}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL
+    }/email/state-change?email=${email}`;
   const resProcess = await fetch(url, {
     method: "POST",
     headers: {
@@ -750,9 +766,8 @@ async function processHistory(token, sectionId, userId, state) {
 }
 
 async function sendVeryDocument(token, email) {
-  const url = `${
-    import.meta.env.VITE_PUBLIC_URL
-  }/email/verified-documents?email=${email}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL
+    }/email/verified-documents?email=${email}`;
   const resProcess = await fetch(url, {
     method: "POST",
     headers: {
@@ -822,7 +837,7 @@ async function CreateUserLogin(data) {
   });
 
   const res = await resProcess.json();
-  
+
   return res;
 }
 
@@ -844,9 +859,8 @@ async function UpdateUserLogin(data, token) {
 }
 
 async function ResetPassword(dni) {
-  const url = `${
-    import.meta.env.VITE_PUBLIC_URL
-  }/auth/reset-password?documentNumber=${dni}`;
+  const url = `${import.meta.env.VITE_PUBLIC_URL
+    }/auth/reset-password?documentNumber=${dni}`;
   const resProcess = await fetch(url, {
     method: "POST",
     headers: {
@@ -905,6 +919,8 @@ const dataApi = {
   updateFileReport,
   PageHistoryProcess,
   PageHistoryReporte,
+  updateAppointmentByPO,
+  checkStatusUserQuery,
 };
 
 export default dataApi;

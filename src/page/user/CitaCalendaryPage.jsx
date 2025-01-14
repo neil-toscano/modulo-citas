@@ -31,6 +31,7 @@ const CitaCalendaryPage = () => {
   useEffect(() => {
     const getAdmi = async () => {
       const validCitaFetch = await dataApi.getValidCita(user.token, id);
+      console.log(validCitaFetch, 'validCita');
       setTimeInitial(validCitaFetch?.processStatus?.updatedAt);
 
       try {
@@ -115,7 +116,7 @@ const CitaCalendaryPage = () => {
 
     //todo valida si ya tiene cita de verdad
     await dataApi.verifyCita(user.token, id);
-   
+
     if (res.status === "OPEN") {
       setLoading(false);
       notifications.update({
@@ -164,7 +165,7 @@ const CitaCalendaryPage = () => {
       navigate(0);
       return;
     }
-   
+
   };
 
   return (
