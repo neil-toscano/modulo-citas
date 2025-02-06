@@ -8,8 +8,12 @@ import LinkFollow from "../linkfollow/LinkFollow";
 import dataApi from "@/data/fetchData";
 import { useProduct } from "@/provider/ProviderContext";
 import LodingFile from "../loading/LodingFile";
+import { DatosUsuario } from "../datos-usuario/DatosUser";
+import { Tramites } from "../tramites/Tramites";
+import { RequisitosBySection } from "../tramites/Requisitos";
 
 const Requisito = ({ dataDocument, inestadaReq }) => {
+  console.log(dataDocument, 'data')
   const idDocument = dataDocument?.sectionId;
   const { user } = useProduct();
   const [active, setActive] = useState(0);
@@ -20,6 +24,10 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
   const [loadingFile, setLoadingFile] = useState(false);
   const [completFileInput, setCompletFileInput] = useState([]);
   const [memoryProcess, setMemoryProcess] = useState([]);
+
+  const [sectionId, setSectionId] = useState(null);
+  const [sectionData, setSectionData] = useState(null);
+
   const lengthState = Object.keys(stateOk).length;
   let allTrue = 0;
   if (lengthState !== 0)
@@ -29,13 +37,14 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
     const verifyFileUser = async () => {
       const res = await dataApi.getProcessFile(
         user.token,
-        dataDocument.sectionId
+        sectionId
       );
+      console.log(res, 'respuesta/docu')
       const CompletFileInput = await dataApi.getCompletFilesInputs(
         user.token,
-        dataDocument.sectionId
+        sectionId
       );
-
+      console.log(res, 'res');
       const incomplete = res?.status !== "INCOMPLETO";
       const completo = res?.status !== "COMPLETO";
       const errorStatus =
@@ -54,21 +63,47 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
     setMemoryProcess([]);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [countFile, dataDocument]);
+  }, [countFile, sectionId]);
   //estados a confirmar
   const nextStep = async () => {
     //asegurate que llene el formulario
-    if (active === 1) {
-      const res = await dataApi.getProcessFile(user.token, idDocument);
+    if (active === 2) {
+      const res = await dataApi.getProcessFile(user.token, sectionId);
+      console.log(res, 'res');
       const resProcees = await dataApi.startTramiteDocument(user.token, res.id);
       setActive(3);
       return;
     }
-    setActive((current) => (current < 3 ? current + 1 : current));
+    setActive((current) => (current < 4 ? current + 1 : current));
   };
 
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
+
+  function handleFormDatosSubmit(values) {
+    console.log('Datos del formulario:', values);
+    nextStep();
+  }
+
+  function selectTramite(Id, payload) {
+    console.log(Id, 'id');
+    setSectionId(Id);
+  }
+
+  function handleTramiteSelected() {
+    console.log(sectionId, 'seleccionado');
+    if (sectionId) {
+      nextStep();
+    }
+    console.log('selecciones');
+    return;
+  }
+  
+  function handleRequisitosTramite(payload) {
+    setSectionData(payload);
+    return;
+  }
+
   return (
     <div className="bg-white px-10 py-10 full-call">
       {loadingFile && <LodingFile />}
@@ -76,24 +111,42 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
         active={active}
         orientation={!matches ? "vertical" : "horizontal"}
       >
-        <Stepper.Step label="REQUISITOS" description="Lea los requisitos">
+        <Stepper.Step label="DATOS DEL SOLICITANTE" description="Por ùnica vez complete sus datos">
           <List type="ordered">
-            {dataDocument?.typedocument.map((require, index) => (
-              <List.Item key={require.id}>
-                {++index}.- {require.name}
-              </List.Item>
-            ))}{" "}
-            <br />
-            {inestadaReq && (
-              <div className="text-sm flex flex-col gap-2">
-                <p>* TODO DOCUMENTO DE SUNARP TIENE UNA VIGENCIA DE 3 MESES.</p>
-                <p>
-                  * SI LA CONDICIÓN DE LA PROPIEDAD ES {`"POSESIONARIO"`}, NO SE
-                  PODRÁ <br /> REALIZAR LA INSCRIPCIÓN DE LA SUCESIÓN INTESTADA.
-                </p>
-              </div>
-            )}
+            <DatosUsuario onSubmit={handleFormDatosSubmit} />
           </List>
+        </Stepper.Step>
+        <Stepper.Step label="TRAMITES DISPONIBLES" description="lista de tramites">
+          <List type="ordered">
+            <Tramites onSelect={selectTramite} />
+          </List>
+          <Group justify="center" mt="xl">
+            {active !== 0 && (
+              <Button variant="default" onClick={prevStep}>
+                Atras
+              </Button>
+            )}
+
+            <Button
+              onClick={handleTramiteSelected}
+            >
+              Continuar
+            </Button>
+          </Group>
+        </Stepper.Step>
+        <Stepper.Step label="REQUISITOS" description="Lea los requisitos">
+          <RequisitosBySection sectionId={sectionId} sectionData = {handleRequisitosTramite} />
+          <Group justify="center" mt="xl">
+
+            <Button variant="default" onClick={prevStep}>
+              Atras
+            </Button>
+            <Button
+              onClick={nextStep}
+            >
+              Continuar
+            </Button>
+          </Group>
         </Stepper.Step>
         <Stepper.Step label="CARGA DOCUMENTOS" description="solo archivos PDF">
           <div className="relative flex flex-col gap-3">
@@ -102,15 +155,35 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
               memoryProcess={memoryProcess}
               setCompletFileInput={setCompletFileInput}
               completFileInput={completFileInput}
-              idDocument={idDocument}
+              idDocument={sectionId}
               setLoadingFile={setLoadingFile}
-              dataDocument={dataDocument}
+              dataDocument={sectionData}
               files={files}
               setFiles={setFiles}
               stateOk={stateOk}
               setEstadoOk={setEstadoOk}
             />
           </div>
+
+          <Group justify="center" mt="xl">
+
+            <Button variant="default" onClick={prevStep}>
+              Atras
+            </Button>
+
+
+            <Button
+              disabled={
+                active === 1 &&
+                !(lengthState.length === countFile) &&
+                allTrue !== countFile
+              }
+              onClick={nextStep}
+            >
+              {active === 0 ? "INICIAR TRAMITE" : "INICIAR TRAMITE"}
+            </Button>
+          </Group>
+
         </Stepper.Step>
         <Stepper.Step
           label="PROCESO COMPLETADO"
@@ -127,7 +200,7 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
         </Stepper.Completed>
       </Stepper>
 
-      {active !== 3 && (
+      {/* {active !== 3 && (
         <Group justify="center" mt="xl">
           {active !== 0 && (
             <Button variant="default" onClick={prevStep}>
@@ -143,10 +216,10 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
             }
             onClick={nextStep}
           >
-            {active == 0 ? "INICIAR TRAMITE" : "INICIAR TRAMITE"}
+            {active === 0 ? "INICIAR TRAMITE" : "INICIAR TRAMITE"}
           </Button>
         </Group>
-      )}
+      )} */}
     </div>
   );
 };

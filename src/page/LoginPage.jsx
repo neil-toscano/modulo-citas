@@ -1,9 +1,9 @@
-import Login from "@/components/login/Login";
 import logo from "@/assets/logo.png";
 import SwiperImg from "../components/login/SwiperImg";
 import { useState } from "react";
 import { useMediaQuery } from "@mantine/hooks";
 import Polygon from "@/assets/login/polygon.png" 
+import LoginDocument from "../components/login/LoginDocument";
 const LoginPage = () => {
   const [view, setView] = useState(true);
   const matches = useMediaQuery("(min-width: 939px)");
@@ -18,7 +18,7 @@ const LoginPage = () => {
         <div className="absolute h-full w-[98] ">
           <img src={Polygon} style={{width:"100%",height:"100%",objectFit:"cover"}} alt="fondo-login" />
         </div>
-        <Login view={view} setView={setView} />
+        <LoginDocument view={view} setView={setView} />
         <div className="py-4 z-[2] flex justify-center items-center w-full">
           <img
             src={logo}

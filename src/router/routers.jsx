@@ -28,9 +28,9 @@ const AppRoutes = () => {
 
         {/* Rutas privadas user*/}
         <Route path="/tramite" element={<PrivateRoute requiredRole="user" />}>
+          <Route path="" element={<DocumentPage />} />
           <Route path="confirmacion-de-cita" element={<InfoCitaPage />} />
           <Route path="cita" element={<CitaCalendaryPage />} />
-          <Route path="documento/:slug" element={<DocumentPage />} />
           <Route
             path="documento-seguimiento/:slug"
             element={<SeguimientoDocuPage />}
