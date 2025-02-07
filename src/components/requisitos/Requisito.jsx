@@ -142,7 +142,7 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
           </List>
         </Stepper.Step>
 
-        <Stepper.Step label="TRAMITES DISPONIBLES" description="lista de tramites">
+        <Stepper.Step label="TRAMITES DISPONIBLES" description="lista de tramite">
           <List type="ordered">
             <Tramites onSelect={selectTramite} />
           </List>
