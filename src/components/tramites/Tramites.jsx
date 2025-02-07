@@ -3,17 +3,15 @@ import axios from "axios";
 import { Radio, Group, Text } from '@mantine/core';
 import { useProduct } from "../../provider/ProviderContext";
 import { useNavigate } from "react-router-dom";
+import dataApi from "@/data/fetchData";
 
 export function Tramites({ onSelect }) {
     const apiUrl = import.meta.env.VITE_PUBLIC_URL;
     const { user } = useProduct();
 
-    const navigate = useNavigate();
-
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [selectedTramite, setSelectedTramite] = useState("");
     const [value, setValue] = useState(null);
 
     useEffect(() => {
@@ -25,6 +23,9 @@ export function Tramites({ onSelect }) {
                     },
                 });
                 setItems(data);
+                console.log(data, 'tramites');
+                const res = await dataApi.getProcessFile(user.token, sectionId);
+                console.log(res, 'res');
                 setLoading(false);
             } catch (err) {
                 setError("Error al cargar los trámites");
@@ -33,7 +34,7 @@ export function Tramites({ onSelect }) {
         };
 
         fetchTramites();
-    }, [user.token]);
+    }, []);
 
     const handleChange = (selectedValue) => {
         setValue(selectedValue);

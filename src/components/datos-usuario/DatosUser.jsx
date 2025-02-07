@@ -7,7 +7,7 @@ export function DatosUsuario({ onSubmit }) {
     initialValues: { telefono: '958309791', email: 'neil.toscano.f@gmail.com' },
 
     validate: {
-      telefono: (value) => (value.length < 2 ? 'Name must have at least 2 letters' : null),
+      telefono: (value) => (value.length !== 9 ? 'El teléfono debe tener exactamente 9 caracteres' : null),
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
     },
   });
@@ -29,7 +29,7 @@ export function DatosUsuario({ onSubmit }) {
       />
       <div className='grid justify-items-end'>
         <Button type="submit" mt="sm">
-            Continuar
+          Continuar
         </Button>
       </div>
     </form>
