@@ -9,19 +9,17 @@ import {
     UnstyledButton,
 } from '@mantine/core';
 
-const user = {
-    name: 'Jane Spoonfighter',
-    email: 'janspoon@fighter.dev',
-    image: 'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-5.png',
-};
-
 export function UsernameHeader({ documento }) {
     const [userMenuOpened, setUserMenuOpened] = useState(false);
 
     return (
         <div className="bg-gray-50 shadow-md rounded-lg p-4 mb-2">
             <Container fluid>
-                <Group justify="flex-end">
+                <Group justify="space-between">
+                    <div style={{ display: "flex", gap: "8px", alignItems: "center", fontWeight: "bold", fontSize: "2rem" }}>
+                        <span style={{ color: "red" }}>Jesús</span>
+                        <span style={{ color: "black" }}>Alcalde</span>
+                    </div>
                     <Menu
                         width={260}
                         position="bottom-end"
@@ -36,7 +34,7 @@ export function UsernameHeader({ documento }) {
                                 <Group gap={7}>
                                     <Avatar src={null} alt="sin foto" radius="xl" size={40} color="indigo" />
                                     <Text fw={500} size="sm" lh={1} mr={3}>
-                                        { documento }
+                                        {documento}
                                     </Text>
                                     <FaChevronDown size={12} stroke={1.5} />
                                 </Group>

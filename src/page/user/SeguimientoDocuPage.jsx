@@ -14,6 +14,7 @@ import LodingFile from "@/components/loading/LodingFile";
 import ReprogramarMessage from "@/components/cita/ReprogramarMessage";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { canReschedule } from "../../utils/canReschedule";
+import { UsernameHeader } from "../../components/username/UsernameHeader";
 
 // 0 en processo
 // 1 SUBSANAR DOCUMENTOS
@@ -64,8 +65,8 @@ const SeguimientoDocuPage = () => {
         setFilesArray(data);
         const validCitaFetch = await dataApi.getValidCita(token, id);
         const veryReserva = await dataApi.verifyCita(token, id);
-        
-        
+
+
         setValidCita(validCitaFetch);
         if (
           resVeryStatus?.status === "INCOMPLETO" ||
@@ -170,28 +171,34 @@ const SeguimientoDocuPage = () => {
   const handleCita = (id) => {
     navigate(`/tramite/cita?id=${id}`);
   };
-  
 
-   const currentDate = new Date();
-   console.log(validCita?.processStatus,4343);
-   
-  const finishiReprogrmar = canReschedule(idVeryCite.appointment,currentDate)
+  const handleReturnHome = (id) => {
+    navigate('/tramite');
+  };
+
+
+  const currentDate = new Date();
+  console.log(validCita?.processStatus, 4343);
+
+  const finishiReprogrmar = canReschedule(idVeryCite.appointment, currentDate)
   return (
 
     <>
-      <div className="body-grid">
-        {!matches && <Movil Followid={id} />}
-        {matches && <Header Followid={id} />}
+      <div>
+        {/* {!matches && <Movil Followid={id} />}
+        {matches && <Header Followid={id} />} */}
         <main className="bg-img relative">
           {loadingFile && <LodingFile />}
 
-          {matches && (
+          {/* {matches && (
             <Username
               firstName={user.firstName}
               paterno={user.apellido_paterno}
               materno={user.apellido_materno}
             />
           )}
+           */}
+           <UsernameHeader documento={user.documentNumber} />
           <div className="px-10 py-8 bg-white full-call">
             {(view == 0 || view == 3) && (
               <h1 className="text-2xl font-bold mb-4">
@@ -221,6 +228,13 @@ const SeguimientoDocuPage = () => {
               view={view}
             />
             <div className="flex justify-center mt-4">
+              <Button
+                onClick={() => handleReturnHome()}
+                className="self-end"
+                color="indigo"
+              >
+                Volver
+              </Button>
               {(view == 1 || mixto == 2) && (
                 <Button
                   onClick={handleSubsanar}
@@ -250,7 +264,7 @@ const SeguimientoDocuPage = () => {
                     VER CITA
                   </Button>
                 )}
-                {(validCita?.processStatus?.status === "CITA_PROGRAMADA" && finishiReprogrmar && !validCita?.processStatus?.isRescheduled)  &&  (
+                {(validCita?.processStatus?.status === "CITA_PROGRAMADA" && finishiReprogrmar && !validCita?.processStatus?.isRescheduled) && (
                   <ReprogramarMessage
                     setRefresh={setRefresh}
                     refresh={refresh}

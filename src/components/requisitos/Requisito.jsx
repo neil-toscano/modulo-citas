@@ -91,8 +91,14 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
     setActive((current) => (current < 4 ? current + 1 : current));
   };
 
-  const prevStep = () =>
+  const prevStep = () => {
     setActive((current) => (current > 0 ? current - 1 : current));
+  }
+  
+  const prevStepFromTramites = () => {
+    setActive((current) => (current > 0 ? current - 1 : current));
+    setSectionId(null);
+  }
 
   async function handleFormDatosSubmit(values) {
     const apiUrl = import.meta.env.VITE_PUBLIC_URL;
@@ -147,12 +153,13 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
             <Tramites onSelect={selectTramite} />
           </List>
           <Group justify="center" mt="xl">
-            <Button variant="default" onClick={prevStep}>
+            <Button variant="default" onClick={prevStepFromTramites}>
               Atras
             </Button>
 
             <Button
               onClick={handleTramiteSelected}
+              disabled={!sectionId}
             >
               Continuar
             </Button>
@@ -217,8 +224,8 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
           description="Archivos completados"
         >
           <LinkFollow
-            idDocument={idDocument}
-            sectionSlug={dataDocument?.sectionSlug}
+            idDocument={sectionId}
+            sectionSlug={sectionData?.sectionSlug}
           />
         </Stepper.Completed>
       </Stepper>
