@@ -6,7 +6,7 @@ const DocumentPage = () => {
   const { user } = useProduct();
   return (
     <div>
-      <main className="bg-img w-full relative">
+      <main className="bg-img w-full relative tramites">
         <UsernameHeader documento={user.documentNumber} />
         <Requisito/>
       </main>

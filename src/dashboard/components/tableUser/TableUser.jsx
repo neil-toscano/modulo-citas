@@ -1,6 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { IoEyeSharp } from "react-icons/io5";
+import { IoEyeSharp, IoInformationCircleOutline } from "react-icons/io5";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import esLocaleText from "./traductor"
 import { useNavigate } from "react-router-dom";
@@ -31,7 +31,7 @@ export default function TablesUser({
       .replace(/pendientes-no-corregido/g, "")
       .trim();
 
-      navigate(
+    navigate(
       `/dashboard/files/${cleanedString}nuevos/${idSectionSubPendiente}?nopendiente=true&iduser=${id}`
     );
   };
@@ -39,31 +39,84 @@ export default function TablesUser({
   const columns = [
     ...(idSectionSubPendiente
       ? [
-          {
-            field: "actions",
-            headerName: "Ver usuario",
-            width: 150,
-            renderCell: (params) => (
-              <GridActionsCellItem
-                icon={<IoEyeSharp />}
-                label="Ver"
-                onClick={() => handleCustomAction(params.id)}
-              />
-            ),
-          },
-        ]
+        {
+          field: "actions",
+          headerName: "Ver usuario",
+          width: 150,
+          renderCell: (params) => (
+            <GridActionsCellItem
+              icon={<IoEyeSharp
+                style={{
+                  fontSize: "24px",
+                  color: "teal",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              />}
+              label="Ver"
+              onClick={() => handleCustomAction(params.id)}
+            />
+          ),
+        },
+      ]
       : []),
     { field: "documentNumber", headerName: "DNI", width: 150, editable: false },
-    { field: "firstName", headerName: "Nombres", width: 150, editable: false },
-    { field: "apellido_paterno", headerName: "Apellidos Paterno", width: 150, editable: false },
-    { field: "apellido_materno", headerName: "Apellidos Materno", width: 150, editable: false },
     {
-      field: "address",
-      headerName: "Dirección",
+      field: "firstName",
+      headerName: "Nombres",
+      width: 150,
+      editable: false,
+      renderCell: (params) => (
+        params.value ? (
+          params.value
+        ) : (
+          <div className="flex items-center gap-2 text-gray-500 italic">
+            <IoInformationCircleOutline className="text-orange-500" />
+            Dato no completado
+          </div>
+        )
+      ),
+    },
+    {
+      field: "apellido_paterno",
+      headerName: "Apellidos Paterno",
       width: 200,
       editable: false,
+      renderCell: (params) => (
+        params.value ? (
+          params.value
+        ) : (
+          <div className="flex items-center gap-2 text-gray-500 italic">
+            <IoInformationCircleOutline className="text-orange-500" />
+            Dato no completado
+          </div>
+        )
+      ),
     },
-    { field: "district", headerName: "Distrito", width: 150, editable: false },
+    {
+      field: "apellido_materno",
+      headerName: "Apellidos Materno",
+      width: 200,
+      editable: false,
+      renderCell: (params) => (
+        params.value ? (
+          params.value
+        ) : (
+          <div className="flex items-center gap-2 text-gray-500 italic">
+            <IoInformationCircleOutline className="text-orange-500" />
+            Dato no completado
+          </div>
+        )
+      ),
+    },
+    // {
+    //   field: "address",
+    //   headerName: "Dirección",
+    //   width: 200,
+    //   editable: false,
+    // },
+    // { field: "district", headerName: "Distrito", width: 150, editable: false },
     {
       field: "mobileNumber",
       headerName: "Teléfono",
@@ -72,6 +125,7 @@ export default function TablesUser({
     },
     { field: "email", headerName: "Gmail", width: 200, editable: false },
   ];
+
 
   return (
     <Box

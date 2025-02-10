@@ -1,6 +1,5 @@
-
 import dataApi from "@/data/fetchData";
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const VisualCita = ({ id, token }) => {
   const [data, setData] = useState({});
@@ -13,7 +12,7 @@ const VisualCita = ({ id, token }) => {
       setData(res.appointment);
 
       const date = new Date(res.appointment.appointmentDate);
-      // Obtener día, mes y año
+      // Formatear fecha
       const day = String(date.getUTCDate()).padStart(2, "0");
       const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // Los meses son 0-indexed
       const year = date.getUTCFullYear();
@@ -25,26 +24,41 @@ const VisualCita = ({ id, token }) => {
   }, [id, token]);
 
   return (
-    <div className="flex flex-col  gap-3">
-      <h1 className="lg:text-4xl md:text-4xl text-3xl font-bold">CONFIRMACIÓN DE CITA</h1>
-      <h2 className="text-1xl lg:text-2xl md:text-2xl">
-        • Su cita fue programada para el día {fecha}, a horas{" "}
-        {data?.schedule?.startTime}{" "}
-      </h2>
-      <div>
-        <h3 className="text-1xl lg:text-2xl md:text-2xl font-semibold">NOTA IMPORTANTE:</h3>
-        <div className="flex flex-col gap-2 mt-2">
-          <p className="text-1xl lg:text-2xl md:text-2xl">
-            - Presentarse a la CITA, el titular con su documento identidad.
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="max-w-4xl mx-auto p-8 bg-white rounded-2xl shadow-lg border border-gray-300">
+        {/* Tarjeta destacando la Municipalidad */}
+        <div className="bg-green-800 text-white text-center py-4 px-6 rounded-lg shadow-md mb-6">
+          <h2 className="text-lg lg:text-xl font-bold">
+            Municipalidad de San Juan de Lurigancho
+          </h2>
+          <p className="text-sm lg:text-base">
+            Este trámite es gestionado por su municipalidad.
           </p>
+        </div>
 
-          <p className="text-1xl lg:text-2xl md:text-2xl">
-            - En caso de representante legal: Carta poder legalizada o vigencia
-            de poder; según corresponda.
+        <h1 className="text-3xl lg:text-4xl font-bold text-green-800 mb-6 text-center">
+          CONFIRMACIÓN DE CITA
+        </h1>
+        <div className="text-center bg-green-50 text-green-900 rounded-lg py-4 px-6 shadow-inner border border-green-200">
+          <p className="text-lg lg:text-xl">
+            Su cita fue programada para el día{" "}
+            <span className="font-semibold text-green-700">{fecha}</span>, a horas{" "}
+            <span className="font-semibold text-green-700">{data?.schedule?.startTime}</span>.
           </p>
-          <p className="text-1xl lg:text-2xl md:text-2xl">
-            - Traer sus documentos: Físicos y originales.
-          </p>
+        </div>
+        <div className="mt-6">
+          <h3 className="text-xl lg:text-2xl font-semibold text-green-800 mb-4">
+            NOTA IMPORTANTE:
+          </h3>
+          <ul className="list-disc pl-6 space-y-3 text-slate-700 font-bold">
+            <li>
+              Presentarse a la CITA, el titular con su documento identidad.
+            </li>
+            <li>
+              En caso de representante legal: Carta poder legalizada o vigencia de poder; según corresponda.
+            </li>
+            <li>Traer sus documentos: Físicos y originales.</li>
+          </ul>
         </div>
       </div>
     </div>

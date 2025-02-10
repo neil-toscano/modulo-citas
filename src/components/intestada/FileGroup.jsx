@@ -95,58 +95,56 @@ const FileGroup = ({
           (file) => file.typeDocument?.id === getfiles.id
         );
         return (
-          <>
-            <div
-              key={getfiles.id}
-              className="flex flex-col lg:flex-row md:flex-row sm:flex-row gap-4  items-center mb-5"
-            >
-              <FileInput
-                size="md"
-                className="w-full"
-                rightSection={
-                  <RiInboxUnarchiveFill
-                    size={20}
-                    style={{ color: "#82c91e" }}
-                  />
-                }
-                label={getfiles.name}
-                placeholder={"Selecciona tu archivo PDF haciendo clic aquí."}
-                value={files[getfiles.name]}
-                leftSectionPointerEvents="none"
-                onChange={(file) =>
-                  handleFileMultiple(
-                    file,
-                    getfiles.sectionTypeId,
-                    getfiles.name,
-                    getfiles.id
-                  )
-                }
-                valueComponent={({ value }) => (
-                  <ValueComponent
-                    value={files[getfiles.name]}
-                    onRemove={getfiles.name}
-                  />
-                )}
-                accept="application/pdf,.pdf"
-              />
+          <div
+            key={getfiles.id}
+            className="flex flex-col lg:flex-row md:flex-row sm:flex-row gap-4  items-center justify-center mb-5"
+          >
+            <FileInput
+              size="md"
+              className="w-full lg:w-[70%]"
+              rightSection={
+                <RiInboxUnarchiveFill
+                  size={20}
+                  style={{ color: "#82c91e" }}
+                />
+              }
+              label={getfiles.name}
+              placeholder={"Selecciona tu archivo PDF haciendo clic aquí."}
+              value={files[getfiles.name]}
+              leftSectionPointerEvents="none"
+              onChange={(file) =>
+                handleFileMultiple(
+                  file,
+                  getfiles.sectionTypeId,
+                  getfiles.name,
+                  getfiles.id
+                )
+              }
+              valueComponent={({ value }) => (
+                <ValueComponent
+                  value={files[getfiles.name]}
+                  onRemove={getfiles.name}
+                />
+              )}
+              accept="application/pdf,.pdf"
+            />
 
-              <ButtonUpdate
-                updateVery={updateVery}
-                setMemoryProcess={setMemoryProcess}
-                setCompletFileInput={setCompletFileInput}
-                idDocument={idDocument}
-                stateOk={stateOk}
-                setEstadoOk={setEstadoOk}
-                setLoadingFile={setLoadingFile}
-                files={files}
-                sectionIdDocument={dataDocument.sectionId}
-                matchingFile={matchingFile}
-                fileName={files[getfiles.name]}
-                idFiles={getfiles.id}
-                getfileName={getfiles.name}
-              />
-            </div>
-          </>
+            <ButtonUpdate
+              updateVery={updateVery}
+              setMemoryProcess={setMemoryProcess}
+              setCompletFileInput={setCompletFileInput}
+              idDocument={idDocument}
+              stateOk={stateOk}
+              setEstadoOk={setEstadoOk}
+              setLoadingFile={setLoadingFile}
+              files={files}
+              sectionIdDocument={dataDocument.sectionId}
+              matchingFile={matchingFile}
+              fileName={files[getfiles.name]}
+              idFiles={getfiles.id}
+              getfileName={getfiles.name}
+            />
+          </div>
         );
       })}
     </>

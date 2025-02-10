@@ -18,7 +18,7 @@ const CalendaryWhite = ({
     let date = new Date(startDate);
     let count = 0;
   
-    while (count < 18) {
+    while (count < 12) {
       blocked.push(new Date(date)); // Agregar cada fecha al arreglo
   
       // Incrementar el contador solo si el día no es domingo

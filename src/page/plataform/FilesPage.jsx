@@ -159,9 +159,10 @@ const FilesPage = () => {
                 </h1>
                 <span className="flex gap-2">
                   <h3 className="uppercasse font-bold text-[blue] ">
-                    Nombre de usuario:
+                    Nombre y DNI de usuario:
                   </h3>
                   <p className="font-semibold uppercase">
+                    {documentUser[0]?.user.documentNumber}{" "}
                     {documentUser[0]?.user.firstName}{" "}
                     {documentUser[0]?.user.apellido_paterno}{" "}
                     {documentUser[0]?.user.apellido_materno}

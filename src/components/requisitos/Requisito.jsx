@@ -53,19 +53,15 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
 
 
   const verifyFileUser = async () => {
-    console.log(stateOk, 'stateOk');
-    console.log('entra');
     const res = await dataApi.getProcessFile(
       user.token,
       sectionId
     );
-    console.log(res, 'respuesta/docu')
+
     const CompletFileInput = await dataApi.getCompletFilesInputs(
       user.token,
       sectionId
     );
-    console.log(res, 'respu');
-    console.log(completFileInput, 'completeFile');
     const incomplete = res?.status !== "INCOMPLETO";
     const completo = res?.status !== "COMPLETO";
     const errorStatus =
@@ -73,7 +69,7 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
     setCompletFileInput(CompletFileInput);
     setMemoryProcess(CompletFileInput);
 
-    if (incomplete && errorStatus && completo) setActive(3);
+    // if (incomplete && errorStatus && completo) setActive(3);
   };
 
 
@@ -94,7 +90,7 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
   const prevStep = () => {
     setActive((current) => (current > 0 ? current - 1 : current));
   }
-  
+
   const prevStepFromTramites = () => {
     setActive((current) => (current > 0 ? current - 1 : current));
     setSectionId(null);
@@ -130,12 +126,6 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
 
   return (
     <div className="bg-white px-10 py-10 full-call">
-      <span>User: {JSON.stringify(user)}</span>
-      {JSON.stringify(stateOk)}
-      {JSON.stringify(allTrue)}
-      {active}
-      <span>countFile {countFile}</span>
-      {/* <span>Requisito {JSON.stringify(sectionData)}</span> */}
       {loadingFile && <LodingFile />}
       <Stepper
         active={active}
@@ -148,7 +138,7 @@ const Requisito = ({ dataDocument, inestadaReq }) => {
           </List>
         </Stepper.Step>
 
-        <Stepper.Step label="TRAMITES DISPONIBLES" description="lista de tramite">
+        <Stepper.Step label="TRÀMITES DISPONIBLES" description="lista de tramite">
           <List type="ordered">
             <Tramites onSelect={selectTramite} />
           </List>

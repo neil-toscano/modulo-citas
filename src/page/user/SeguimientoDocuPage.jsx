@@ -198,7 +198,7 @@ const SeguimientoDocuPage = () => {
             />
           )}
            */}
-           <UsernameHeader documento={user.documentNumber} />
+          <UsernameHeader documento={user.documentNumber} />
           <div className="px-10 py-8 bg-white full-call">
             {(view == 0 || view == 3) && (
               <h1 className="text-2xl font-bold mb-4">
@@ -230,11 +230,28 @@ const SeguimientoDocuPage = () => {
             <div className="flex justify-center mt-4">
               <Button
                 onClick={() => handleReturnHome()}
-                className="self-end"
-                color="indigo"
+                color="teal"
+                variant="outline"
+                className="self-end bg-green-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 flex items-center gap-2 mx-2"
               >
-                Volver
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                  />
+                </svg>
+                Volver a Trámites
               </Button>
+
+
               {(view == 1 || mixto == 2) && (
                 <Button
                   onClick={handleSubsanar}

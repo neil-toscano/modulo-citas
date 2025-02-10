@@ -13,6 +13,7 @@ import Username from "@/components/username/Username";
 import LodingFile from "@/components/loading/LodingFile";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import CalendaryWhite from "../../components/pruebatesteo/Calendary/CalendaryWhite";
+import { UsernameHeader } from "../../components/username/UsernameHeader";
 
 const CitaCalendaryPage = () => {
   const { user } = useProduct();
@@ -170,56 +171,44 @@ const CitaCalendaryPage = () => {
 
   return (
     <>
-      <div className="body-grid">
-        {!matches && <Movil />}
-        {matches && <Header />}
-        <main className="bg-white">
-          {matches && (
-            <Username
-              firstName={user.firstName}
-              paterno={user.apellido_paterno}
-              materno={user.apellido_materno}
-            />
-          )}
-          <div className="px-10 py-4 relative">
-            {loading && <LodingFile />}
-            <h1 className="text-3xl font-bold uppercase">Reserve su cita</h1>
-            <p>Eliga su cita</p>
-            <div className="grid grid-cols-1 gap-y-8 lg:grid-cols-2 mt-4">
-              <div className="">
-                <div className="flex gap-3 mb-4 ">
-                  <Select
-                    label="Seleccione primero una fecha"
-                    placeholder="Click aquí elige horario"
-                    data={dataTime}
-                    value={idTime}
-                    onChange={setIdTime}
-                    disabled={disable}
+      <div>
+        {/* {!matches && <Movil />}
+        {matches && <Header />} */}
+        <main className="bg-img bg-white">
+          <UsernameHeader documento={user.documentNumber} />
+          <div className="px-10 py-4 relative min-h-screen">
+            <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 w-full lg:w-[70%] mx-auto">
+              {loading && <LodingFile />}
+              <h1 className="text-3xl font-bold uppercase text-gray-800">Reserve su cita</h1>
+              <p className="text-gray-600 mt-2">Eliga su cita</p>
+              <div className="grid grid-cols-1 gap-y-8 lg:grid-cols-2 mt-4">
+                <div className="">
+                  <div className="flex gap-3 mb-4">
+                    <Select
+                      label="Seleccione primero una fecha"
+                      placeholder="Click aquí elige horario"
+                      data={dataTime}
+                      value={idTime}
+                      onChange={setIdTime}
+                      disabled={disable}
+                    />
+                  </div>
+                  <CalendaryWhite
+                    initialDate={timeInitial}
+                    setIdTime={setIdTime}
+                    selectedDate={selectedDate}
+                    setSelectedDate={setSelectedDate}
                   />
-                </div>
-                {/* <Calendary
-                  initialDate={timeInitial}
-                  setIdTime={setIdTime}
-                  selectedDate={selectedDate}
-                  setSelectedDate={setSelectedDate}
-                />
-                <p>cita white</p> */}
-                <CalendaryWhite
-                  initialDate={timeInitial}
-                  // initialDate={"2025-01-10T03:10:20.311Z"}
-                  setIdTime={setIdTime}
-                  selectedDate={selectedDate}
-                  setSelectedDate={setSelectedDate}
-                />
-                <div className="mt-3">
-                  <Button
-                    disabled={!idTime || !selectedDate}
-                    variant="filled"
-                    color="green"
-                    onClick={handleCreateCita}
-                  >
-                    SOLICITAR CITA
-                  </Button>
+                  <div className="mt-3">
+                    <Button
+                      disabled={!idTime || !selectedDate}
+                      variant="filled"
+                      color="green"
+                      onClick={handleCreateCita}
+                    >
+                      SOLICITAR CITA
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>

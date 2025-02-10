@@ -7,7 +7,7 @@ const LinkFollow = ({ idDocument, sectionSlug }) => {
     <>
       {
         <>
-          Gracias por registrarse.{" "}
+          Ha iniciado su trámite correctamente.{" "}
           <Link
             to={`/tramite/documento-seguimiento/${sectionSlug}?id=${idDocument}`}
             className="font-bold"
@@ -17,7 +17,7 @@ const LinkFollow = ({ idDocument, sectionSlug }) => {
               variant="gradient"
               gradient={{ from: "lime", to: "green", deg: 90 }}
             >
-              SEGUIMIENTO AQUI
+              IR AL SEGUIMIENTO
             </Button>
           </Link>
         </>

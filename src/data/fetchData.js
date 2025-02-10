@@ -619,7 +619,7 @@ async function getCompletFilesInputs(token, id) {
       Authorization: `Bearer ${token}`,
     },
   });
-
+  
   const res = await resProcess.json();
   return res;
 }
