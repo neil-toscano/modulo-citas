@@ -11,9 +11,13 @@ import { IMaskInput } from "react-imask";
 import pdfManual from "@/assets/pdf/ADMINISTRADO.pdf"
 import { FaFilePdf } from "react-icons/fa";
 import axios from "axios";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useRef } from "react";
 
 const FormDocumentLogin = ({ form }) => {
   const apiUrl = import.meta.env.VITE_PUBLIC_URL;
+  const keySiteRecaptcha = import.meta.env.VITE_PUBLIC_CLAVE_SITIO_WEB;
+  const recaptchaRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -23,6 +27,12 @@ const FormDocumentLogin = ({ form }) => {
   });
 
   const loginApi = async (e) => {
+    const token = await recaptchaRef.current.getValue();
+    if (!token) {
+      alert("Por favor, completa el CAPTCHA.");
+      return;
+    }
+
     notifications.show({
       id: 70,
       withCloseButton: true,
@@ -36,7 +46,9 @@ const FormDocumentLogin = ({ form }) => {
     try {
       const { data } = await axios.post(`${apiUrl}/auth/document`, {
         documentNumber: e.dni,
-      })
+        captchaToken: token,
+      });
+      console.log(data, 'data');
       setToken(data.token);
 
       if (data.roles[0] == "user") {
@@ -49,9 +61,9 @@ const FormDocumentLogin = ({ form }) => {
           color: "green",
           loading: false,
         });
-        navigate("/tramite/documento/inscripcion-de-independizacion");
+        navigate("/tramite");
         return;
-      } else if (jsondata.roles[0] == "platform-operator") {
+      } else if (data.roles[0] == "platform-operator") {
         notifications.update({
           id: 70,
           withCloseButton: true,
@@ -65,7 +77,7 @@ const FormDocumentLogin = ({ form }) => {
 
         navigate(`/dashboard/presentacion`);
         return;
-      } else if (jsondata.roles[0] === "administrator") {
+      } else if (data.roles[0] === "administrator") {
         notifications.update({
           id: 70,
           withCloseButton: true,
@@ -80,13 +92,14 @@ const FormDocumentLogin = ({ form }) => {
         return;
       }
     } catch (error) {
+      console.log(error, 'error');
       const response = error.response;
       if (response.data) {
         notifications.update({
           id: 70,
           withCloseButton: true,
           autoClose: 3000,
-          title: response.data.message[0],
+          title: response.data.message,
           message: "",
           color: "red",
           className: "error-login",
@@ -124,6 +137,10 @@ const FormDocumentLogin = ({ form }) => {
           {...form.getInputProps("dni")}
         />
 
+        <ReCAPTCHA
+          ref={recaptchaRef}
+          sitekey={keySiteRecaptcha} // Reemplaza con tu Site Key
+        />
         <Group className="w-full" mt="md">
           <Button type="submit" fullWidth>
             INGRESAR

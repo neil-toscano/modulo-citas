@@ -8,10 +8,18 @@ import {
     Text,
     UnstyledButton,
 } from '@mantine/core';
+import { useProduct } from '../../provider/ProviderContext';
+import { useNavigate } from 'react-router-dom';
 
 export function UsernameHeader({ documento }) {
     const [userMenuOpened, setUserMenuOpened] = useState(false);
-
+    const { setUser } = useProduct()
+    const navigate = useNavigate();
+    const handleClose = () => {
+        setUser([])
+        localStorage.removeItem("token");
+        navigate("/");
+    };
     return (
         <div className="bg-gray-50 shadow-md rounded-lg p-4 mb-2">
             <Container fluid>
@@ -48,7 +56,7 @@ export function UsernameHeader({ documento }) {
                             <Menu.Item leftSection={<FaExchangeAlt size={16} />}>
                                 Cambiar datos
                             </Menu.Item>
-                            <Menu.Item color="red" leftSection={<FaSignOutAlt size={16} />}>Salir</Menu.Item>
+                            <Menu.Item onClick={handleClose} color="red" leftSection={<FaSignOutAlt size={16} />}>Salir</Menu.Item>
                         </Menu.Dropdown>
                     </Menu>
                 </Group>
